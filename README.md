@@ -37,6 +37,8 @@ Detailed notes:
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
 - [Display bring-up notes](findings/display_bringup.md): UC8253 probe results, failed pin/power matrix, OEM LUT evidence, and required signal-capture next steps.
 - [Display GPIO recovery](findings/display_gpio_recovery.md): OEM-derived GPIO3-8 display bus map, constructor/decompile evidence, and recovered init sequence.
+- [OEM display driver recovery](findings/display_oem_driver_recovery.md): function-level Ghidra dataflow for the byte writer, constructor, init, LUT-load, and refresh path.
+- [Display LUT and refresh path](findings/display_lut_refresh.md): extracted OEM default/alternate LUT tables, frame write sequence, and practical image-writer plan.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, controller candidates, failed `SDA=13/SCL=12` probe results, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.
@@ -62,6 +64,7 @@ Detailed notes:
 - `analysis/frontlight_string_refs.md`, `analysis/frontlight_pointer_refs.md`, `analysis/frontlight_table_memory.md`: Ghidra exports for front-light settings strings and adjacent pointer tables.
 - `analysis/usb_logging_string_refs.md`: Ghidra export for observed USB log strings and log-level-related symbols.
 - `analysis/oem_hardware_calls.md`, `analysis/oem_hardware_keyword_mining.md`: headless Ghidra hardware-mining outputs.
+- `analysis/display_driver_core_decompile_20260526.md`, `analysis/display_function_refs_20260526.md`, `analysis/display_high_level_refs_20260526.md`: focused OEM display driver decompile/reference exports.
 - `analysis/vendor/`: vendor CrowPanel reference material cloned for hardware comparison.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: binwalk-style extraction directory populated with ESP partitions.
 - `findings/`: human-readable reverse-engineering and porting notes.

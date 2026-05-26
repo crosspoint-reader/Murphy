@@ -4,6 +4,8 @@ Created: 2026-05-26
 
 Scope: Murphy M3 only. This is an ESP32-S3 QFN56 rev v0.2 device with 40 MHz crystal, dual core 240 MHz, Wi-Fi/BT LE, and 8 MB embedded PSRAM. Do not mix these findings with Xteink X3/X4 stock firmware notes.
 
+For the deeper function-level recovery notes, see [OEM Display Driver Recovery](display_oem_driver_recovery.md).
+
 ## Executive Result
 
 Best current OEM-derived screen mapping:
@@ -55,8 +57,8 @@ Under Xtensa windowed-call argument mapping, the callee receives these as constr
 
 Evidence:
 
-- `analysis/display_constructor_call_disasm_20260526.md:21-34`
-- `analysis/display_constructor_call_disasm_20260526.md:72-79`
+- `analysis/display_function_refs_20260526.md`
+- `analysis/display_driver_core_decompile_20260526.md`
 
 ### Constructor Object Layout
 
@@ -193,14 +195,16 @@ Evidence:
 
 - `analysis/display_driver_core_decompile_20260526.md:315-370`
 - `analysis/display_driver_core_decompile_20260526.md:396-430`
-- `analysis/display_power_task_decompile_20260526.md:3-30`
+- `analysis/display_driver_core_decompile_20260526.md`
+- `analysis/display_function_refs_20260526.md`
+- `analysis/display_high_level_refs_20260526.md`
 
 The constructor uses dimensions `0xf0` and `0x1a0`, matching `240 x 416` orientation for a `416 x 240` class panel.
 
 Evidence:
 
 - `analysis/display_driver_core_decompile_20260526.md:295-308`
-- `analysis/display_constructor_call_disasm_20260526.md:59-64`
+- `analysis/display_function_refs_20260526.md`
 
 ## Related Strings And Non-GPIO Findings
 
@@ -227,9 +231,9 @@ Findings:
 
 Evidence:
 
-- `analysis/display_power_epd_pointer_refs_20260526.md:6-40`
-- `analysis/display_power_epd_pointer_refs_20260526.md:42-130`
-- `analysis/display_power_task_decompile_20260526.md:81-133`
+- `analysis/display_driver_core_decompile_20260526.md`
+- `analysis/display_function_refs_20260526.md`
+- `analysis/display_high_level_refs_20260526.md`
 
 ## Rejected Or Superseded Public Mappings
 
@@ -244,7 +248,6 @@ Do not prioritize these until the OEM tuple above has been tested:
 
 Evidence:
 
-- `findings/codex_handoff.md:37-47`
 - `findings/display_bringup.md:26-39`
 
 ## Immediate Probe Plan
@@ -284,10 +287,8 @@ Primary consolidated finding:
 Raw artifacts:
 
 - `analysis/display_driver_core_decompile_20260526.md`
-- `analysis/display_constructor_refs_20260526.md`
-- `analysis/display_constructor_call_disasm_20260526.md`
-- `analysis/display_power_epd_pointer_refs_20260526.md`
-- `analysis/display_power_task_decompile_20260526.md`
+- `analysis/display_function_refs_20260526.md`
+- `analysis/display_high_level_refs_20260526.md`
 - `analysis/display_exact_string_refs_20260526.md`
 - `analysis/display_focused_range_refs_20260526.md`
 - `analysis/display_literal_users_20260526.md`

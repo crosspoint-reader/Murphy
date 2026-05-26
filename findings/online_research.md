@@ -73,6 +73,7 @@ Useful facts:
 - Touch operating current listed around 4.32 mA; standby current around 55 uA.
 - Touch-only page lists the touch pin order as: GND, VDD, RST, INT, SDA, SCL.
 - Front-light variant lists 9 front-light LEDs and a 2.8 V to 3.3 V front-light operating voltage.
+- Front-light variant lists maximum front-light current as 60 mA.
 - Good Display publishes ESP32 sample code for the touch/front-light panel.
 
 Impact:
@@ -80,6 +81,7 @@ Impact:
 - This is the strongest external hardware lead so far. It does not prove the Murphy panel is Good Display `GDEY037T03-FT21`, but it matches the resolution, UC8253 controller, touch, and front-light/backlight claims.
 - `FT6336U` should move to the top of the touch-controller probe list.
 - Candidate touch driver should support FocalTech/FT6x36 register layout first, while retaining runtime probing for other controllers.
+- The front-light current rating means the ESP32-S3 should be treated as controlling a driver/transistor input, not powering the LED rail directly.
 
 ## Current Best External Hypotheses
 

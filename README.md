@@ -20,6 +20,8 @@ The physical Murphy M3 unit also has a headphone jack. Firmware evidence points 
 
 Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL), but the exact touch controller and GPIO pins are not yet proven. Online panel research makes Good Display's `FT6336U`-based 3.7-inch touch/front-light module the strongest external match so far. The public CrowPanel schematic names display FPC pins `TSCL`/`TSDA`; the matching public board file does not route those pins, so the Murphy unit needs probing or deeper firmware recovery for touch pin mapping.
 
+Front-light support is also present in the OEM UI as a `Front Light` settings label. HamGeek claims 10 brightness levels and Good Display's closest panel-family match lists a 9-LED front-light assembly, but the Murphy GPIO/PWM/driver path is not yet recovered.
+
 ## Findings
 
 Start here:
@@ -32,6 +34,7 @@ Detailed notes:
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
+- [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, likely driver shape, and open pin/PWM questions.
 - [Online research notes](findings/online_research.md): product listings and panel references found on the web.
 - [Audio hardware and capabilities](findings/audio.md): headphone-jack evidence, I2S audio stack, supported formats, unknown codec/pins.
 - [Clock, time sync, and RTC](findings/clock_rtc.md): NTP/timekeeping evidence, alarm UI, RTC unknowns and test plan.
@@ -48,6 +51,7 @@ Detailed notes:
 - `analysis/ghidra_inventory.md`: exported Ghidra inventory.
 - `analysis/audio_rtc_string_refs.md`: Ghidra string-reference export for audio and clock/RTC terms.
 - `analysis/touch_string_refs.md`, `analysis/touch_pointer_refs.md`: Ghidra exports for touch-related strings and pointer/literal-pool references.
+- `analysis/frontlight_string_refs.md`, `analysis/frontlight_pointer_refs.md`, `analysis/frontlight_table_memory.md`: Ghidra exports for front-light settings strings and adjacent pointer tables.
 - `analysis/vendor/`: vendor CrowPanel reference material cloned for hardware comparison.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: binwalk-style extraction directory populated with ESP partitions.
 - `findings/`: human-readable reverse-engineering and porting notes.
@@ -89,5 +93,6 @@ Minimum viable port:
 - GPIO1/GPIO2/GPIO4/GPIO5/GPIO6 inputs navigate CrossPoint.
 - Battery and touch can be stubbed or disabled initially.
 - Touch can be added later as a target-rectangle event source that invokes the same actions as existing button-driven menu selection.
+- Front light can be added later as a board-level brightness peripheral once the GPIO/PWM/driver path is proven.
 - Audio and external RTC support can be disabled initially, with board abstractions left in place.
 - Partial refresh and grayscale can come after basic display stability.

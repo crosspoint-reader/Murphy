@@ -77,6 +77,7 @@ Custom scripts in `tools/ghidra_scripts/`:
 | `DumpProgramInventory.java` | Export memory blocks, functions, symbols, and strings. |
 | `FindStringRefs.java` | Find string matches and direct references. |
 | `FindPointerRefs.java` | Find string matches, literal/pointer locations, and references to those pointers. Useful for Xtensa literal pools. |
+| `DumpMemoryAt.java` | Dump bytes around selected Ghidra addresses for inspecting pointer tables and adjacent data. |
 | `DecompileAt.java` | Decompile functions containing selected addresses. |
 
 Touch-specific exports:
@@ -84,3 +85,9 @@ Touch-specific exports:
 - `analysis/touch_string_refs.md`
 - `analysis/touch_pointer_refs.md`
 - `analysis/touch_decompile.md`
+
+Front-light-specific exports:
+
+- `analysis/frontlight_string_refs.md`
+- `analysis/frontlight_pointer_refs.md`
+- `analysis/frontlight_table_memory.md`

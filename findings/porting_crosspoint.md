@@ -68,7 +68,7 @@ Relevant pins from vendor factory source and schematic:
 | SD MISO | 13 | Separate SD SPI bus |
 | SD SCK | 39 | Separate SD SPI bus |
 | SD CS | 10 | Separate SD SPI bus |
-| SD power enable | 42 | Vendor sets high |
+| Front light/backlight enable | 42 | Vendor example labels this as screen backlight/front-light, not SD power |
 | Power/status LED | 41 | Vendor sets high |
 | Back / exit button | 1 | Digital active-low |
 | Menu / home button | 2 | Digital active-low; also sleep wake source |
@@ -119,11 +119,11 @@ Current `SDCardManager` hardcodes:
 - 40 MHz.
 - Default `SdFat::begin(SD_CS, SPI_FQ)`.
 
-Murphy uses a separate bus and power enable:
+Murphy uses a separate SD SPI bus:
 
 - `SD_SPI.begin(39, 13, 40, 10)`.
 - `SD.begin(10, SD_SPI)` in vendor Arduino code, or equivalent SdFat configuration.
-- GPIO42 high before SD init.
+- GPIO42 appears in the vendor example as the screen backlight/front-light enable, so it should not be treated as SD power.
 
 The SDK needs either constructor/config injection for SD pins and `SPIClass`, or a board-specific `SDCardManager` backend.
 
@@ -151,7 +151,7 @@ The existing `BatteryMonitor` can be reused if the Murphy battery ADC divider is
 Known power lines that must be controlled:
 
 - GPIO7: display 3.3 V enable.
-- GPIO42: SD 3.3 V enable.
+- GPIO42: front-light/backlight enable/control candidate.
 - GPIO41: power/status LED.
 
 Deep sleep should initially wake on GPIO2, matching the vendor code. Later, evaluate whether other keys can wake via `ext1`.
@@ -236,7 +236,7 @@ The first usable Murphy build should target:
 
 - ESP32-S3 PlatformIO build with PSRAM enabled.
 - UC8253 black/white full-screen display refresh.
-- SD card power enable and mount/list/read.
+- SD card mount/list/read on the separate SPI bus.
 - Digital input for GPIO1/GPIO2 plus touch-assisted navigation.
 - Basic CrossPoint navigation and book open/page turn.
 - Deep sleep wake from GPIO2.
@@ -265,7 +265,7 @@ The first usable Murphy build should target:
 | --- | --- |
 | Flash size | Vendor docs say 8 MB, dump is 16 MiB. Use dump for this device, but verify physical module markings if shipping images. |
 | UC8253 waveform quality | Vendor code is simple and should work for black/white; partial refresh and grayscale quality will require tuning. |
-| SD bus | Current SDK assumes one default SPI bus. Murphy uses a separate SD SPI bus and power enable. |
+| SD bus | Current SDK assumes one default SPI bus. Murphy uses a separate SD SPI bus. GPIO42 is front-light/backlight, not SD power. |
 | Input UX | CrossPoint expects more buttons than Murphy exposes directly. Touch and long-press mappings need a real usability pass. |
 | Battery | ADC pin/divider not identified yet. |
 | GPIO0/strapping | Avoid relying on boot strapping pins for normal input unless verified. |

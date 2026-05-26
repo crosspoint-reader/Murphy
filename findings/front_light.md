@@ -53,6 +53,8 @@ An external report from another owner with the same display says the front-light
 
 The same report notes the useful electrical distinction: series LED strings, such as the 4.26-inch panel variant, need higher voltage but only draw roughly 15 mA; parallel LED strips need lower voltage but higher current. That matches the Good Display 3.7-inch front-light spec: low operating voltage, but a maximum current high enough that the board-side current path still matters.
 
+The public CrowPanel 3.7-inch Arduino `3.7_TF` example labels GPIO42 as the screen backlight/front-light pin and sets it high during setup. Earlier notes treated GPIO42 as an SD-card power enable, but that is now considered incorrect for the Murphy/CrowPanel lineage. The current SDK board profile should reserve GPIO42 for front-light investigation, not SD power.
+
 ## Driver Path Evidence
 
 The firmware includes Arduino-ESP32 and ESP-IDF LEDC/PWM code:

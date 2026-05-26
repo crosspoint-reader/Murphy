@@ -86,7 +86,7 @@ Required work:
 - Add a UC8253 240x416 display backend to `EInkDisplay`.
 - Move SD support to a configurable, separate SPI bus.
 - Replace the Xteink ADC-button input path with Murphy digital button input and touch-assisted navigation.
-- Add display and SD power-enable sequencing.
+- Add display power sequencing and separate SD SPI support.
 - Reserve pins and abstractions for headphone/I2S audio and a possible RTC until hardware mapping is complete.
 
 Minimum viable port:

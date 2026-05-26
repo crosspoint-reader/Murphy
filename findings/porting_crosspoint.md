@@ -95,7 +95,7 @@ Needed capabilities:
 
 ### 2. Add A UC8253 240x416 Display Backend
 
-Current `EInkDisplay` supports SSD1677 and an X3 UC81xx-class path, but Murphy needs the vendor UC8253 sequence:
+Current `EInkDisplay` supports SSD1677 and an X3 UC81xx-class path, but Murphy likely needs a UC8253-class sequence:
 
 - Reset, wait while busy is low.
 - `0x00 0x1B` panel setting.
@@ -110,6 +110,8 @@ Current `EInkDisplay` supports SSD1677 and an X3 UC81xx-class path, but Murphy n
 Minimum first target: black/white full-screen refresh only. Partial refresh and grayscale can come later.
 
 The library should support runtime dimensions of 240x416. The existing static buffer can hold it, but the default `DISPLAY_WIDTH`/`DISPLAY_HEIGHT` assumptions and any X4/X3-only controller paths need to be guarded by board/panel type.
+
+Bring-up caveat: a standalone `murphy_display_probe` using vendor-style bit-banged writes, the public primary pins, the public alternate control pins, GPIO7 power high/low/input, and GPIO42 high/low did not change the panel. GPIO48 BUSY stayed low throughout. The display pin mapping/power sequence must be recovered from OEM signal capture before the display backend can be considered unblockable in software.
 
 ### 3. Split SD Onto Its Own SPI Bus
 

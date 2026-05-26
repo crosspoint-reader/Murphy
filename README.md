@@ -33,6 +33,7 @@ Detailed notes:
 - [Flash layout](findings/flash_layout.md): ESP-IDF partition table, extracted partitions, hashes.
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
+- [Display bring-up notes](findings/display_bringup.md): UC8253 probe results, failed pin/power matrix, and required OEM signal-capture next steps.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, likely driver shape, and open pin/PWM questions.
@@ -92,7 +93,7 @@ Required work:
 Minimum viable port:
 
 - ESP32-S3 build boots.
-- Full-screen black/white UC8253 refresh works.
+- Full-screen black/white UC8253 refresh works. This is not yet achieved; standalone probes on the public CrowPanel pin sets have not changed the panel.
 - SD card mounts and files can be read.
 - GPIO1/GPIO2 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
 - Battery can be stubbed or disabled initially.

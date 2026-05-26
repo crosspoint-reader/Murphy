@@ -34,6 +34,8 @@ Relevant strings:
 
 `$GC9` may indicate a GC9-series display-controller dependency or signature, but the surrounding binary context is not enough to assert the exact display controller. No clear `ILI`, `ST77`, `SSD`, or Waveshare panel identifier was recovered from the first string pass.
 
+Custom firmware display bring-up has not yet changed the panel. A standalone probe using the public CrowPanel UC8253 pin sets and vendor-style bit-banged writes leaves GPIO48 BUSY low and produces no visible update. Treat the public CrowPanel display pin mapping as unconfirmed for this Murphy unit until OEM signal capture proves it. See `display_bringup.md`.
+
 ## User-Facing Features
 
 The firmware appears to implement:

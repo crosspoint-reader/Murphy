@@ -38,6 +38,22 @@ The public CrowPanel 3.7-inch Arduino examples define:
 
 Important Murphy-specific correction: custom front-light probing has now confirmed `GPIO48` as the active-high PWM front-light control pin on this Murphy unit. The public CrowPanel `EPD BUSY = 48` mapping is therefore invalid for this hardware. Treat any earlier `GPIO48` BUSY readings, and any I2C/touch false positives involving GPIO48, as artifacts of driving the front-light control line.
 
+New Murphy-specific display pin lead: a focused GPIO3-8 probe produced real BUSY activity with this map:
+
+| Function | GPIO |
+| --- | ---: |
+| EPD MOSI/SDA | 3 |
+| EPD SCK/CLK | 4 |
+| EPD CS | 5 |
+| EPD DC | 6 |
+| EPD RST | 7 |
+| EPD BUSY | 8, ready-high |
+
+Observed behavior from `murphy_epd_gpio3_8_probe_v1`: initial BUSY was low, reset made BUSY high, and `0x04` power-on, `0x12` refresh, and `0x02` power-off each produced a low-to-high BUSY transition within roughly 10-50 ms. This is the first strong evidence of the actual Murphy EPD control path. If the panel still does not visibly change, the remaining blocker is likely init/waveform/frame polarity or a missing power/waveform detail, not the basic GPIO tuple.
+
+See `display_gpio_recovery.md` for the OEM constructor/decompile evidence and the recovered OEM init sequence:
+`0x01: 03 10 3F 3B 0D`, `0x06: D7 D7 1F`, `0x04`, `0x00: FF`, `0x30: 09`, `0x61: F0 01 A0`, `0x82: 0F`, `0x50: 97`.
+
 The same examples also contain an alternate commented control-pin set:
 
 | Signal | Alternate GPIO |
@@ -167,6 +183,8 @@ Probe matrix:
 - Several obvious black/white patterns were written.
 
 Result: no tested firmware-side combination changed the display or caused the candidate BUSY line to show controller activity. `GPIO48` is no longer a valid BUSY candidate because it controls the front light. GPIO3 stayed low in the Waveshare-style cases; GPIO14/GPIO15 stayed high in the Good Display-derived cases, including the 2024 base-panel sample sequences. Early probe versions only waited for BUSY-high readiness; the expanded blind probe now also tests BUSY-low readiness and an ignore-BUSY fixed-delay mode.
+
+Update: the GPIO3-8 map above supersedes the older Waveshare-style interpretation that used GPIO3 only as BUSY. Under the new map, GPIO3 is MOSI and GPIO8 is BUSY. The successful BUSY transitions on GPIO8 make this the active display hypothesis.
 
 ## Interpretation
 

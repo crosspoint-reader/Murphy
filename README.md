@@ -36,6 +36,7 @@ Detailed notes:
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
 - [Display bring-up notes](findings/display_bringup.md): UC8253 probe results, failed pin/power matrix, OEM LUT evidence, and required signal-capture next steps.
+- [Display GPIO recovery](findings/display_gpio_recovery.md): OEM-derived GPIO3-8 display bus map, constructor/decompile evidence, and recovered init sequence.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, controller candidates, failed `SDA=13/SCL=12` probe results, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.

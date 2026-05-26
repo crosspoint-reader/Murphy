@@ -57,6 +57,12 @@ Relevant pins from vendor factory source and schematic:
 
 | Function | GPIO | Notes |
 | --- | ---: | --- |
+| EPD MOSI/SDA | 3 | Strong Murphy-specific lead; focused probe produced BUSY responses |
+| EPD SCK/CLK | 4 | Strong Murphy-specific lead |
+| EPD CS | 5 | Strong Murphy-specific lead |
+| EPD DC | 6 | Strong Murphy-specific lead |
+| EPD reset | 7 | Strong Murphy-specific lead |
+| EPD busy | 8 | Strong Murphy-specific lead; ready-high observed |
 | EPD SCK | 12 | Bit-banged in vendor examples |
 | EPD MOSI/SDA | 11 | Display write path |
 | EPD CS | 45 | Display chip select |
@@ -113,7 +119,7 @@ Minimum first target: black/white full-screen refresh only. Partial refresh and 
 
 The library should support runtime dimensions of 240x416. The existing static buffer can hold it, but the default `DISPLAY_WIDTH`/`DISPLAY_HEIGHT` assumptions and any X4/X3-only controller paths need to be guarded by board/panel type.
 
-Bring-up caveat: a standalone `murphy_display_probe` using vendor-style bit-banged writes, public and vendor-derived pin sets, GPIO7 power high/low/input, and multiple BUSY strategies did not change the panel. GPIO48 must no longer be used as BUSY because it is confirmed front-light PWM. The display pin mapping/power sequence must be recovered from OEM signal capture or a better static RE result before the display backend can be considered unblockable in software.
+Bring-up caveat: early standalone probes using public and vendor-derived pin sets did not change the panel. A later focused probe on `MOSI3/SCK4/CS5/DC6/RST7/BUSY8` produced real ready-high BUSY transitions after reset, power-on, refresh, and power-off, making this the strongest Murphy display pin map. GPIO48 must no longer be used as BUSY because it is confirmed front-light PWM. If the panel still does not visibly change, continue with init/waveform/frame-polarity work on the GPIO3-8 map rather than broad pin sweeps.
 
 ### 3. Split SD Onto Its Own SPI Bus
 

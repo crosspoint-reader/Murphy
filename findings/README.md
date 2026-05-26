@@ -30,6 +30,7 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 - `findings/firmware_identity.md`: ESP-IDF/app metadata and build provenance.
 - `findings/hardware.md`: inferred hardware features and confidence.
 - `findings/display_bringup.md`: UC8253 display bring-up, pin/power probe matrix, BUSY polarity tests, and OEM LUT evidence.
+- `findings/display_gpio_recovery.md`: OEM-derived display GPIO tuple and init/update command recovery.
 - `findings/touch.md`: OEM touch strings, controller candidates, custom probe results, and SDK integration plan.
 - `findings/button_input.md`: physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - `findings/front_light.md`: OEM front-light settings evidence, external panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.

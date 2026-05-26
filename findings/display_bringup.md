@@ -36,6 +36,8 @@ The public CrowPanel 3.7-inch Arduino examples define:
 | Display power enable | 7 |
 | Front light/backlight | 42 |
 
+Important Murphy-specific correction: custom front-light probing has now confirmed `GPIO48` as the active-high PWM front-light control pin on this Murphy unit. The public CrowPanel `EPD BUSY = 48` mapping is therefore invalid for this hardware. Treat any earlier `GPIO48` BUSY readings, and any I2C/touch false positives involving GPIO48, as artifacts of driving the front-light control line.
+
 The same examples also contain an alternate commented control-pin set:
 
 | Signal | Alternate GPIO |
@@ -143,9 +145,9 @@ A full CrossPoint build and a standalone `murphy_display_probe` PlatformIO envir
 Observed with the standalone probe:
 
 - GPIO7 is driven high.
-- GPIO42 is driven high.
+- GPIO42 was driven high in early public-reference tests, but later dedicated front-light probing showed GPIO42 is not the Murphy front-light control pin.
 - SCK/MOSI/CS/DC/RST pins toggle as expected.
-- GPIO48 remains low before reset, during reset, after reset, during UC8253 init, during power-on, during refresh, and during power-off.
+- GPIO48 was initially observed as a stuck-low public-reference BUSY candidate, but it is now confirmed as the front-light PWM pin and must be removed from display BUSY hypotheses.
 - Good Display sample `A14/A15/A16/A17` aliases were translated through the active ESP32-S3 Arduino variant as `BUSY15/RST16/DC17/CS18`. In probe runs, GPIO15 stayed high before reset, during reset, during power-on, during refresh, and during power-off.
 - The raw numbered `BUSY14/RST15/DC16/CS17` sanity case also stayed high throughout.
 - The 2024 `A32-GDEY037T03-FP4G` full and fast init sequences were tested on the same A-alias pins. They produced the same behavior: GPIO15 stayed high and no visible display update occurred.
@@ -158,20 +160,20 @@ Probe matrix:
 - Good Display sample raw-numbered sanity check: `SCK12 MOSI11 CS17 DC16 RST15 BUSY14`.
 - Good Display 2024 base-panel full init and fast init are now included as standalone probe modes on the A-alias pins.
 - Waveshare ESP32-S3 e-paper board-family pin lead: `SCK11 MOSI12 CS10 DC9 RST46 BUSY3`.
-- Primary control pins: `CS45 DC46 RST47 BUSY48`.
-- Alternate control pins: `CS10 DC9 RST21 BUSY48`.
+- Primary public-reference control pins: `CS45 DC46 RST47 BUSY48`, now invalid as a full Murphy display tuple because `GPIO48` is front-light PWM.
+- Alternate public-reference control pins: `CS10 DC9 RST21 BUSY48`, now invalid as a full Murphy display tuple because `GPIO48` is front-light PWM.
 - GPIO7 tested high, low, and input.
 - GPIO42 tested high and low.
 - Several obvious black/white patterns were written.
 
-Result: no tested firmware-side combination changed the display or caused the candidate BUSY line to show controller activity. GPIO48 and GPIO3 are stuck low in the public CrowPanel/Waveshare-style cases; GPIO14/GPIO15 are stuck high in the Good Display-derived cases, including the 2024 base-panel sample sequences. Early probe versions only waited for BUSY-high readiness; the expanded blind probe now also tests BUSY-low readiness and an ignore-BUSY fixed-delay mode.
+Result: no tested firmware-side combination changed the display or caused the candidate BUSY line to show controller activity. `GPIO48` is no longer a valid BUSY candidate because it controls the front light. GPIO3 stayed low in the Waveshare-style cases; GPIO14/GPIO15 stayed high in the Good Display-derived cases, including the 2024 base-panel sample sequences. Early probe versions only waited for BUSY-high readiness; the expanded blind probe now also tests BUSY-low readiness and an ignore-BUSY fixed-delay mode.
 
 ## Interpretation
 
 The current evidence does not support treating the public CrowPanel board-level GPIO mapping as confirmed for this Murphy M3 unit. Since the panel is `GDEY037T03-FT21`, the display-side protocol/sequence is still UC8253-class SPI, but one or more of the following is likely true:
 
 - The Murphy display FPC/control pins differ from the public CrowPanel example.
-- GPIO48/GPIO15/GPIO14/GPIO3 are not the actual BUSY signal on this unit, or the display controller is not powered/enabled when these probes run.
+- GPIO15/GPIO14/GPIO3 are not the actual BUSY signal on this unit, or the display controller is not powered/enabled when these probes run. GPIO48 should not be considered further for BUSY on Murphy because it is confirmed front-light PWM.
 - An additional display power/enable rail is required.
 - The panel is behind a different board-level buffer, gate, or PMIC sequence.
 
@@ -184,17 +186,17 @@ Further blind firmware permutations are low value. OEM USB logs are not required
 1. Restore or boot the OEM firmware.
 2. Attach a logic analyzer to likely display lines around the ESP32-S3 or panel FPC.
 3. Trigger a known OEM screen refresh.
-4. Capture SCK, MOSI, CS, DC, RST, BUSY, GPIO7, and GPIO42.
-5. Confirm which GPIOs actually toggle and whether BUSY is active-low on GPIO48 or routed elsewhere.
+4. Capture SCK, MOSI, CS, DC, RST, BUSY candidates, GPIO7, and GPIO48 front-light PWM.
+5. Confirm which GPIOs actually toggle and where BUSY is routed. Do not use GPIO48 as BUSY on Murphy.
 
 At minimum, capture these candidate lines:
 
-- `GPIO12`, `GPIO11`, `GPIO45`, `GPIO46`, `GPIO47`, `GPIO48`
+- `GPIO12`, `GPIO11`, `GPIO45`, `GPIO46`, `GPIO47`
 - `GPIO10`, `GPIO9`, `GPIO21`
 - `GPIO18`, `GPIO17`, `GPIO16`, `GPIO15`, `GPIO14`
-- `GPIO7`, `GPIO42`
+- `GPIO7`, `GPIO42`, `GPIO48`
 
-If a logic analyzer is unavailable, use a meter or scope first to confirm whether GPIO7 actually powers the display rail and whether GPIO48 is hard-low, floating, or active during stock refresh.
+If a logic analyzer is unavailable, use a meter or scope first to confirm whether GPIO7 actually powers the display rail and to look for BUSY activity on non-GPIO48 candidates. GPIO48 should instead be checked only as the front-light PWM/control signal.
 
 Current practical constraint: this unit cannot be opened, so internal signal capture and pad probing are not available.
 

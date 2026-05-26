@@ -124,6 +124,24 @@ For display and front-light recovery, lack of USB logs is annoying but not block
 
 Because stock USB logs are only partially/irregularly accessible, patching the image to force more logs is still not the first priority. It is high-risk compared with writing targeted probe firmware or measuring pins under the stock firmware.
 
+That said, the app image can be patched safely enough for controlled experiments if the ESP image footer is repaired afterward. The active app starts at flash offset `0x10000`; `app1` is erased in the current dump. `analysis/app0_image_info.txt` shows a valid checksum and validation hash, so any byte change must update both.
+
+Tooling added:
+
+```zsh
+python3 tools/patch_esp32s3_app_image.py \
+  --input m3_flash_dump.bin \
+  --output analysis/oem_click_marker_flash.bin \
+  --patch-app-offset 0x2b1f:23436c69636b444247210d
+```
+
+This marker patch changes the observed `#ClickLock\r` string to `#ClickDBG!\r` and repairs the app checksum/hash. `esptool.py --chip esp32s3 image_info analysis/oem_click_marker_app0.bin` verifies:
+
+- `Checksum: 0xa9 (valid)`
+- `Validation hash: e08f092cebe8669022314d27cc6d4e1a7cee01457684d06befd6d4fb5c7ad5d5 (valid)`
+
+This is a smoke test for the patch pipeline, not a verbosity patch. If the patched OEM firmware boots and USB shows `#ClickDBG!`, then the next patch should target an identified branch, table entry, or log-level value.
+
 Better next steps if logs are available:
 
 1. Capture a complete USB log while using each UI path.

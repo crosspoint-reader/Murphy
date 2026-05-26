@@ -83,13 +83,15 @@ Impact:
 - Candidate touch driver should support FocalTech/FT6x36 register layout first, while retaining runtime probing for other controllers.
 - The front-light current rating means the ESP32-S3 should be treated as controlling a driver/transistor input, not powering the LED rail directly.
 
+Live Murphy testing now confirms the board-level front-light control pin is `GPIO48`, active high, with 25 kHz PWM working. This supersedes the public CrowPanel GPIO42 front-light lead and the public CrowPanel GPIO48 display-BUSY lead for this Murphy unit.
+
 ## Current Best External Hypotheses
 
 | Area | Best online lead | Confidence |
 | --- | --- | --- |
-| Touch controller | FocalTech `FT6336U`, I2C | Medium; strong panel-family match, not proven on Murphy PCB. |
+| Touch controller | FocalTech `FT6336U`, I2C | Medium as a panel-family lead; not proven on Murphy PCB. `SDA=13/SCL=12 @ 0x38` returns static invalid data. |
 | Touch panel wiring | 6-pin touch FPC: GND, VDD, RST, INT, SDA, SCL | Medium for the panel family; Murphy board GPIO mapping unknown. |
-| Front light | 3.7-inch touch/front-light e-paper assembly, likely 9 LEDs | Medium; seller listing and Good Display module agree on front light/backlight. |
+| Front light | 3.7-inch touch/front-light e-paper assembly, likely 9 LEDs, controlled by Murphy `GPIO48` | High for board control pin; LED current path still not physically measured. |
 | External RTC | Seller claims independent clock chip | Low/medium; firmware still needs I2C/device proof. |
 
 ## Follow-Up Searches / Downloads

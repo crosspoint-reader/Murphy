@@ -62,13 +62,13 @@ Relevant pins from vendor factory source and schematic:
 | EPD CS | 45 | Display chip select |
 | EPD DC | 46 | Data/command |
 | EPD reset | 47 | Panel reset |
-| EPD busy | 48 | Busy is active low in vendor code |
+| EPD busy | Unknown | Public CrowPanel says GPIO48, but Murphy custom probing confirms GPIO48 is front-light PWM, not display BUSY |
 | EPD power enable | 7 | Vendor sets high before display init |
 | SD MOSI | 40 | Separate SD SPI bus |
 | SD MISO | 13 | Separate SD SPI bus |
 | SD SCK | 39 | Separate SD SPI bus |
 | SD CS | 10 | Separate SD SPI bus |
-| Front light/backlight enable | 42 | Vendor example labels this as screen backlight/front-light, not SD power |
+| Front light/backlight PWM | 48 | Confirmed on Murphy; active high, 25 kHz PWM works |
 | Power/status LED | 41 | Vendor sets high |
 | Back / exit button | 1 | Digital active-low |
 | Menu / home button | 2 | Digital active-low; also sleep wake source |
@@ -92,6 +92,7 @@ Needed capabilities:
 - `HAS_SD_POWER_ENABLE = true`.
 - `HAS_ROTARY_OR_5_KEY_INPUT = false` for this Murphy unit unless GPIO4/GPIO5/GPIO6 are later proven to be exposed as real buttons.
 - `HAS_TOUCH = true`, but touch can be left unused for the first port.
+- `HAS_FRONT_LIGHT = true` with `FRONTLIGHT_PIN = 48`, active-high PWM.
 
 ### 2. Add A UC8253 240x416 Display Backend
 
@@ -111,7 +112,7 @@ Minimum first target: black/white full-screen refresh only. Partial refresh and 
 
 The library should support runtime dimensions of 240x416. The existing static buffer can hold it, but the default `DISPLAY_WIDTH`/`DISPLAY_HEIGHT` assumptions and any X4/X3-only controller paths need to be guarded by board/panel type.
 
-Bring-up caveat: a standalone `murphy_display_probe` using vendor-style bit-banged writes, the public primary pins, the public alternate control pins, GPIO7 power high/low/input, and GPIO42 high/low did not change the panel. GPIO48 BUSY stayed low throughout. The display pin mapping/power sequence must be recovered from OEM signal capture before the display backend can be considered unblockable in software.
+Bring-up caveat: a standalone `murphy_display_probe` using vendor-style bit-banged writes, public and vendor-derived pin sets, GPIO7 power high/low/input, and multiple BUSY strategies did not change the panel. GPIO48 must no longer be used as BUSY because it is confirmed front-light PWM. The display pin mapping/power sequence must be recovered from OEM signal capture or a better static RE result before the display backend can be considered unblockable in software.
 
 ### 3. Split SD Onto Its Own SPI Bus
 
@@ -125,7 +126,7 @@ Murphy uses a separate SD SPI bus:
 
 - `SD_SPI.begin(39, 13, 40, 10)`.
 - `SD.begin(10, SD_SPI)` in vendor Arduino code, or equivalent SdFat configuration.
-- GPIO42 appears in the vendor example as the screen backlight/front-light enable, so it should not be treated as SD power.
+GPIO42 appears in the public vendor example as the screen backlight/front-light enable, but Murphy hardware testing did not light GPIO42. GPIO48 is the confirmed front-light PWM pin, so GPIO42 should not be treated as SD power and should remain unassigned until proven.
 
 The SDK needs either constructor/config injection for SD pins and `SPIClass`, or a board-specific `SDCardManager` backend.
 
@@ -150,10 +151,11 @@ Touch can be integrated later as an additional input source. It should not block
 
 The existing `BatteryMonitor` can be reused if the Murphy battery ADC divider is identified. The vendor factory source does not show battery ADC reads, and the schematic needs a focused pass to map the charger/battery monitor output.
 
-Known power lines that must be controlled:
+Known and suspected board-control lines:
 
 - GPIO7: display 3.3 V enable.
-- GPIO42: front-light/backlight enable/control candidate.
+- GPIO48: confirmed front-light/backlight PWM, active high.
+- GPIO42: public-reference front-light candidate, but negative on Murphy so far.
 - GPIO41: power/status LED.
 
 Deep sleep should initially wake on GPIO2, matching the vendor code. Later, evaluate whether other keys can wake via `ext1`.
@@ -244,6 +246,7 @@ The first usable Murphy build should target:
 - Deep sleep wake from GPIO2.
 - Battery percentage hidden or stubbed until ADC path is confirmed.
 - Touch event routing enabled early enough to replace missing physical up/down/confirm controls.
+- Front light via `GPIO48` active-high PWM at about 25 kHz.
 - Partial refresh/grayscale disabled until the UC8253 path is stable.
 
 ## Work Breakdown
@@ -254,12 +257,13 @@ The first usable Murphy build should target:
 4. Verify display with clear screen, checkerboard, text, and full refresh.
 5. Add configurable SD SPI/power support in `SDCardManager`; verify card listing and file reads.
 6. Add a digital input manager for GPIO1/GPIO2 and map touch targets to CrossPoint logical actions.
-7. Wire display/input/storage through `HalGPIO`/`HalDisplay` using board flags instead of X3/X4 detection.
-8. Audit hardcoded geometry in CrossPoint and adjust layouts for 240x416.
-9. Add sleep/wake and power-enable sequencing.
-10. Identify battery ADC/divider from schematic or hardware probing and enable `BatteryMonitor`.
-11. Decide partition layout and document flashing/rollback behavior.
-12. Run a hardware validation matrix: display, SD, input, WiFi, BLE disabled/enabled, sleep wake, OTA, book rendering.
+7. Add a Murphy front-light backend on GPIO48.
+8. Wire display/input/storage through `HalGPIO`/`HalDisplay` using board flags instead of X3/X4 detection.
+9. Audit hardcoded geometry in CrossPoint and adjust layouts for 240x416.
+10. Add sleep/wake and power-enable sequencing.
+11. Identify battery ADC/divider from schematic or hardware probing and enable `BatteryMonitor`.
+12. Decide partition layout and document flashing/rollback behavior.
+13. Run a hardware validation matrix: display, SD, input, front light, WiFi, BLE disabled/enabled, sleep wake, OTA, book rendering.
 
 ## Main Risks / Unknowns
 
@@ -267,14 +271,14 @@ The first usable Murphy build should target:
 | --- | --- |
 | Flash size | Vendor docs say 8 MB, dump is 16 MiB. Use dump for this device, but verify physical module markings if shipping images. |
 | UC8253 waveform quality | Vendor code is simple and should work for black/white; partial refresh and grayscale quality will require tuning. |
-| SD bus | Current SDK assumes one default SPI bus. Murphy uses a separate SD SPI bus. GPIO42 is front-light/backlight, not SD power. |
+| SD bus | Current SDK assumes one default SPI bus. Murphy uses a separate SD SPI bus. GPIO42 is not SD power; GPIO48 is confirmed front-light PWM. |
 | Input UX | CrossPoint expects more buttons than Murphy exposes directly. Touch and long-press mappings need a real usability pass. |
 | Battery | ADC pin/divider not identified yet. |
 | GPIO0/strapping | Avoid relying on boot strapping pins for normal input unless verified. |
 | Sleep current | Display and SD power enables must be off in sleep or battery life will be poor. |
 | App size | Need an S3 build to confirm the app fits whichever OTA slot size is chosen. |
-| Touch | Present and now more important because this Murphy unit lacks the public reference's rotary input. |
+| Touch | Present and now more important because this Murphy unit lacks the public reference's rotary input. `SDA=13/SCL=12 @ 0x38` is not confirmed touch; it returns static invalid data. |
 
 ## Bottom Line
 
-The port is a moderate hardware enablement project, not a rewrite. The app architecture can likely survive, but `community-sdk` needs to grow from an X3/X4 SDK into a board-profile SDK. The highest-leverage first milestone is a Murphy board profile plus four hardware bring-up tests: display refresh, SD card mount, GPIO1/GPIO2 button events, and touch events.
+The port is a moderate hardware enablement project, not a rewrite. The app architecture can likely survive, but `community-sdk` needs to grow from an X3/X4 SDK into a board-profile SDK. The highest-leverage first milestone is a Murphy board profile plus hardware bring-up tests for display refresh, SD card mount, GPIO1/GPIO2 button events, GPIO48 front light, and touch events once the touch bus is actually found.

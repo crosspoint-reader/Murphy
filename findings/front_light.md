@@ -53,7 +53,7 @@ An external report from another owner with the same display says the front-light
 
 The same report notes the useful electrical distinction: series LED strings, such as the 4.26-inch panel variant, need higher voltage but only draw roughly 15 mA; parallel LED strips need lower voltage but higher current. That matches the Good Display 3.7-inch front-light spec: low operating voltage, but a maximum current high enough that the board-side current path still matters.
 
-The public CrowPanel 3.7-inch Arduino `3.7_TF` example labels GPIO42 as the screen backlight/front-light pin and sets it high during setup. Earlier notes treated GPIO42 as an SD-card power enable, but that is now considered incorrect for the Murphy/CrowPanel lineage. The current SDK board profile should reserve GPIO42 for front-light investigation, not SD power.
+The public CrowPanel 3.7-inch Arduino `3.7_TF` example labels GPIO42 as the screen backlight/front-light pin and sets it high during setup. That lead did not hold for this Murphy unit: custom PWM tests on GPIO42 and GPIO41 did not turn the light on. The confirmed Murphy front-light control pin is GPIO48.
 
 ## Driver Path Evidence
 
@@ -70,6 +70,26 @@ It also includes GPIO control code such as `gpio_set_level`.
 
 Treat this as supporting evidence only. LEDC and GPIO functions are common in Arduino-ESP32 builds, and the current string/xref pass does not yet tie any LEDC channel or GPIO number directly to `Front Light`.
 
+## Custom Firmware Proof
+
+The standalone CrossPoint probe `murphy_frontlight_probe_v3_gpio48_pwm` confirmed the Murphy front light on `GPIO48`.
+
+Observed behavior:
+
+- `GPIO48` digital low turns the light off.
+- `GPIO48` digital high turns the light on.
+- LEDC PWM at 25 kHz changes brightness smoothly.
+- The probe used 10-bit duty values from `0..1023`.
+- Releasing `GPIO48` to input returns the board to a passive state.
+
+Negative controls:
+
+- GPIO42 did not turn the light on during the PWM probe.
+- GPIO41 did not turn the light on during the PWM probe.
+- Earlier `INPUT_PULLUP` testing on GPIO48 turned or latched the front light on, which explains why broad I2C/IRQ sweeps involving GPIO48 produced misleading results.
+
+Porting consequence: `GPIO48` must be reserved for front-light control on Murphy M3. Do not use it as display `BUSY`, touch I2C, RTC I2C, or a generic input candidate.
+
 ## Current Working Model
 
 The likely hardware shape is:
@@ -77,7 +97,7 @@ The likely hardware shape is:
 - A front-light LED rail integrated into the panel assembly.
 - A single-channel 3.3 V LED strip with parallel LEDs.
 - Low-voltage, higher-current behavior compared with higher-voltage series LED strings.
-- A board-side PWM path driving the LED rail or a driver/transistor input.
+- A board-side active-high PWM path on `GPIO48`, likely driving the LED rail through a transistor/driver input.
 - User-facing brightness controlled through a right-side-button long-press UI, with approximately 10 levels matching the seller listing.
 
 Use PWM above the audible range. A practical target is at least 20 kHz; 25 kHz is a good default if the LEDC resolution is still adequate for 10 brightness levels.
@@ -88,11 +108,11 @@ The Good Display panel lead says the light assembly itself is low-voltage and up
 
 | Item | Status |
 | --- | --- |
-| Front-light GPIO pin | Unknown |
-| PWM channel/timer | Unknown |
-| PWM frequency/resolution | Likely single-channel PWM; use at least 20 kHz. Exact OEM value unknown. |
-| Active polarity | Unknown |
-| Whether there is a separate enable pin | Unknown; may be PWM-only. |
+| Front-light GPIO pin | Confirmed `GPIO48` |
+| PWM channel/timer | Any free LEDC channel/timer should work; OEM channel unknown |
+| PWM frequency/resolution | 25 kHz / 10-bit verified in custom firmware; OEM value unknown |
+| Active polarity | Active high |
+| Whether there is a separate enable pin | No separate enable identified; current evidence supports PWM-only control on GPIO48 |
 | Whether there is a dedicated LED-driver IC | Unknown |
 | Brightness persistence key/NVS field | Unknown |
 
@@ -102,8 +122,7 @@ For `community-sdk`, front light should be a board-level peripheral, not part of
 
 - Add or reserve a `HalFrontLight` abstraction behind `BoardConfig::hasFrontLight`.
 - Expose `setLevel(0..10)` and `getLevel()`.
-- Keep the implementation disabled until pin/control-path proof exists.
-- Once verified, implement the Murphy backend with configurable PWM pin, optional enable pin, PWM frequency, duty table, and active polarity.
+- Implement the Murphy backend with `GPIO48`, active-high PWM, 25 kHz default frequency, and a 10-level duty table.
 - Use a PWM frequency above the audible range, preferably around 25 kHz, to avoid coil/capacitor/ceramic whine.
 - Wire CrossPoint's lighting UI to the abstraction after the board backend is proven.
 - Preserve the OEM shortcut: long-pressing either right-side button should open front-light controls.
@@ -112,10 +131,8 @@ Do not assume the front light shares touch or display pins. Treat it as its own 
 
 ## Next Reverse-Engineering Steps
 
-1. In Ghidra, continue from the `Front Light` string-pointer table and identify the settings-dispatch table that consumes it.
-2. Search decompiled code for callers of Arduino `ledcSetup` / `ledcWrite` and ESP-IDF `ledc_*` functions, then recover constant GPIO/channel values.
-3. Search NVS/default-setting code for a small integer stored near other settings such as dark mode, refresh interval, or font size.
-4. Probe the Murphy PCB around the panel/front-light FPC for LED-driver IC markings or MOSFET/transistor routing.
-5. With the OEM firmware running, use a logic analyzer, scope, or meter on likely LED-control pins while changing brightness through the right-side-button long-press front-light controls. OEM USB logs are optional; pin/rail behavior is the source of truth.
-6. Measure the front-light rail voltage/current at several brightness levels to determine actual current draw and whether direct GPIO drive is electrically safe or a transistor/driver is required.
-7. If stock-firmware probing is not possible, run a custom front-light sweep firmware that PWM-tests candidate GPIOs one at a time at 25 kHz with conservative duty limits, watching for visible light changes and avoiding any display/touch pins already under test.
+1. Implement `GPIO48` active-high PWM in `community-sdk` as the Murphy front-light backend.
+2. Choose a conservative 10-level duty table and validate the perceived brightness curve on hardware.
+3. In Ghidra, continue from the `Front Light` string-pointer table and identify the settings-dispatch table that consumes it.
+4. Search NVS/default-setting code for a small integer stored near other settings such as dark mode, refresh interval, or font size.
+5. If the device can ever be opened, measure the front-light rail voltage/current at several brightness levels to determine the actual current path and driver margin.

@@ -18,9 +18,9 @@ The hardware most likely matches the Elecrow CrowPanel ESP32 3.7-inch E-paper HM
 
 The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based in firmware, while the HamGeek M3 listing claims a built-in independent clock chip, so an external RTC is now plausible but still unproven at IC/address level.
 
-Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL), but the exact touch controller and GPIO pins are not yet proven. Online panel research makes Good Display's `FT6336U`-based 3.7-inch touch/front-light module the strongest external match so far. The public CrowPanel schematic names display FPC pins `TSCL`/`TSDA`; the matching public board file does not route those pins, so the Murphy unit needs probing or deeper firmware recovery for touch pin mapping.
+Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL), but the exact touch controller and GPIO pins are not yet proven. Online panel research makes Good Display's `FT6336U`-based 3.7-inch touch/front-light module the strongest external match so far. A custom probe found an `0x38` ACK on `SDA=13/SCL=12`, but the returned bytes do not change on touch and decode as invalid FT6x36 data, so this is not yet a usable touch bus.
 
-Front-light support is also present in the OEM UI as a `Front Light` settings label. Pressing and holding either right-side button on the Murphy unit opens the front-light controls. HamGeek claims 10 brightness levels and Good Display's closest panel-family match lists a 9-LED front-light assembly, but the Murphy GPIO/PWM/driver path is not yet recovered.
+Front-light support is present and now electrically confirmed. Pressing and holding either right-side button on the Murphy unit opens the OEM front-light controls. Custom firmware confirms Murphy front-light control on `GPIO48`, active high, with smooth 25 kHz PWM brightness control. Earlier public-reference leads that treated `GPIO42` as the front light or `GPIO48` as EPD `BUSY` are superseded for this Murphy unit.
 
 ## Findings
 
@@ -34,9 +34,9 @@ Detailed notes:
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
 - [Display bring-up notes](findings/display_bringup.md): UC8253 probe results, failed pin/power matrix, OEM LUT evidence, and required signal-capture next steps.
-- [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
+- [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, controller candidates, failed `SDA=13/SCL=12` probe results, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
-- [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, likely driver shape, and open pin/PWM questions.
+- [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.
 - [USB logging and console notes](findings/usb_logging.md): confirmed stock USB app logs, capture workflow, and verbosity/debug-flag search notes.
 - [Online research notes](findings/online_research.md): product listings and panel references found on the web.
 - [Audio hardware and capabilities](findings/audio.md): headphone-jack evidence, I2S audio stack, supported formats, unknown codec/pins.
@@ -100,6 +100,6 @@ Minimum viable port:
 - GPIO1/GPIO2 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
 - Battery can be stubbed or disabled initially.
 - Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button.
-- Front light can be added later as a board-level brightness peripheral once the GPIO/PWM/driver path is proven.
+- Front light can be implemented now as a board-level `GPIO48` active-high PWM brightness peripheral, preferably around 25 kHz.
 - Audio and external RTC support can be disabled initially, with board abstractions left in place.
 - Partial refresh and grayscale can come after basic display stability.

@@ -51,47 +51,48 @@ The display remains blocked. Tested mappings produced no visible change:
 - Good Display raw-numbered: `SCK12 MOSI11 CS17 DC16 RST15 BUSY14`
 - Waveshare comparator: `SCK11 MOSI12 CS10 DC9 RST46 BUSY3`
 
+Update: `GPIO48` is now confirmed as the Murphy front-light PWM pin, so any display tuple using `BUSY48` is invalid for this hardware. Keep those rows as historical public-reference tests only.
+
 Non-invasive next steps:
 
 1. Continue static OEM analysis for display init constants and GPIO setup clusters.
 2. Run the expanded blind display probe in `/Users/jmitch/GitHub/crosspoint-reader-main/src/murphy_display_probe.cpp`.
 3. Watch the screen while monitoring our custom serial output.
 4. If the screen changes, record the `OBSERVE NOW` line for the active case.
-5. Treat BUSY as advisory only. The expanded probe tests ready-high, ready-low, and ignore-BUSY modes because the X3/X4 family has already shown BUSY polarity differences. Since current BUSY candidates are stuck high/low, use visible screen change as the success signal.
+5. Treat BUSY as advisory only. The expanded probe tests ready-high, ready-low, and ignore-BUSY modes because the X3/X4 family has already shown BUSY polarity differences. Since current BUSY candidates are stuck high/low and `GPIO48` is not BUSY, use visible screen change as the success signal.
 
 Do not spend time on random pin brute force unless static analysis yields a bounded candidate list.
 
 ## Front Light
 
-Front light is more recoverable non-invasively because success is visible immediately and does not require UC8253 display init.
+Front light is now confirmed non-invasively.
 
-Best current candidate remains GPIO42 from the public CrowPanel example, but it is not proven on Murphy.
+Custom probe result:
 
-Non-invasive next steps:
+- Pin: `GPIO48`
+- Polarity: active high
+- PWM: 25 kHz works visibly
+- Probe resolution: 10-bit duty, `0..1023`
+- Negative controls: GPIO42 and GPIO41 did not turn the light on
 
-1. Write a standalone front-light probe that tests one candidate pin at a time.
+Porting next steps:
+
+1. Promote `GPIO48` into the Murphy board profile as the front-light PWM pin.
 2. Use 25 kHz PWM to avoid audible PWM.
-3. Sweep duty through conservative levels, for example 0%, 5%, 10%, 25%, 50%, then back to 0%.
-4. Keep each step short and print the active pin/duty over our firmware serial.
-5. Start with candidate pins from references only:
-   - `GPIO42`
-   - `GPIO41`
-   - `GPIO7`
-   - any front-light candidate later recovered from static OEM analysis.
-
-Avoid driving display SPI/control pins as front-light candidates until display recovery is separated.
+3. Start with a conservative 10-level brightness table and adjust by visual testing.
+4. Exclude GPIO48 from future display BUSY, touch I2C, IRQ, RTC, and generic GPIO sweeps.
 
 ## Touch
 
 Touch can be tested non-invasively with I2C scan firmware.
 
-Good Display `GDEY037T03-FT21` points to FT6336U, commonly at `0x38`. Public comparator hardware also suggests I2C on `GPIO41/GPIO42`, but that conflicts with the current front-light candidate, so treat it as a lead only.
+Good Display `GDEY037T03-FT21` points to FT6336U, commonly at `0x38`. The current custom probes have not found a valid touch bus. `SDA=13/SCL=12 @ 0x38` ACKs but returns static invalid data and does not respond to taps. Sweeps involving GPIO48 produced false positives because GPIO48 is front-light control.
 
 Non-invasive next steps:
 
-1. Run bounded I2C scans on plausible SDA/SCL pairs from public references and ESP32-S3 examples.
+1. Run bounded I2C scans on plausible SDA/SCL pairs from public references and ESP32-S3 examples, excluding GPIO48.
 2. Probe for `0x38` first.
-3. If found, read FT6336-compatible registers and report touch count/coordinates over our firmware serial.
+3. If found, read FT6336-compatible registers and require tap-correlated register changes before accepting it as touch.
 4. Do not assume touch shares the audio/RTC I2C bus until proven.
 
 ## Audio / RTC
@@ -111,7 +112,7 @@ Do not make audio a blocker for first display/input bring-up.
 For `community-sdk` and CrossPoint:
 
 - Keep Murphy display support behind an experimental board flag.
-- Keep front light disabled by default until a visible PWM probe confirms the pin.
+- Enable front light through the confirmed `GPIO48` active-high PWM backend.
 - Implement digital buttons and app-level touch-target translation independently of display recovery where possible.
 - Make all Murphy pins configurable in one board profile so probe results can be promoted without rewriting drivers.
 
@@ -120,5 +121,5 @@ The first usable port milestone should be:
 1. Boots on Murphy M3.
 2. Serial logs from custom firmware work.
 3. Buttons are readable.
-4. Front light is controlled if the visible PWM probe succeeds.
+4. Front light is controlled on GPIO48.
 5. Display remains experimental until a visible refresh succeeds.

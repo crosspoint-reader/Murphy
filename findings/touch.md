@@ -64,12 +64,36 @@ Known routed display pins from the public CrowPanel reference are separate SPI d
 | --- | ---: |
 | EPD `SDA` / MOSI | GPIO11 |
 | EPD `SCL` / CLK | GPIO12 |
-| EPD `BUSY` | GPIO48 |
+| EPD `BUSY` | GPIO48 in public CrowPanel files only; invalid for Murphy because GPIO48 is confirmed front-light PWM |
 | EPD `RES` | GPIO47 |
 | EPD `D/C` | GPIO46 |
 | EPD `CS` | GPIO45 |
 
-Do not assume `TSCL`/`TSDA` share GPIO11/GPIO12. Those are the e-paper SPI pins in the reference board files, not proven touch I2C pins.
+Do not assume `TSCL`/`TSDA` share GPIO11/GPIO12. Those are the e-paper SPI pins in the reference board files, not proven touch I2C pins. Also do not use GPIO48 for touch probing on Murphy; custom firmware confirms it is the front-light PWM pin and it can create misleading all-address I2C ACK results when pulled or driven.
+
+## Custom Probe Results
+
+Several non-invasive custom probes have now run from `/Users/jmitch/GitHub/crosspoint-reader-main`.
+
+Broad I2C pair sweeping produced many false positives until stuck/coupled-line detection was added. The most important artifact was GPIO48: sweeps involving `SDA=48` produced all-address ACK storms and also affected the front light. GPIO48 is now confirmed as front-light control, not touch I2C.
+
+The only plausible touch-looking candidate found so far is:
+
+| Candidate | Result |
+| --- | --- |
+| `SDA=13`, `SCL=12`, address `0x38` | ACKs repeatably, but does not produce valid touch data. |
+
+Reads from that candidate show fixed, invalid FT6x36-style frames:
+
+```text
+0x00: 18 7E EE A6 1A 7C FF FF ...
+0x02: 18 30 80 A6 1A 7C FF FF ...
+0xA0: 10 1C BC BA 1A 7C FF FF ...
+```
+
+Single taps and drags did not change those bytes. Decoding them as FT6x36 data produces impossible point counts and coordinates, so `SDA=13/SCL=12 @ 0x38` should be treated as an unknown responder or false candidate, not as confirmed touch.
+
+Passive GPIO input sampling also found no tap-correlated IRQ line. A later pull-up probe turned the front light on because it touched GPIO48, reinforcing that GPIO48 must be excluded from future touch/IRQ sweeps.
 
 ## OEM Logic Recovered So Far
 
@@ -86,7 +110,7 @@ The current Ghidra project is good enough to find strings and some xrefs, but de
 For `community-sdk`, the right shape is a board-level touch abstraction rather than wiring touch directly into menu code:
 
 - Add `HalTouch` or equivalent behind `BoardConfig::hasTouch`.
-- Start with an I2C scan/probe path on candidate buses.
+- Start with an I2C scan/probe path on candidate buses, explicitly excluding GPIO48.
 - Publish touch events as screen coordinates plus simple gestures.
 - Add a touch-target registry in the UI layer so existing menu rows/buttons can expose rectangles and map taps to the same actions as button presses.
 
@@ -94,8 +118,8 @@ Until pins and controller are verified, keep CrossPoint fully usable with GPIO b
 
 ## Next Hardware Tests
 
-1. Run an I2C scanner on likely or probed SDA/SCL pairs while the display/touch panel is powered.
-2. Probe common touch addresses: `0x38`, `0x15`, `0x5d`, `0x14`, `0x2e`.
-3. If a device ACKs, read safe ID/status registers for the candidate family before writing anything.
-4. Visually inspect the PCB/FPC routing around the panel connector for U4 pads 6 and 7 on the Murphy unit specifically; the public CrowPanel board files do not route them.
+1. Continue OEM/static RE for touch GPIO constants and initialization calls.
+2. Run future I2C scanners only on bounded candidate pairs and exclude GPIO48.
+3. Probe common touch addresses: `0x38`, `0x15`, `0x5d`, `0x14`, `0x2e`.
+4. If a device ACKs, require tap-correlated register changes before treating it as touch.
 5. Once pins/address are known, add them to `community-sdk/libs/hardware/BoardConfig/include/BoardConfig.h`.

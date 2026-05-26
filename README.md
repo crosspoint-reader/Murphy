@@ -34,6 +34,7 @@ Detailed notes:
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
+- [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, likely driver shape, and open pin/PWM questions.
 - [USB logging and console notes](findings/usb_logging.md): confirmed stock USB app logs, capture workflow, and verbosity/debug-flag search notes.
 - [Online research notes](findings/online_research.md): product listings and panel references found on the web.
@@ -52,6 +53,7 @@ Detailed notes:
 - `analysis/ghidra_inventory.md`: exported Ghidra inventory.
 - `analysis/audio_rtc_string_refs.md`: Ghidra string-reference export for audio and clock/RTC terms.
 - `analysis/touch_string_refs.md`, `analysis/touch_pointer_refs.md`: Ghidra exports for touch-related strings and pointer/literal-pool references.
+- `analysis/button_combo_string_refs.md`, `analysis/button_combo_pointer_refs.md`: Ghidra exports for key-map, long-press, and lock-key strings.
 - `analysis/frontlight_string_refs.md`, `analysis/frontlight_pointer_refs.md`, `analysis/frontlight_table_memory.md`: Ghidra exports for front-light settings strings and adjacent pointer tables.
 - `analysis/usb_logging_string_refs.md`: Ghidra export for observed USB log strings and log-level-related symbols.
 - `analysis/vendor/`: vendor CrowPanel reference material cloned for hardware comparison.
@@ -83,7 +85,7 @@ Required work:
 - Add a board profile to `community-sdk` with Murphy pins and capabilities.
 - Add a UC8253 240x416 display backend to `EInkDisplay`.
 - Move SD support to a configurable, separate SPI bus.
-- Replace the Xteink ADC-button input path with Murphy digital button/rotary input.
+- Replace the Xteink ADC-button input path with Murphy digital button input and touch-assisted navigation.
 - Add display and SD power-enable sequencing.
 - Reserve pins and abstractions for headphone/I2S audio and a possible RTC until hardware mapping is complete.
 
@@ -92,9 +94,9 @@ Minimum viable port:
 - ESP32-S3 build boots.
 - Full-screen black/white UC8253 refresh works.
 - SD card mounts and files can be read.
-- GPIO1/GPIO2/GPIO4/GPIO5/GPIO6 inputs navigate CrossPoint.
-- Battery and touch can be stubbed or disabled initially.
-- Touch can be added later as a target-rectangle event source that invokes the same actions as existing button-driven menu selection.
+- GPIO1/GPIO2 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
+- Battery can be stubbed or disabled initially.
+- Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button.
 - Front light can be added later as a board-level brightness peripheral once the GPIO/PWM/driver path is proven.
 - Audio and external RTC support can be disabled initially, with board abstractions left in place.
 - Partial refresh and grayscale can come after basic display stability.

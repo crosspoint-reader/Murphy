@@ -91,3 +91,11 @@ Front-light-specific exports:
 - `analysis/frontlight_string_refs.md`
 - `analysis/frontlight_pointer_refs.md`
 - `analysis/frontlight_table_memory.md`
+
+Button/input-specific exports:
+
+- `analysis/button_combo_string_refs.md`
+- `analysis/button_combo_pointer_refs.md`
+- `analysis/button_combo_disassembly.md`
+- `analysis/button_combo_objdump_42000020.md`
+- `analysis/button_combo_objdump_keymap.md`

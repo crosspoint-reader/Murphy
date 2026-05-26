@@ -57,7 +57,7 @@ Most likely options:
 Things to try on hardware:
 
 1. Capture logs during boot, normal UI use, and factory reset screen entry.
-2. Try long-hold combinations while connected to USB: top-right, power/menu, rotary press, and combinations during boot.
+2. Try long-hold combinations while connected to USB: top-right/back, power/menu, and available two-button combinations during boot.
 3. Enter hotspot/web UI mode and check whether any undocumented endpoint responds, especially simple names like `/Debug`, `/Log`, `/Read_Log`, `/Set_Log`, `/Config`, or `/Factory`.
 4. Trigger errors intentionally but safely, such as missing SD card, bad WiFi credentials, or failed weather sync, and see whether ESP-IDF `E/W/I` logs appear.
 5. Compare logs before and after factory reset to see whether persisted settings affect output.

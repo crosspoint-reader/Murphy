@@ -4,7 +4,7 @@
 
 Porting `/Users/jmitch/GitHub/community-sdk` and `/Users/jmitch/GitHub/crosspoint-reader-main` to the Murphy M3 is feasible, but it is not a drop-in board change. The major work is a new hardware profile for this ESP32-S3 e-paper board: display driver, pins, SD bus, input mapping, power enables, battery/charging behavior, partitions, and a UI pass for a much smaller 240x416 panel.
 
-The original CrossPoint stack is built around Xteink X3/X4 devices on ESP32-C3. Murphy M3 appears to match the Elecrow CrowPanel ESP32 3.7-inch E-paper HMI family: ESP32-S3-WROOM-1-N8R8 class module, 8 MiB PSRAM, UC8253 e-paper controller, 240x416 black/white panel, SD slot, BLE/WiFi, two front buttons, and a rotary/key cluster. Our dumped unit has a 16 MiB flash image, so use the dump as truth for flash size even though the vendor README says 8 MB.
+The original CrossPoint stack is built around Xteink X3/X4 devices on ESP32-C3. Murphy M3 appears to match the Elecrow CrowPanel ESP32 3.7-inch E-paper HMI family for MCU/display/SD lineage: ESP32-S3-WROOM-1-N8R8 class module, 8 MiB PSRAM, UC8253 e-paper controller, 240x416 black/white panel, SD slot, BLE/WiFi, and two front buttons. The actual Murphy unit being analyzed does not have the public CrowPanel reference's rotary control. Our dumped unit has a 16 MiB flash image, so use the dump as truth for flash size even though the vendor README says 8 MB.
 
 ## Evidence Used
 
@@ -72,9 +72,9 @@ Relevant pins from vendor factory source and schematic:
 | Power/status LED | 41 | Vendor sets high |
 | Back / exit button | 1 | Digital active-low |
 | Menu / home button | 2 | Digital active-low; also sleep wake source |
-| Rotary previous/up | 6 | Digital active-low |
-| Rotary next/down | 4 | Digital active-low |
-| Rotary confirm | 5 | Digital active-low |
+| Reference-board previous/up | 6 | Digital active-low in CrowPanel reference; not confirmed as a physical Murphy control |
+| Reference-board next/down | 4 | Digital active-low in CrowPanel reference; not confirmed as a physical Murphy control |
+| Reference-board confirm | 5 | Digital active-low in CrowPanel reference; actual Murphy unit has no rotary press |
 
 The schematic also exposes many GPIO header nets, but those are not required for a reader port.
 
@@ -90,7 +90,7 @@ Needed capabilities:
 - `HAS_SEPARATE_SD_SPI = true`.
 - `HAS_DISPLAY_POWER_ENABLE = true`.
 - `HAS_SD_POWER_ENABLE = true`.
-- `HAS_ROTARY_OR_5_KEY_INPUT = true`.
+- `HAS_ROTARY_OR_5_KEY_INPUT = false` for this Murphy unit unless GPIO4/GPIO5/GPIO6 are later proven to be exposed as real buttons.
 - `HAS_TOUCH = true`, but touch can be left unused for the first port.
 
 ### 2. Add A UC8253 240x416 Display Backend
@@ -131,21 +131,16 @@ The SDK needs either constructor/config injection for SD pins and `SPIClass`, or
 
 Current `InputManager` reads analog GPIO1/GPIO2 and power GPIO3. That conflicts with Murphy, where GPIO1 and GPIO2 are digital keys.
 
-Add a digital input implementation for:
+Add a digital input implementation for the confirmed physical controls first:
 
 - Back: GPIO1.
 - Menu/Home: GPIO2.
-- Rotary previous/up: GPIO6.
-- Rotary next/down: GPIO4.
-- Rotary confirm: GPIO5.
 
 Map these onto CrossPoint logical buttons:
 
 - `Back` -> GPIO1.
-- `Confirm` -> GPIO5.
-- `Up/PageBack` -> GPIO6.
-- `Down/PageForward` -> GPIO4.
 - `Power/Menu` -> GPIO2 long press or short press, depending UX.
+- `Confirm`, `Up/PageBack`, and `Down/PageForward` should be provided through touch targets, long-press mappings, or any additional physical buttons found on the Murphy PCB. Do not rely on a rotary press for this hardware.
 
 Touch can be integrated later as an additional input source. It should not block the first hardware port.
 
@@ -210,15 +205,14 @@ CrossPoint's logical input model assumes seven buttons:
 
 - Back, confirm, left, right, up, down, power.
 
-Murphy has two named buttons and a three-action rotary/key cluster. A workable first policy:
+Murphy has two named physical buttons on this unit. A workable first policy:
 
 - GPIO1 Back -> `Back`.
 - GPIO2 Menu/Home -> `Power` or `Menu`.
-- GPIO6 rotary previous -> `Up` and/or `PageBack`.
-- GPIO4 rotary next -> `Down` and/or `PageForward`.
-- GPIO5 rotary press -> `Confirm`.
+- Touch target on selected row/item -> `Confirm`.
+- Touch gestures or on-screen targets -> `Up/PageBack` and `Down/PageForward`.
 
-Long-press mappings can cover missing logical buttons. Touch gestures can be a later enhancement.
+Long-press mappings can cover some missing logical buttons, but touch should move earlier in the Murphy port than originally planned because the physical input set is smaller than the public CrowPanel reference.
 
 ### 5. Storage Bring-Up Is Critical
 
@@ -243,11 +237,11 @@ The first usable Murphy build should target:
 - ESP32-S3 PlatformIO build with PSRAM enabled.
 - UC8253 black/white full-screen display refresh.
 - SD card power enable and mount/list/read.
-- Digital button/rotary input.
+- Digital input for GPIO1/GPIO2 plus touch-assisted navigation.
 - Basic CrossPoint navigation and book open/page turn.
 - Deep sleep wake from GPIO2.
 - Battery percentage hidden or stubbed until ADC path is confirmed.
-- Touch ignored.
+- Touch event routing enabled early enough to replace missing physical up/down/confirm controls.
 - Partial refresh/grayscale disabled until the UC8253 path is stable.
 
 ## Work Breakdown
@@ -257,7 +251,7 @@ The first usable Murphy build should target:
 3. Port the vendor UC8253 driver into `EInkDisplay` as a new panel mode.
 4. Verify display with clear screen, checkerboard, text, and full refresh.
 5. Add configurable SD SPI/power support in `SDCardManager`; verify card listing and file reads.
-6. Add a digital input manager for GPIO1/2/4/5/6 and map to CrossPoint logical actions.
+6. Add a digital input manager for GPIO1/GPIO2 and map touch targets to CrossPoint logical actions.
 7. Wire display/input/storage through `HalGPIO`/`HalDisplay` using board flags instead of X3/X4 detection.
 8. Audit hardcoded geometry in CrossPoint and adjust layouts for 240x416.
 9. Add sleep/wake and power-enable sequencing.
@@ -272,13 +266,13 @@ The first usable Murphy build should target:
 | Flash size | Vendor docs say 8 MB, dump is 16 MiB. Use dump for this device, but verify physical module markings if shipping images. |
 | UC8253 waveform quality | Vendor code is simple and should work for black/white; partial refresh and grayscale quality will require tuning. |
 | SD bus | Current SDK assumes one default SPI bus. Murphy uses a separate SD SPI bus and power enable. |
-| Input UX | CrossPoint expects more buttons than Murphy exposes directly. The rotary/key mapping needs a real usability pass. |
+| Input UX | CrossPoint expects more buttons than Murphy exposes directly. Touch and long-press mappings need a real usability pass. |
 | Battery | ADC pin/divider not identified yet. |
 | GPIO0/strapping | Avoid relying on boot strapping pins for normal input unless verified. |
 | Sleep current | Display and SD power enables must be off in sleep or battery life will be poor. |
 | App size | Need an S3 build to confirm the app fits whichever OTA slot size is chosen. |
-| Touch | Present but intentionally outside the first port; later it can replace or augment missing buttons. |
+| Touch | Present and now more important because this Murphy unit lacks the public reference's rotary input. |
 
 ## Bottom Line
 
-The port is a moderate hardware enablement project, not a rewrite. The app architecture can likely survive, but `community-sdk` needs to grow from an X3/X4 SDK into a board-profile SDK. The highest-leverage first milestone is a Murphy board profile plus three hardware bring-up tests: display refresh, SD card mount, and button/rotary events.
+The port is a moderate hardware enablement project, not a rewrite. The app architecture can likely survive, but `community-sdk` needs to grow from an X3/X4 SDK into a board-profile SDK. The highest-leverage first milestone is a Murphy board profile plus four hardware bring-up tests: display refresh, SD card mount, GPIO1/GPIO2 button events, and touch events.

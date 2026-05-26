@@ -18,6 +18,7 @@ Recovered OEM SDMMC mapping:
 | `D1` | `14` | OEM recovered | Fourth argument. OEM uses 4-bit mode, so this is required. |
 | `D2` | `21` | OEM recovered | Fifth argument. OEM uses 4-bit mode, so this is required. |
 | `D3` | `18` | OEM recovered | Sixth argument. OEM uses 4-bit mode, so this is required. |
+| SD enable / gate | `10` | OEM recovered active-low candidate | OEM drives GPIO10 low immediately before SDMMC mount and high in the cleanup path. This conflicts with the older public SPI `CS=10` lead. |
 
 Minimal Arduino SDMMC probe:
 
@@ -28,6 +29,10 @@ Minimal Arduino SDMMC probe:
 void setup() {
   Serial.begin(115200);
   delay(1000);
+
+  pinMode(10, OUTPUT);
+  digitalWrite(10, LOW);
+  delay(5);
 
   SD_MMC.setPins(16, 17, 15, 14, 21, 18);
 
@@ -44,7 +49,7 @@ void setup() {
 void loop() {}
 ```
 
-Start at `4000` kHz. The OEM passes a firmware-selected frequency value, but the pin/mode recovery is the important part: `mode1bit=false`, max-open-files `5`.
+Start at `4000` kHz. The OEM passes a firmware-selected frequency value, but the pin/mode recovery is the important part: `mode1bit=false`, max-open-files `5`, and GPIO10 held low immediately before mount.
 
 ## Superseded SPI Lead
 
@@ -98,7 +103,7 @@ This should no longer be the primary Murphy probe. It may describe a reference c
 
 ## Confidence And Caveat
 
-The OEM SDMMC tuple is statically recovered but not yet live-confirmed in our custom firmware. Treat it as the next bounded probe, not final truth until an SD card mounts and lists files.
+The OEM SDMMC tuple is statically recovered but not yet live-confirmed in our custom firmware. A CrossPoint run without the GPIO10-low enable step failed at SDMMC card init (`0x108`/`0x107`) and the fallback Arduino SPI path failed at CMD0. The next run should verify whether mirroring the OEM GPIO10-low pre-mount step changes that behavior.
 
 The older SPI tuple came from official CrowPanel 3.7-inch source that labels the SD slot as SPI:
 
@@ -171,10 +176,27 @@ Interpretation:
 - The third argument to `FUN_4202b6c4` is `0`, so `mode1bit=false` and the OEM uses 4-bit SDMMC.
 - The sixth argument is `5`, matching Arduino `SD_MMC.begin(..., maxOpenFiles=5)`.
 - The recovered pin tuple is decimal `16,17,15,14,21,18`.
+- `FUN_4202b864(_DAT_41f40194, 10, 0)` still needs exact class naming, but it is part of the same SD object setup and takes GPIO10/value `0`.
+
+A deeper pass resolved the helper used immediately before and after the SDMMC mount:
+
+```c
+FUN_42004d40(_DAT_41f40140, 10, 0);
+FUN_420673c4(5);
+...
+FUN_4200399c(...) {
+  FUN_42003980();
+  FUN_42004d40(_DAT_41f40140, 10, 1);
+}
+```
+
+`FUN_42004d40` decompiles to `FUN_42066718(param_2, param_3)`, and `FUN_42066718` is a GPIO level wrapper. Interpretation: GPIO10 is driven low before SD mount and high during cleanup. Treat GPIO10 as an active-low SD enable/gate candidate in the OEM SDMMC path, not only as the public-reference SPI CS.
 
 Evidence:
 
-- `analysis/oem_hardware_constant_mining.md:354811-354842`
+- `analysis/oem_hardware_constant_mining.md:354797-354842`
+- `analysis/oem_hardware_constant_mining.md:356017-356027`
+- `analysis/oem_hardware_constant_mining.md:430186-430205`
 - `analysis/oem_hardware_constant_mining.md:385267-385318`
 - `analysis/oem_hardware_constant_mining.md:385293-385368`
 - `analysis/oem_hardware_keyword_mining.md:241055-241086`
@@ -192,6 +214,10 @@ The SPI probe already hangs in CrossPoint's SdFat path. The next test should be 
 void setup() {
   Serial.begin(115200);
   delay(1000);
+
+  pinMode(10, OUTPUT);
+  digitalWrite(10, LOW);
+  delay(5);
 
   SD_MMC.setPins(16, 17, 15, 14, 21, 18);
 
@@ -215,7 +241,7 @@ SD_MMC.setPins(16, 17, 15);
 SD_MMC.begin("/sd", true, false, 4000, 5);
 ```
 
-3. If both fail, reduce frequency to `1000` and then `400` kHz before revisiting power sequencing.
+3. If both fail with GPIO10 held low, reduce frequency to `1000` and then `400` kHz before revisiting the pin tuple.
 
 ## Current Recommendation
 
@@ -228,6 +254,7 @@ D0=15
 D1=14
 D2=21
 D3=18
+ENABLE/GATE=10 active-low candidate
 mode1bit=false
 ```
 

@@ -15,7 +15,7 @@ The hardware most likely matches the Elecrow CrowPanel ESP32 3.7-inch E-paper HM
 - UC8253 display controller.
 - 240x416 panel resolution.
 - SD card slot driven by the OEM firmware through Arduino `SD_MMC`, not SdFat/SPI.
-- OEM SDMMC mapping recovered from the binary: `CLK=GPIO16`, `CMD=GPIO17`, `D0=GPIO15`, `D1=GPIO14`, `D2=GPIO21`, `D3=GPIO18`, 4-bit mode.
+- OEM SDMMC mapping recovered from the binary: `CLK=GPIO16`, `CMD=GPIO17`, `D0=GPIO15`, `D1=GPIO14`, `D2=GPIO21`, `D3=GPIO18`, 4-bit mode, with GPIO10 driven low before mount as an active-low SD enable/gate candidate.
 
 The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based in firmware, while the HamGeek M3 listing claims a built-in independent clock chip, so an external RTC is now plausible but still unproven at IC/address level.
 
@@ -105,7 +105,7 @@ Minimum viable port:
 
 - ESP32-S3 build boots.
 - Full-screen black/white UC8253 refresh works. This is not yet achieved; standalone probes on the public CrowPanel pin sets have not changed the panel.
-- SD card mounts and files can be read through `SD_MMC` on the OEM-recovered 4-bit pin tuple.
+- SD card is still unresolved in custom firmware. The current CrossPoint build mirrors the OEM SDMMC tuple and now also drives GPIO10 low before mount; the previous run without that GPIO10-low step failed at SDMMC card init and the fallback SPI path failed at CMD0.
 - GPIO1/GPIO2/GPIO0 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
 - Battery can be stubbed or disabled initially.
 - Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button.

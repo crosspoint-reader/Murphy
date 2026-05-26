@@ -75,6 +75,7 @@ Relevant pins from vendor factory source and schematic:
 | SDMMC D1 | 14 | OEM recovered; native SDMMC |
 | SDMMC D2 | 21 | OEM recovered; native SDMMC |
 | SDMMC D3 | 18 | OEM recovered; native SDMMC |
+| SD enable/gate | 10 | OEM recovered active-low candidate; driven low immediately before SDMMC mount |
 | Front light/backlight PWM | 48 | Confirmed on Murphy; active high, 25 kHz PWM works |
 | Power/status LED | 41 | Vendor sets high |
 | Top side button | 1 | Confirmed digital active-low |
@@ -139,10 +140,11 @@ FUN_4202b6c4(uVar3, mountpoint, 0, 0, frequency, 5);
 
 This maps to:
 
+- `pinMode(10, OUTPUT); digitalWrite(10, LOW); delay(5);`
 - `SD_MMC.setPins(16, 17, 15, 14, 21, 18)`.
 - `SD_MMC.begin("/sd", false, false, frequency, 5)`.
 
-Use `4000` kHz for first bring-up. The current CrossPoint/SdFat path hangs on the older public-reference SPI tuple, so Murphy needs a separate `SD_MMC`/Arduino `fs::FS` storage backend or an adapter layer that lets reader code use `SD_MMC` files.
+Use `4000` kHz for first bring-up. A CrossPoint run without the GPIO10-low step failed at SDMMC card init and the fallback Arduino SPI path on the older public-reference tuple failed at CMD0. The SDK now has a Murphy `SD_MMC`/Arduino `fs::FS` storage backend, but SD is not confirmed until the GPIO10-low build mounts and lists files.
 
 GPIO42 appears in the public vendor example as the screen backlight/front-light enable, but Murphy hardware testing did not light GPIO42. GPIO48 is the confirmed front-light PWM pin, so GPIO42 should not be treated as SD power and should remain unassigned until proven.
 
@@ -292,7 +294,7 @@ The first usable Murphy build should target:
 | --- | --- |
 | Flash size | Vendor docs say 8 MB, dump is 16 MiB. Use dump for this device, but verify physical module markings if shipping images. |
 | UC8253 waveform quality | Vendor code is simple and should work for black/white; partial refresh and grayscale quality will require tuning. |
-| SD bus | Current SDK assumes SdFat/SPI. Murphy OEM uses native 4-bit `SD_MMC` on GPIO16/17/15/14/21/18. GPIO42 is not SD power; GPIO48 is confirmed front-light PWM. |
+| SD bus | Murphy OEM uses native 4-bit `SD_MMC` on GPIO16/17/15/14/21/18 and drives GPIO10 low before mount. GPIO42 is not SD power; GPIO48 is confirmed front-light PWM. SD is still live-unconfirmed in custom firmware. |
 | Input UX | CrossPoint expects more buttons than Murphy exposes directly. Touch and long-press mappings need a real usability pass. |
 | Battery | ADC pin/divider not identified yet. |
 | GPIO0/strapping | GPIO0 is the confirmed bottom button and an ESP32-S3 strapping pin. Firmware must tolerate boot-loader entry risk if held low during reset. |

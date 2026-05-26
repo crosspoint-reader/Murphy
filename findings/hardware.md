@@ -9,11 +9,12 @@
 - Filesystem: LittleFS support is included and mounted at `/littlefs`.
 - Input: touch handling exists. Strings include `touchTask` and `<Reset custom touch area>`.
 - Display class: e-paper / ink screen reader. Strings include `E-Paper Reader`, `Ink screen reader`, `3.7-inch-ink-screen-reader`, and ePub reader UI strings.
+- Audio output connector: the physical Murphy M3 unit has a headphone jack.
 
 ## Likely / Medium Confidence
 
 - Product lineage/codebase: the firmware references `https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/touch/update.json`, so this image appears derived from or directly built from the Corogoo 3.7-inch ink-screen reader firmware.
-- Audio hardware or at least compiled audio feature support: `ESP32-audioI2S-3.0.12` is present, including MP3/AAC/FLAC/Opus/Vorbis decoder strings and I2S errors. This confirms audio software is linked, but not that the board has an amplifier/speaker populated.
+- Audio implementation details: `ESP32-audioI2S-3.0.12` is present, including MP3/AAC/FLAC/Opus/Vorbis decoder strings, I2S driver strings, `musicTask`, and `Connect to DAC codec...`. Given the observed headphone jack, the best current read is an external I2S DAC/codec path, but the codec IC and pins are still unknown. See `audio.md`.
 - PSRAM is likely expected by some features: strings include `SPIRAM`, `SPI RAM enabled but initialization failed`, and audio/playlist warnings about PSRAM. Presence of these strings can come from libraries, so this is not proof of fitted PSRAM.
 
 ## Display / Panel
@@ -37,8 +38,7 @@ The firmware appears to implement:
 - Fonts: `/FONT`, `/FONT/%s.font`, `>>>Font count`.
 - JPEG/image handling: `jpeg`, `Not supported JPEG standard`, `Jpeg file not found`.
 - Weather display/configuration.
-- Clock/time sync.
+- Clock/time sync, alarms, and calendar UI. See `clock_rtc.md`.
 - Lock-screen wallpaper/content.
 - Bluetooth scan/connect flow.
 - SD card file listing.
-

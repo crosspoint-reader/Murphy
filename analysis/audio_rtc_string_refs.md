@@ -1,0 +1,2337 @@
+# String Reference Report
+
+## `music`
+
+- `0000147b`: `"/music.list"`
+  - refs: none
+- `000017e4`: `">>>music_set_volume(%d)\r\n"`
+  - ref from `002a3dd3` in `FUN_002a3a68`
+  - ref from `002a3b33` in `FUN_002a3a68`
+  - ref from `002a3bb3` in `FUN_002a3a68`
+  - ref from `42183dd3` in `FUN_42183a68`
+  - ref from `42183b33` in `FUN_42183a68`
+  - ref from `42183bb3` in `FUN_42183a68`
+- `00001894`: `"/music.list"`
+  - refs: none
+- `000018a0`: `"saveMusicPlayID: %d\n"`
+  - refs: none
+- `000036c0`: `"Music"`
+  - refs: none
+- `0000455c`: `">>>music Task Play Done\r"`
+  - refs: none
+- `000045a0`: `"musicTask"`
+  - refs: none
+- `3c19147b`: `"/music.list"`
+  - refs: none
+- `3c1917e4`: `">>>music_set_volume(%d)\r\n"`
+  - refs: none
+- `3c191894`: `"/music.list"`
+  - refs: none
+- `3c1918a0`: `"saveMusicPlayID: %d\n"`
+  - refs: none
+- `3c1936c0`: `"Music"`
+  - ref from `00117e98` in `<no function>`
+  - ref from `3fc9aac8` in `<no function>`
+- `3c19455c`: `">>>music Task Play Done\r"`
+  - refs: none
+- `3c1945a0`: `"musicTask"`
+  - refs: none
+
+Matches: 14
+
+## `audio`
+
+- `00001517`: `"Audiobooks"`
+  - refs: none
+- `000a781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - refs: none
+- `000a7888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - refs: none
+- `000a7c8c`: `"Closing audio file \"%s\""`
+  - refs: none
+- `000a7e24`: `"Audio-Length: %u"`
+  - refs: none
+- `000a7f80`: `"audio file duration: %lu seconds"`
+  - refs: none
+- `000a8408`: `"audio/mpeg"`
+  - refs: none
+- `000a8414`: `"audio/mpeg3"`
+  - refs: none
+- `000a8420`: `"audio/x-mpeg"`
+  - refs: none
+- `000a8430`: `"audio/x-mpeg-3"`
+  - refs: none
+- `000a8440`: `"audio/mp3"`
+  - refs: none
+- `000a844c`: `"audio/aac"`
+  - refs: none
+- `000a8458`: `"audio/x-aac"`
+  - refs: none
+- `000a84a0`: `"audio/wav"`
+  - refs: none
+- `000a84ac`: `"audio/x-wav"`
+  - refs: none
+- `000a84b8`: `"audio/flac"`
+  - refs: none
+- `000a84c4`: `"audio/x-flac"`
+  - refs: none
+- `000a84d4`: `"audio/scpls"`
+  - refs: none
+- `000a84e0`: `"audio/x-scpls"`
+  - refs: none
+- `000a8504`: `"audio/mpegurl"`
+  - refs: none
+- `000a8514`: `"audio/x-mpegurl"`
+  - refs: none
+- `000a8524`: `"audio/ms-asf"`
+  - refs: none
+- `000a8544`: `"audio/x-ms-asx"`
+  - refs: none
+- `000a8564`: `"audio/ogg"`
+  - refs: none
+- `000a86bc`: `"Audio encryption: %s"`
+  - refs: none
+- `000a8c4c`: `"Official audio file webpage: %s"`
+  - refs: none
+- `000a8c9c`: `"Official audio source webpage: %s"`
+  - refs: none
+- `000a9460`: `"AudioType: MPEG4 / Audio"`
+  - refs: none
+- `000a947c`: `"AudioType: MPEG2 / Audio"`
+  - refs: none
+- `000a9498`: `"AudioType: MPEG2 / Audio Part 3"`
+  - refs: none
+- `000a94b8`: `"AudioType: MPEG1 / Audio"`
+  - refs: none
+- `000a94d4`: `"unknown Audio Type %x"`
+  - refs: none
+- `000a94ec`: `"[%6u][E][%s:%u] %s(): Streamtype is not audio!\r\n"`
+  - refs: none
+- `000a9548`: `"AudioObjectType: AAC Main"`
+  - refs: none
+- `000a9564`: `"AudioObjectType: AAC Low Complexity"`
+  - refs: none
+- `000a9588`: `"AudioObjectType: AAC Scalable Sample Rate"`
+  - refs: none
+- `000a95b4`: `"AudioObjectType: AAC Long Term Prediction"`
+  - refs: none
+- `000a95e0`: `"AudioObjectType: AAC Spectral Band Replication"`
+  - refs: none
+- `000a9610`: `"AudioObjectType: AAC Scalable"`
+  - refs: none
+- `000a97fc`: `"[%6u][E][%s:%u] %s(): Processing stopped due to invalid audio header\r\n"`
+  - refs: none
+- `000a9be4`: `"[%6u][E][%s:%u] %s(): audioHeader reading timeout\r\n"`
+  - refs: none
+- `000a9f48`: `"/v1/audio/speech"`
+  - refs: none
+- `000aa582`: `"NOT AUDIO"`
+  - refs: none
+- `000aace0`: `"readAudioHeader"`
+  - refs: none
+- `000aad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `000b4034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `000b4435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `000b7d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `000b818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `000c300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `000c3066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `3c191517`: `"Audiobooks"`
+  - refs: none
+- `3c23781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - ref from `42002434` in `<no function>`
+  - ref from `00122434` in `<no function>`
+- `3c237888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - ref from `0020259a` in `FUN_00202568`
+  - ref from `00201841` in `FUN_0020182c`
+  - ref from `00201879` in `FUN_00201864`
+  - ref from `002018b1` in `FUN_0020189c`
+  - ref from `00201a8d` in `FUN_00201a70`
+  - ref from `00201ab5` in `FUN_00201a70`
+  - ref from `002010a1` in `FUN_00201084`
+  - ref from `0020118b` in `FUN_00201084`
+  - ref from `002011cd` in `FUN_002011b0`
+  - ref from `00201269` in `FUN_002011b0`
+  - ref from `00201421` in `FUN_002013fc`
+  - ref from `00201685` in `FUN_00201670`
+  - ref from `002016bd` in `FUN_002016a8`
+  - ref from `002016f5` in `FUN_002016e0`
+  - ref from `0020172d` in `FUN_00201718`
+  - ref from `00201765` in `FUN_00201750`
+  - ref from `0020179d` in `FUN_00201788`
+  - ref from `00201809` in `FUN_002017f4`
+  - ref from `002017d5` in `FUN_002017c0`
+  - ref from `00200d2e` in `FUN_00200d0c`
+  - ref from `00200d92` in `FUN_00200d0c`
+  - ref from `00200222` in `FUN_00200200`
+  - ref from `420e259a` in `FUN_420e2568`
+  - ref from `420e1a8d` in `FUN_420e1a70`
+  - ref from `420e1ab5` in `FUN_420e1a70`
+  - ref from `420e1ac3` in `FUN_420e1a70`
+  - ref from `420e1ace` in `FUN_420e1a70`
+  - ref from `420e1b12` in `FUN_420e1a70`
+  - ref from `420e1b1f` in `FUN_420e1a70`
+  - ref from `420e1b89` in `FUN_420e1a70`
+  - ref from `420e1b95` in `FUN_420e1a70`
+  - ref from `420e1b65` in `FUN_420e1a70`
+  - ref from `420e1b71` in `FUN_420e1a70`
+  - ref from `420e1b7d` in `FUN_420e1a70`
+  - ref from `420e1b05` in `FUN_420e1a70`
+  - ref from `420e1841` in `FUN_420e182c`
+  - ref from `420e1879` in `FUN_420e1864`
+  - ref from `420e18b1` in `FUN_420e189c`
+  - ref from `420e1421` in `FUN_420e13fc`
+  - ref from `420e1427` in `FUN_420e13fc`
+  - ref from `420e10a1` in `FUN_420e1084`
+  - ref from `420e118b` in `FUN_420e1084`
+  - ref from `420e11cd` in `FUN_420e11b0`
+  - ref from `420e1269` in `FUN_420e11b0`
+  - ref from `420e1685` in `FUN_420e1670`
+  - ref from `420e16bd` in `FUN_420e16a8`
+  - ref from `420e16f5` in `FUN_420e16e0`
+  - ref from `420e172d` in `FUN_420e1718`
+  - ref from `420e1765` in `FUN_420e1750`
+  - ref from `420e179d` in `FUN_420e1788`
+  - ref from `420e17d5` in `FUN_420e17c0`
+  - ref from `420e1809` in `FUN_420e17f4`
+  - ref from `420e0d2e` in `FUN_420e0d0c`
+  - ref from `420e0d92` in `FUN_420e0d0c`
+  - ref from `420e0d9a` in `FUN_420e0d0c`
+  - ref from `420e0222` in `FUN_420e0200`
+  - ref from `0012244c` in `<no function>`
+  - ref from `4200244c` in `<no function>`
+  - ref from `420e2ef1` in `FUN_420e2ed4`
+  - ref from `420e2f3f` in `FUN_420e2ed4`
+  - ref from `420e04fa` in `FUN_420e04d8`
+  - ref from `420e0616` in `FUN_420e05f4`
+  - ref from `420e031a` in `FUN_420e02f8`
+  - ref from `420e0382` in `FUN_420e02f8`
+  - ref from `420e038a` in `FUN_420e02f8`
+  - ref from `420e068a` in `FUN_420e05f4`
+  - ref from `420e0692` in `FUN_420e05f4`
+  - ref from `420e2f8e` in `FUN_420e2f6c`
+  - ref from `420e2fdb` in `FUN_420e2f6c`
+  - ref from `420e1a01` in `<no function>`
+  - ref from `420e1a06` in `<no function>`
+  - ref from `420e1a41` in `<no function>`
+  - ref from `420e1a46` in `<no function>`
+  - ref from `00160354` in `<no function>`
+  - ref from `42040354` in `<no function>`
+- `3c237c8c`: `"Closing audio file \"%s\""`
+  - refs: none
+- `3c237e24`: `"Audio-Length: %u"`
+  - ref from `00163028` in `<no function>`
+  - ref from `4200256c` in `<no function>`
+  - ref from `42043028` in `<no function>`
+- `3c237f80`: `"audio file duration: %lu seconds"`
+  - ref from `00122598` in `<no function>`
+  - ref from `42002598` in `<no function>`
+- `3c238408`: `"audio/mpeg"`
+  - ref from `00122684` in `<no function>`
+  - ref from `42002684` in `<no function>`
+- `3c238414`: `"audio/mpeg3"`
+  - ref from `420e2f8e` in `FUN_420e2f6c`
+  - ref from `42002688` in `<no function>`
+- `3c238420`: `"audio/x-mpeg"`
+  - ref from `0020302a` in `FUN_00203008`
+  - ref from `00203165` in `FUN_00203008`
+  - ref from `00203211` in `FUN_00203008`
+  - ref from `420e302a` in `FUN_420e3008`
+  - ref from `420e3165` in `FUN_420e3008`
+  - ref from `420e30b8` in `FUN_420e3008`
+  - ref from `420e3211` in `FUN_420e3008`
+  - ref from `0012268c` in `<no function>`
+  - ref from `4200268c` in `<no function>`
+- `3c238430`: `"audio/x-mpeg-3"`
+  - ref from `0020302a` in `FUN_00203008`
+  - ref from `002030b0` in `FUN_00203008`
+  - ref from `420e5045` in `FUN_420e5030`
+  - ref from `420e507d` in `FUN_420e5068`
+  - ref from `420e50b5` in `FUN_420e50a0`
+  - ref from `420e50ed` in `FUN_420e50d8`
+  - ref from `420e5121` in `FUN_420e510c`
+  - ref from `420e5159` in `FUN_420e5144`
+  - ref from `420e5191` in `FUN_420e517c`
+  - ref from `420e51c9` in `FUN_420e51b4`
+  - ref from `420e5201` in `FUN_420e51ec`
+  - ref from `420e4a25` in `FUN_420e4a08`
+  - ref from `420e4b17` in `FUN_420e4a08`
+  - ref from `420e4bed` in `FUN_420e4bd0`
+  - ref from `420e4d09` in `FUN_420e4bd0`
+  - ref from `420e4e89` in `FUN_420e4e64`
+  - ref from `420e302a` in `FUN_420e3008`
+  - ref from `420e30b0` in `FUN_420e3008`
+  - ref from `420e30b8` in `FUN_420e3008`
+  - ref from `00205045` in `FUN_00205030`
+  - ref from `0020507d` in `FUN_00205068`
+  - ref from `002050b5` in `FUN_002050a0`
+  - ref from `002050ed` in `FUN_002050d8`
+  - ref from `00205121` in `FUN_0020510c`
+  - ref from `00205191` in `FUN_0020517c`
+  - ref from `00205159` in `FUN_00205144`
+  - ref from `002051c9` in `FUN_002051b4`
+  - ref from `00205201` in `FUN_002051ec`
+  - ref from `00204a25` in `FUN_00204a08`
+  - ref from `00204b17` in `FUN_00204a08`
+  - ref from `00204bed` in `FUN_00204bd0`
+  - ref from `00204d09` in `FUN_00204bd0`
+  - ref from `00204e89` in `FUN_00204e64`
+  - ref from `00122690` in `<no function>`
+  - ref from `42002690` in `<no function>`
+  - ref from `420e6676` in `FUN_420e6654`
+  - ref from `420e66c3` in `FUN_420e6654`
+  - ref from `420e323a` in `FUN_420e3218`
+  - ref from `420e32ae` in `FUN_420e3218`
+  - ref from `420e32b6` in `FUN_420e3218`
+  - ref from `420e346e` in `FUN_420e344c`
+  - ref from `420e68ae` in `FUN_420e688c`
+  - ref from `420e34ee` in `FUN_420e344c`
+  - ref from `420e68fb` in `FUN_420e688c`
+  - ref from `420e34f6` in `FUN_420e344c`
+  - ref from `420e674d` in `FUN_420e66f0`
+  - ref from `420e6712` in `FUN_420e66f0`
+  - ref from `420e3706` in `FUN_420e36e4`
+  - ref from `420e377e` in `FUN_420e36e4`
+  - ref from `420e3786` in `FUN_420e36e4`
+  - ref from `420e3946` in `FUN_420e3924`
+  - ref from `420e3a3d` in `FUN_420e3924`
+  - ref from `420e3a45` in `FUN_420e3924`
+  - ref from `420e6849` in `FUN_420e67a8`
+  - ref from `420e67ca` in `FUN_420e67a8`
+  - ref from `420e538a` in `<no function>`
+  - ref from `420e538d` in `<no function>`
+  - ref from `420e5259` in `<no function>`
+  - ref from `420e525e` in `<no function>`
+  - ref from `420e5396` in `<no function>`
+  - ref from `420e53a7` in `<no function>`
+  - ref from `420e53ac` in `<no function>`
+  - ref from `420e53ea` in `<no function>`
+  - ref from `420e53ed` in `<no function>`
+  - ref from `420e53f6` in `<no function>`
+  - ref from `420e5407` in `<no function>`
+  - ref from `420e540c` in `<no function>`
+  - ref from `420e52ed` in `<no function>`
+  - ref from `420e52f2` in `<no function>`
+  - ref from `420e5349` in `<no function>`
+  - ref from `420e534e` in `<no function>`
+- `3c238440`: `"audio/mp3"`
+  - ref from `00122694` in `<no function>`
+  - ref from `42002694` in `<no function>`
+- `3c23844c`: `"audio/aac"`
+  - ref from `0020302a` in `FUN_00203008`
+  - ref from `420e302a` in `FUN_420e3008`
+  - ref from `00122698` in `<no function>`
+  - ref from `42002698` in `<no function>`
+  - ref from `420e323a` in `FUN_420e3218`
+  - ref from `420e346e` in `FUN_420e344c`
+  - ref from `420e3706` in `FUN_420e36e4`
+  - ref from `420e3946` in `FUN_420e3924`
+- `3c238458`: `"audio/x-aac"`
+  - ref from `0012269c` in `<no function>`
+  - ref from `4200269c` in `<no function>`
+- `3c238464`: `"audio/aacp"`
+  - ref from `001226a0` in `<no function>`
+  - ref from `420026a0` in `<no function>`
+- `3c23847c`: `"audio/mp4"`
+  - ref from `001226a8` in `<no function>`
+  - ref from `420026a8` in `<no function>`
+  - ref from `421368e8` in `<no function>`
+  - ref from `421368db` in `<no function>`
+- `3c238488`: `"audio/m4a"`
+  - ref from `001226ac` in `<no function>`
+  - ref from `420026ac` in `<no function>`
+  - ref from `421368d8` in `<no function>`
+- `3c238494`: `"audio/x-m4a"`
+  - ref from `420e30b8` in `FUN_420e3008`
+  - ref from `001226b0` in `<no function>`
+  - ref from `420026b0` in `<no function>`
+- `3c2384a0`: `"audio/wav"`
+  - ref from `420e3a45` in `FUN_420e3924`
+  - ref from `420026b4` in `<no function>`
+  - ref from `001226b4` in `<no function>`
+  - ref from `421368ca` in `<no function>`
+- `3c2384ac`: `"audio/x-wav"`
+  - ref from `420e323a` in `FUN_420e3218`
+  - ref from `420e33cd` in `FUN_420e3218`
+  - ref from `420e32b6` in `FUN_420e3218`
+  - ref from `420e3445` in `FUN_420e3218`
+  - ref from `420026b8` in `<no function>`
+  - ref from `001226b8` in `<no function>`
+- `3c2384b8`: `"audio/flac"`
+  - ref from `420026bc` in `<no function>`
+  - ref from `001226bc` in `<no function>`
+- `3c2384c4`: `"audio/x-flac"`
+  - ref from `420026c0` in `<no function>`
+  - ref from `001226c0` in `<no function>`
+- `3c2384d4`: `"audio/scpls"`
+  - ref from `420026c4` in `<no function>`
+  - ref from `001226c4` in `<no function>`
+- `3c2384e0`: `"audio/x-scpls"`
+  - ref from `420026c8` in `<no function>`
+  - ref from `001226c8` in `<no function>`
+- `3c238504`: `"audio/mpegurl"`
+  - ref from `420e346e` in `FUN_420e344c`
+  - ref from `420e3605` in `FUN_420e344c`
+  - ref from `420e34f6` in `FUN_420e344c`
+  - ref from `420e36dd` in `FUN_420e344c`
+  - ref from `420026d0` in `<no function>`
+  - ref from `001226d0` in `<no function>`
+- `3c238514`: `"audio/x-mpegurl"`
+  - ref from `420026d4` in `<no function>`
+  - ref from `001226d4` in `<no function>`
+- `3c238524`: `"audio/ms-asf"`
+  - ref from `420026d8` in `<no function>`
+  - ref from `001226d8` in `<no function>`
+- `3c238544`: `"audio/x-ms-asx"`
+  - ref from `420026e0` in `<no function>`
+  - ref from `001226e0` in `<no function>`
+- `3c238564`: `"audio/ogg"`
+  - ref from `420026e8` in `<no function>`
+  - ref from `001226e8` in `<no function>`
+- `3c2386bc`: `"Audio encryption: %s"`
+  - ref from `00122750` in `<no function>`
+  - ref from `42002750` in `<no function>`
+- `3c238c4c`: `"Official audio file webpage: %s"`
+  - ref from `420e4e89` in `FUN_420e4e64`
+  - ref from `00204e89` in `FUN_00204e64`
+  - ref from `001228b4` in `<no function>`
+  - ref from `420028b4` in `<no function>`
+- `3c238c9c`: `"Official audio source webpage: %s"`
+  - ref from `001228c4` in `<no function>`
+  - ref from `420028c4` in `<no function>`
+- `3c239460`: `"AudioType: MPEG4 / Audio"`
+  - ref from `001630dc` in `<no function>`
+  - ref from `420430dc` in `<no function>`
+- `3c23947c`: `"AudioType: MPEG2 / Audio"`
+  - ref from `001630e0` in `<no function>`
+  - ref from `420430e0` in `<no function>`
+- `3c239498`: `"AudioType: MPEG2 / Audio Part 3"`
+  - ref from `001630e4` in `<no function>`
+  - ref from `420430e4` in `<no function>`
+- `3c2394b8`: `"AudioType: MPEG1 / Audio"`
+  - ref from `001630e8` in `<no function>`
+  - ref from `420430e8` in `<no function>`
+- `3c2394d4`: `"unknown Audio Type %x"`
+  - ref from `001630ec` in `<no function>`
+  - ref from `420430ec` in `<no function>`
+- `3c2394ec`: `"[%6u][E][%s:%u] %s(): Streamtype is not audio!\r\n"`
+  - ref from `001630f4` in `<no function>`
+  - ref from `420430f4` in `<no function>`
+- `3c239548`: `"AudioObjectType: AAC Main"`
+  - ref from `00163100` in `<no function>`
+  - ref from `42043100` in `<no function>`
+- `3c239564`: `"AudioObjectType: AAC Low Complexity"`
+  - ref from `00163104` in `<no function>`
+  - ref from `42043104` in `<no function>`
+- `3c239588`: `"AudioObjectType: AAC Scalable Sample Rate"`
+  - ref from `00163108` in `<no function>`
+  - ref from `42043108` in `<no function>`
+- `3c2395b4`: `"AudioObjectType: AAC Long Term Prediction"`
+  - ref from `0016310c` in `<no function>`
+  - ref from `4204310c` in `<no function>`
+- `3c2395e0`: `"AudioObjectType: AAC Spectral Band Replication"`
+  - ref from `00163110` in `<no function>`
+  - ref from `42043110` in `<no function>`
+- `3c239610`: `"AudioObjectType: AAC Scalable"`
+  - ref from `00163114` in `<no function>`
+  - ref from `42043114` in `<no function>`
+- `3c2397fc`: `"[%6u][E][%s:%u] %s(): Processing stopped due to invalid audio header\r\n"`
+  - refs: none
+- `3c239be4`: `"[%6u][E][%s:%u] %s(): audioHeader reading timeout\r\n"`
+  - refs: none
+- `3c239f48`: `"/v1/audio/speech"`
+  - refs: none
+- `3c23a582`: `"NOT AUDIO"`
+  - ref from `000aaa54` in `<no function>`
+  - ref from `3c23aa54` in `<no function>`
+- `3c23ace0`: `"readAudioHeader"`
+  - refs: none
+- `3c23ad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `3c244034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `3c244435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `3c247d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `3c24818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `3c25300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `3c253066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+
+Matches: 106
+
+## `Audio`
+
+- `00001517`: `"Audiobooks"`
+  - refs: none
+- `000a781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - refs: none
+- `000a7888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - refs: none
+- `000a7c8c`: `"Closing audio file \"%s\""`
+  - refs: none
+- `000a7e24`: `"Audio-Length: %u"`
+  - refs: none
+- `000a7f80`: `"audio file duration: %lu seconds"`
+  - refs: none
+- `000a8408`: `"audio/mpeg"`
+  - refs: none
+- `000a8414`: `"audio/mpeg3"`
+  - refs: none
+- `000a8420`: `"audio/x-mpeg"`
+  - refs: none
+- `000a8430`: `"audio/x-mpeg-3"`
+  - refs: none
+- `000a8440`: `"audio/mp3"`
+  - refs: none
+- `000a844c`: `"audio/aac"`
+  - refs: none
+- `000a8458`: `"audio/x-aac"`
+  - refs: none
+- `000a84a0`: `"audio/wav"`
+  - refs: none
+- `000a84ac`: `"audio/x-wav"`
+  - refs: none
+- `000a84b8`: `"audio/flac"`
+  - refs: none
+- `000a84c4`: `"audio/x-flac"`
+  - refs: none
+- `000a84d4`: `"audio/scpls"`
+  - refs: none
+- `000a84e0`: `"audio/x-scpls"`
+  - refs: none
+- `000a8504`: `"audio/mpegurl"`
+  - refs: none
+- `000a8514`: `"audio/x-mpegurl"`
+  - refs: none
+- `000a8524`: `"audio/ms-asf"`
+  - refs: none
+- `000a8544`: `"audio/x-ms-asx"`
+  - refs: none
+- `000a8564`: `"audio/ogg"`
+  - refs: none
+- `000a86bc`: `"Audio encryption: %s"`
+  - refs: none
+- `000a8c4c`: `"Official audio file webpage: %s"`
+  - refs: none
+- `000a8c9c`: `"Official audio source webpage: %s"`
+  - refs: none
+- `000a9460`: `"AudioType: MPEG4 / Audio"`
+  - refs: none
+- `000a947c`: `"AudioType: MPEG2 / Audio"`
+  - refs: none
+- `000a9498`: `"AudioType: MPEG2 / Audio Part 3"`
+  - refs: none
+- `000a94b8`: `"AudioType: MPEG1 / Audio"`
+  - refs: none
+- `000a94d4`: `"unknown Audio Type %x"`
+  - refs: none
+- `000a94ec`: `"[%6u][E][%s:%u] %s(): Streamtype is not audio!\r\n"`
+  - refs: none
+- `000a9548`: `"AudioObjectType: AAC Main"`
+  - refs: none
+- `000a9564`: `"AudioObjectType: AAC Low Complexity"`
+  - refs: none
+- `000a9588`: `"AudioObjectType: AAC Scalable Sample Rate"`
+  - refs: none
+- `000a95b4`: `"AudioObjectType: AAC Long Term Prediction"`
+  - refs: none
+- `000a95e0`: `"AudioObjectType: AAC Spectral Band Replication"`
+  - refs: none
+- `000a9610`: `"AudioObjectType: AAC Scalable"`
+  - refs: none
+- `000a97fc`: `"[%6u][E][%s:%u] %s(): Processing stopped due to invalid audio header\r\n"`
+  - refs: none
+- `000a9be4`: `"[%6u][E][%s:%u] %s(): audioHeader reading timeout\r\n"`
+  - refs: none
+- `000a9f48`: `"/v1/audio/speech"`
+  - refs: none
+- `000aa582`: `"NOT AUDIO"`
+  - refs: none
+- `000aace0`: `"readAudioHeader"`
+  - refs: none
+- `000aad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `000b4034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `000b4435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `000b7d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `000b818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `000c300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `000c3066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `3c191517`: `"Audiobooks"`
+  - refs: none
+- `3c23781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - ref from `42002434` in `<no function>`
+  - ref from `00122434` in `<no function>`
+- `3c237888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - ref from `0020259a` in `FUN_00202568`
+  - ref from `00201841` in `FUN_0020182c`
+  - ref from `00201879` in `FUN_00201864`
+  - ref from `002018b1` in `FUN_0020189c`
+  - ref from `00201a8d` in `FUN_00201a70`
+  - ref from `00201ab5` in `FUN_00201a70`
+  - ref from `002010a1` in `FUN_00201084`
+  - ref from `0020118b` in `FUN_00201084`
+  - ref from `002011cd` in `FUN_002011b0`
+  - ref from `00201269` in `FUN_002011b0`
+  - ref from `00201421` in `FUN_002013fc`
+  - ref from `00201685` in `FUN_00201670`
+  - ref from `002016bd` in `FUN_002016a8`
+  - ref from `002016f5` in `FUN_002016e0`
+  - ref from `0020172d` in `FUN_00201718`
+  - ref from `00201765` in `FUN_00201750`
+  - ref from `0020179d` in `FUN_00201788`
+  - ref from `00201809` in `FUN_002017f4`
+  - ref from `002017d5` in `FUN_002017c0`
+  - ref from `00200d2e` in `FUN_00200d0c`
+  - ref from `00200d92` in `FUN_00200d0c`
+  - ref from `00200222` in `FUN_00200200`
+  - ref from `420e259a` in `FUN_420e2568`
+  - ref from `420e1a8d` in `FUN_420e1a70`
+  - ref from `420e1ab5` in `FUN_420e1a70`
+  - ref from `420e1ac3` in `FUN_420e1a70`
+  - ref from `420e1ace` in `FUN_420e1a70`
+  - ref from `420e1b12` in `FUN_420e1a70`
+  - ref from `420e1b1f` in `FUN_420e1a70`
+  - ref from `420e1b89` in `FUN_420e1a70`
+  - ref from `420e1b95` in `FUN_420e1a70`
+  - ref from `420e1b65` in `FUN_420e1a70`
+  - ref from `420e1b71` in `FUN_420e1a70`
+  - ref from `420e1b7d` in `FUN_420e1a70`
+  - ref from `420e1b05` in `FUN_420e1a70`
+  - ref from `420e1841` in `FUN_420e182c`
+  - ref from `420e1879` in `FUN_420e1864`
+  - ref from `420e18b1` in `FUN_420e189c`
+  - ref from `420e1421` in `FUN_420e13fc`
+  - ref from `420e1427` in `FUN_420e13fc`
+  - ref from `420e10a1` in `FUN_420e1084`
+  - ref from `420e118b` in `FUN_420e1084`
+  - ref from `420e11cd` in `FUN_420e11b0`
+  - ref from `420e1269` in `FUN_420e11b0`
+  - ref from `420e1685` in `FUN_420e1670`
+  - ref from `420e16bd` in `FUN_420e16a8`
+  - ref from `420e16f5` in `FUN_420e16e0`
+  - ref from `420e172d` in `FUN_420e1718`
+  - ref from `420e1765` in `FUN_420e1750`
+  - ref from `420e179d` in `FUN_420e1788`
+  - ref from `420e17d5` in `FUN_420e17c0`
+  - ref from `420e1809` in `FUN_420e17f4`
+  - ref from `420e0d2e` in `FUN_420e0d0c`
+  - ref from `420e0d92` in `FUN_420e0d0c`
+  - ref from `420e0d9a` in `FUN_420e0d0c`
+  - ref from `420e0222` in `FUN_420e0200`
+  - ref from `0012244c` in `<no function>`
+  - ref from `4200244c` in `<no function>`
+  - ref from `420e2ef1` in `FUN_420e2ed4`
+  - ref from `420e2f3f` in `FUN_420e2ed4`
+  - ref from `420e04fa` in `FUN_420e04d8`
+  - ref from `420e0616` in `FUN_420e05f4`
+  - ref from `420e031a` in `FUN_420e02f8`
+  - ref from `420e0382` in `FUN_420e02f8`
+  - ref from `420e038a` in `FUN_420e02f8`
+  - ref from `420e068a` in `FUN_420e05f4`
+  - ref from `420e0692` in `FUN_420e05f4`
+  - ref from `420e2f8e` in `FUN_420e2f6c`
+  - ref from `420e2fdb` in `FUN_420e2f6c`
+  - ref from `420e1a01` in `<no function>`
+  - ref from `420e1a06` in `<no function>`
+  - ref from `420e1a41` in `<no function>`
+  - ref from `420e1a46` in `<no function>`
+  - ref from `00160354` in `<no function>`
+  - ref from `42040354` in `<no function>`
+- `3c237c8c`: `"Closing audio file \"%s\""`
+  - refs: none
+- `3c237e24`: `"Audio-Length: %u"`
+  - ref from `00163028` in `<no function>`
+  - ref from `4200256c` in `<no function>`
+  - ref from `42043028` in `<no function>`
+- `3c237f80`: `"audio file duration: %lu seconds"`
+  - ref from `00122598` in `<no function>`
+  - ref from `42002598` in `<no function>`
+- `3c238408`: `"audio/mpeg"`
+  - ref from `00122684` in `<no function>`
+  - ref from `42002684` in `<no function>`
+- `3c238414`: `"audio/mpeg3"`
+  - ref from `420e2f8e` in `FUN_420e2f6c`
+  - ref from `42002688` in `<no function>`
+- `3c238420`: `"audio/x-mpeg"`
+  - ref from `0020302a` in `FUN_00203008`
+  - ref from `00203165` in `FUN_00203008`
+  - ref from `00203211` in `FUN_00203008`
+  - ref from `420e302a` in `FUN_420e3008`
+  - ref from `420e3165` in `FUN_420e3008`
+  - ref from `420e30b8` in `FUN_420e3008`
+  - ref from `420e3211` in `FUN_420e3008`
+  - ref from `0012268c` in `<no function>`
+  - ref from `4200268c` in `<no function>`
+- `3c238430`: `"audio/x-mpeg-3"`
+  - ref from `0020302a` in `FUN_00203008`
+  - ref from `002030b0` in `FUN_00203008`
+  - ref from `420e5045` in `FUN_420e5030`
+  - ref from `420e507d` in `FUN_420e5068`
+  - ref from `420e50b5` in `FUN_420e50a0`
+  - ref from `420e50ed` in `FUN_420e50d8`
+  - ref from `420e5121` in `FUN_420e510c`
+  - ref from `420e5159` in `FUN_420e5144`
+  - ref from `420e5191` in `FUN_420e517c`
+  - ref from `420e51c9` in `FUN_420e51b4`
+  - ref from `420e5201` in `FUN_420e51ec`
+  - ref from `420e4a25` in `FUN_420e4a08`
+  - ref from `420e4b17` in `FUN_420e4a08`
+  - ref from `420e4bed` in `FUN_420e4bd0`
+  - ref from `420e4d09` in `FUN_420e4bd0`
+  - ref from `420e4e89` in `FUN_420e4e64`
+  - ref from `420e302a` in `FUN_420e3008`
+  - ref from `420e30b0` in `FUN_420e3008`
+  - ref from `420e30b8` in `FUN_420e3008`
+  - ref from `00205045` in `FUN_00205030`
+  - ref from `0020507d` in `FUN_00205068`
+  - ref from `002050b5` in `FUN_002050a0`
+  - ref from `002050ed` in `FUN_002050d8`
+  - ref from `00205121` in `FUN_0020510c`
+  - ref from `00205191` in `FUN_0020517c`
+  - ref from `00205159` in `FUN_00205144`
+  - ref from `002051c9` in `FUN_002051b4`
+  - ref from `00205201` in `FUN_002051ec`
+  - ref from `00204a25` in `FUN_00204a08`
+  - ref from `00204b17` in `FUN_00204a08`
+  - ref from `00204bed` in `FUN_00204bd0`
+  - ref from `00204d09` in `FUN_00204bd0`
+  - ref from `00204e89` in `FUN_00204e64`
+  - ref from `00122690` in `<no function>`
+  - ref from `42002690` in `<no function>`
+  - ref from `420e6676` in `FUN_420e6654`
+  - ref from `420e66c3` in `FUN_420e6654`
+  - ref from `420e323a` in `FUN_420e3218`
+  - ref from `420e32ae` in `FUN_420e3218`
+  - ref from `420e32b6` in `FUN_420e3218`
+  - ref from `420e346e` in `FUN_420e344c`
+  - ref from `420e68ae` in `FUN_420e688c`
+  - ref from `420e34ee` in `FUN_420e344c`
+  - ref from `420e68fb` in `FUN_420e688c`
+  - ref from `420e34f6` in `FUN_420e344c`
+  - ref from `420e674d` in `FUN_420e66f0`
+  - ref from `420e6712` in `FUN_420e66f0`
+  - ref from `420e3706` in `FUN_420e36e4`
+  - ref from `420e377e` in `FUN_420e36e4`
+  - ref from `420e3786` in `FUN_420e36e4`
+  - ref from `420e3946` in `FUN_420e3924`
+  - ref from `420e3a3d` in `FUN_420e3924`
+  - ref from `420e3a45` in `FUN_420e3924`
+  - ref from `420e6849` in `FUN_420e67a8`
+  - ref from `420e67ca` in `FUN_420e67a8`
+  - ref from `420e538a` in `<no function>`
+  - ref from `420e538d` in `<no function>`
+  - ref from `420e5259` in `<no function>`
+  - ref from `420e525e` in `<no function>`
+  - ref from `420e5396` in `<no function>`
+  - ref from `420e53a7` in `<no function>`
+  - ref from `420e53ac` in `<no function>`
+  - ref from `420e53ea` in `<no function>`
+  - ref from `420e53ed` in `<no function>`
+  - ref from `420e53f6` in `<no function>`
+  - ref from `420e5407` in `<no function>`
+  - ref from `420e540c` in `<no function>`
+  - ref from `420e52ed` in `<no function>`
+  - ref from `420e52f2` in `<no function>`
+  - ref from `420e5349` in `<no function>`
+  - ref from `420e534e` in `<no function>`
+- `3c238440`: `"audio/mp3"`
+  - ref from `00122694` in `<no function>`
+  - ref from `42002694` in `<no function>`
+- `3c23844c`: `"audio/aac"`
+  - ref from `0020302a` in `FUN_00203008`
+  - ref from `420e302a` in `FUN_420e3008`
+  - ref from `00122698` in `<no function>`
+  - ref from `42002698` in `<no function>`
+  - ref from `420e323a` in `FUN_420e3218`
+  - ref from `420e346e` in `FUN_420e344c`
+  - ref from `420e3706` in `FUN_420e36e4`
+  - ref from `420e3946` in `FUN_420e3924`
+- `3c238458`: `"audio/x-aac"`
+  - ref from `0012269c` in `<no function>`
+  - ref from `4200269c` in `<no function>`
+- `3c238464`: `"audio/aacp"`
+  - ref from `001226a0` in `<no function>`
+  - ref from `420026a0` in `<no function>`
+- `3c23847c`: `"audio/mp4"`
+  - ref from `001226a8` in `<no function>`
+  - ref from `420026a8` in `<no function>`
+  - ref from `421368e8` in `<no function>`
+  - ref from `421368db` in `<no function>`
+- `3c238488`: `"audio/m4a"`
+  - ref from `001226ac` in `<no function>`
+  - ref from `420026ac` in `<no function>`
+  - ref from `421368d8` in `<no function>`
+- `3c238494`: `"audio/x-m4a"`
+  - ref from `420e30b8` in `FUN_420e3008`
+  - ref from `001226b0` in `<no function>`
+  - ref from `420026b0` in `<no function>`
+- `3c2384a0`: `"audio/wav"`
+  - ref from `420e3a45` in `FUN_420e3924`
+  - ref from `420026b4` in `<no function>`
+  - ref from `001226b4` in `<no function>`
+  - ref from `421368ca` in `<no function>`
+- `3c2384ac`: `"audio/x-wav"`
+  - ref from `420e323a` in `FUN_420e3218`
+  - ref from `420e33cd` in `FUN_420e3218`
+  - ref from `420e32b6` in `FUN_420e3218`
+  - ref from `420e3445` in `FUN_420e3218`
+  - ref from `420026b8` in `<no function>`
+  - ref from `001226b8` in `<no function>`
+- `3c2384b8`: `"audio/flac"`
+  - ref from `420026bc` in `<no function>`
+  - ref from `001226bc` in `<no function>`
+- `3c2384c4`: `"audio/x-flac"`
+  - ref from `420026c0` in `<no function>`
+  - ref from `001226c0` in `<no function>`
+- `3c2384d4`: `"audio/scpls"`
+  - ref from `420026c4` in `<no function>`
+  - ref from `001226c4` in `<no function>`
+- `3c2384e0`: `"audio/x-scpls"`
+  - ref from `420026c8` in `<no function>`
+  - ref from `001226c8` in `<no function>`
+- `3c238504`: `"audio/mpegurl"`
+  - ref from `420e346e` in `FUN_420e344c`
+  - ref from `420e3605` in `FUN_420e344c`
+  - ref from `420e34f6` in `FUN_420e344c`
+  - ref from `420e36dd` in `FUN_420e344c`
+  - ref from `420026d0` in `<no function>`
+  - ref from `001226d0` in `<no function>`
+- `3c238514`: `"audio/x-mpegurl"`
+  - ref from `420026d4` in `<no function>`
+  - ref from `001226d4` in `<no function>`
+- `3c238524`: `"audio/ms-asf"`
+  - ref from `420026d8` in `<no function>`
+  - ref from `001226d8` in `<no function>`
+- `3c238544`: `"audio/x-ms-asx"`
+  - ref from `420026e0` in `<no function>`
+  - ref from `001226e0` in `<no function>`
+- `3c238564`: `"audio/ogg"`
+  - ref from `420026e8` in `<no function>`
+  - ref from `001226e8` in `<no function>`
+- `3c2386bc`: `"Audio encryption: %s"`
+  - ref from `00122750` in `<no function>`
+  - ref from `42002750` in `<no function>`
+- `3c238c4c`: `"Official audio file webpage: %s"`
+  - ref from `420e4e89` in `FUN_420e4e64`
+  - ref from `00204e89` in `FUN_00204e64`
+  - ref from `001228b4` in `<no function>`
+  - ref from `420028b4` in `<no function>`
+- `3c238c9c`: `"Official audio source webpage: %s"`
+  - ref from `001228c4` in `<no function>`
+  - ref from `420028c4` in `<no function>`
+- `3c239460`: `"AudioType: MPEG4 / Audio"`
+  - ref from `001630dc` in `<no function>`
+  - ref from `420430dc` in `<no function>`
+- `3c23947c`: `"AudioType: MPEG2 / Audio"`
+  - ref from `001630e0` in `<no function>`
+  - ref from `420430e0` in `<no function>`
+- `3c239498`: `"AudioType: MPEG2 / Audio Part 3"`
+  - ref from `001630e4` in `<no function>`
+  - ref from `420430e4` in `<no function>`
+- `3c2394b8`: `"AudioType: MPEG1 / Audio"`
+  - ref from `001630e8` in `<no function>`
+  - ref from `420430e8` in `<no function>`
+- `3c2394d4`: `"unknown Audio Type %x"`
+  - ref from `001630ec` in `<no function>`
+  - ref from `420430ec` in `<no function>`
+- `3c2394ec`: `"[%6u][E][%s:%u] %s(): Streamtype is not audio!\r\n"`
+  - ref from `001630f4` in `<no function>`
+  - ref from `420430f4` in `<no function>`
+- `3c239548`: `"AudioObjectType: AAC Main"`
+  - ref from `00163100` in `<no function>`
+  - ref from `42043100` in `<no function>`
+- `3c239564`: `"AudioObjectType: AAC Low Complexity"`
+  - ref from `00163104` in `<no function>`
+  - ref from `42043104` in `<no function>`
+- `3c239588`: `"AudioObjectType: AAC Scalable Sample Rate"`
+  - ref from `00163108` in `<no function>`
+  - ref from `42043108` in `<no function>`
+- `3c2395b4`: `"AudioObjectType: AAC Long Term Prediction"`
+  - ref from `0016310c` in `<no function>`
+  - ref from `4204310c` in `<no function>`
+- `3c2395e0`: `"AudioObjectType: AAC Spectral Band Replication"`
+  - ref from `00163110` in `<no function>`
+  - ref from `42043110` in `<no function>`
+- `3c239610`: `"AudioObjectType: AAC Scalable"`
+  - ref from `00163114` in `<no function>`
+  - ref from `42043114` in `<no function>`
+- `3c2397fc`: `"[%6u][E][%s:%u] %s(): Processing stopped due to invalid audio header\r\n"`
+  - refs: none
+- `3c239be4`: `"[%6u][E][%s:%u] %s(): audioHeader reading timeout\r\n"`
+  - refs: none
+- `3c239f48`: `"/v1/audio/speech"`
+  - refs: none
+- `3c23a582`: `"NOT AUDIO"`
+  - ref from `000aaa54` in `<no function>`
+  - ref from `3c23aa54` in `<no function>`
+- `3c23ace0`: `"readAudioHeader"`
+  - refs: none
+- `3c23ad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `3c244034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `3c244435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `3c247d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `3c24818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `3c25300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `3c253066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+
+Matches: 106
+
+## `DAC`
+
+- `00004578`: `"Connect to DAC codec... "`
+  - refs: none
+- `0011e54c`: `"dac=%d, atten=%d, sat=%d, %d, %d %d, num=%d\n"`
+  - refs: none
+- `3c194578`: `"Connect to DAC codec... "`
+  - refs: none
+- `3fca117c`: `"dac=%d, atten=%d, sat=%d, %d, %d %d, num=%d\n"`
+  - refs: none
+
+Matches: 4
+
+## `I2S`
+
+- `000a3b67`: `"ERROR: Unable to install I2S drives\n"`
+  - refs: none
+- `000a781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - refs: none
+- `000a7888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - refs: none
+- `000a99c4`: `"[%6u][E][%s:%u] %s(): I2S is not ready to write\r\n"`
+  - refs: none
+- `000a99f8`: `"[%6u][E][%s:%u] %s(): i2s err %i\r\n"`
+  - refs: none
+- `000aad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `000b4034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `000b4435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `000b7d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `000b818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `000c300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `000c3066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `000ca51a`: `"E (%u) %s: %s(%d): I2S DMA object can't be NULL\n"`
+  - refs: none
+- `000ca5e0`: `"E (%u) %s: %s(%d): I2S not initialized yet\n"`
+  - refs: none
+- `000ca66b`: `"E (%u) %s: I2S DMA object create failed, preparing to uninstall\n"`
+  - refs: none
+- `000ca6ac`: `"E (%u) %s: %s(%d): i2s_num error\n"`
+  - refs: none
+- `000ca7ba`: `"E (%u) %s: %s(%d): I2S%d has not installed yet\n"`
+  - refs: none
+- `000ca905`: `"E (%u) %s: %s(%d): I2S TX DMA object has not initialized yet\n"`
+  - refs: none
+- `000ca943`: `"E (%u) %s: %s(%d): I2S%d tx DMA buffer malloc failed\n"`
+  - refs: none
+- `000ca979`: `"E (%u) %s: %s(%d): I2S%d rx DMA buffer malloc failed\n"`
+  - refs: none
+- `000caa28`: `"E (%u) %s: %s(%d): I2S port %d has not installed\n"`
+  - refs: none
+- `000caa5a`: `"E (%u) %s: %s(%d): I2S configuration must not be NULL\n"`
+  - refs: none
+- `000caa91`: `"E (%u) %s: %s(%d): I2S buffer count less than 128 and more than 2\n"`
+  - refs: none
+- `000caad4`: `"E (%u) %s: %s(%d): I2S buffer length at most 1024 and more than 8\n"`
+  - refs: none
+- `000cab17`: `"E (%u) %s: %s(%d): no mem for I2S driver\n"`
+  - refs: none
+- `000cab41`: `"E (%u) %s: register I2S object to platform failed\n"`
+  - refs: none
+- `000cab74`: `"E (%u) %s: %s(%d): i2s all channel are disabled\n"`
+  - refs: none
+- `000caba5`: `"E (%u) %s: %s(%d): wrong i2s channel format, going to uninstall i2s\n"`
+  - refs: none
+- `000cabea`: `"E (%u) %s: %s(%d): I2S init failed\n"`
+  - refs: none
+- `000cac0e`: `"E (%u) %s: %s(%d): I2S PDM mode only support on I2S0\n"`
+  - refs: none
+- `000cac44`: `"E (%u) %s: %s(%d): I2S no TX/RX mode selected\n"`
+  - refs: none
+- `000caca5`: `"E (%u) %s: %s(%d): I2S configuration is invalid\n"`
+  - refs: none
+- `000cad9c`: `"E (%u) %s: %s(%d): I2S TX DMA object create failed\n"`
+  - refs: none
+- `000cadd0`: `"E (%u) %s: %s(%d): I2S RX DMA object create failed\n"`
+  - refs: none
+- `000cae04`: `"E (%u) %s: %s(%d): I2S queue create failed\n"`
+  - refs: none
+- `000cae30`: `"E (%u) %s: %s(%d): I2S set clock failed\n"`
+  - refs: none
+- `000cae59`: `"E (%u) %s: %s(%d): I2S dma object create failed\n"`
+  - refs: none
+- `000cae8a`: `"E (%u) %s: %s(%d): I2S interrupt initailze failed\n"`
+  - refs: none
+- `000caebd`: `"i2s_priv_deregister_object"`
+  - refs: none
+- `000caed8`: `"i2s_priv_register_object"`
+  - refs: none
+- `000caef1`: `"i2s_write"`
+  - refs: none
+- `000caefb`: `"i2s_driver_uninstall"`
+  - refs: none
+- `000caf10`: `"i2s_destroy_dma_object"`
+  - refs: none
+- `000caf27`: `"i2s_create_dma_object"`
+  - refs: none
+- `000caf3d`: `"i2s_dma_object_init"`
+  - refs: none
+- `000caf51`: `"i2s_dma_intr_init"`
+  - refs: none
+- `000caf63`: `"i2s_check_cfg_validity"`
+  - refs: none
+- `000caf7a`: `"i2s_driver_init"`
+  - refs: none
+- `000caf8a`: `"i2s_driver_install"`
+  - refs: none
+- `000caf9d`: `"i2s_stop"`
+  - refs: none
+- `000cafa6`: `"i2s_start"`
+  - refs: none
+- `000cafb0`: `"i2s_alloc_dma_buffer"`
+  - refs: none
+- `000cafc5`: `"i2s_delete_dma_buffer"`
+  - refs: none
+- `000cafdb`: `"i2s_realloc_dma_buffer"`
+  - refs: none
+- `000caff2`: `"i2s_calculate_common_clock"`
+  - refs: none
+- `000cb00d`: `"i2s_calculate_pdm_rx_clock"`
+  - refs: none
+- `000cb028`: `"i2s_calculate_pdm_tx_clock"`
+  - refs: none
+- `000cb043`: `"i2s_calculate_clock"`
+  - refs: none
+- `000cb057`: `"i2s_set_clk"`
+  - refs: none
+- `000cb063`: `"i2s_set_sample_rates"`
+  - refs: none
+- `000cb078`: `"i2s_zero_dma_buffer"`
+  - refs: none
+- `000cb08c`: `"i2s_check_set_mclk"`
+  - refs: none
+- `000cb09f`: `"i2s_set_pin"`
+  - refs: none
+- `3c233b50`: `"UNINSTALL I2S\n"`
+  - ref from `00121cfc` in `<no function>`
+  - ref from `42001cfc` in `<no function>`
+- `3c233b67`: `"ERROR: Unable to install I2S drives\n"`
+  - ref from `00121d28` in `<no function>`
+  - ref from `42001d28` in `<no function>`
+  - ref from `420e5371` in `<no function>`
+  - ref from `420e537a` in `<no function>`
+  - ref from `420e538d` in `<no function>`
+  - ref from `420e5396` in `<no function>`
+- `3c23781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - ref from `42002434` in `<no function>`
+  - ref from `00122434` in `<no function>`
+- `3c237888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - ref from `0020259a` in `FUN_00202568`
+  - ref from `00201841` in `FUN_0020182c`
+  - ref from `00201879` in `FUN_00201864`
+  - ref from `002018b1` in `FUN_0020189c`
+  - ref from `00201a8d` in `FUN_00201a70`
+  - ref from `00201ab5` in `FUN_00201a70`
+  - ref from `002010a1` in `FUN_00201084`
+  - ref from `0020118b` in `FUN_00201084`
+  - ref from `002011cd` in `FUN_002011b0`
+  - ref from `00201269` in `FUN_002011b0`
+  - ref from `00201421` in `FUN_002013fc`
+  - ref from `00201685` in `FUN_00201670`
+  - ref from `002016bd` in `FUN_002016a8`
+  - ref from `002016f5` in `FUN_002016e0`
+  - ref from `0020172d` in `FUN_00201718`
+  - ref from `00201765` in `FUN_00201750`
+  - ref from `0020179d` in `FUN_00201788`
+  - ref from `00201809` in `FUN_002017f4`
+  - ref from `002017d5` in `FUN_002017c0`
+  - ref from `00200d2e` in `FUN_00200d0c`
+  - ref from `00200d92` in `FUN_00200d0c`
+  - ref from `00200222` in `FUN_00200200`
+  - ref from `420e259a` in `FUN_420e2568`
+  - ref from `420e1a8d` in `FUN_420e1a70`
+  - ref from `420e1ab5` in `FUN_420e1a70`
+  - ref from `420e1ac3` in `FUN_420e1a70`
+  - ref from `420e1ace` in `FUN_420e1a70`
+  - ref from `420e1b12` in `FUN_420e1a70`
+  - ref from `420e1b1f` in `FUN_420e1a70`
+  - ref from `420e1b89` in `FUN_420e1a70`
+  - ref from `420e1b95` in `FUN_420e1a70`
+  - ref from `420e1b65` in `FUN_420e1a70`
+  - ref from `420e1b71` in `FUN_420e1a70`
+  - ref from `420e1b7d` in `FUN_420e1a70`
+  - ref from `420e1b05` in `FUN_420e1a70`
+  - ref from `420e1841` in `FUN_420e182c`
+  - ref from `420e1879` in `FUN_420e1864`
+  - ref from `420e18b1` in `FUN_420e189c`
+  - ref from `420e1421` in `FUN_420e13fc`
+  - ref from `420e1427` in `FUN_420e13fc`
+  - ref from `420e10a1` in `FUN_420e1084`
+  - ref from `420e118b` in `FUN_420e1084`
+  - ref from `420e11cd` in `FUN_420e11b0`
+  - ref from `420e1269` in `FUN_420e11b0`
+  - ref from `420e1685` in `FUN_420e1670`
+  - ref from `420e16bd` in `FUN_420e16a8`
+  - ref from `420e16f5` in `FUN_420e16e0`
+  - ref from `420e172d` in `FUN_420e1718`
+  - ref from `420e1765` in `FUN_420e1750`
+  - ref from `420e179d` in `FUN_420e1788`
+  - ref from `420e17d5` in `FUN_420e17c0`
+  - ref from `420e1809` in `FUN_420e17f4`
+  - ref from `420e0d2e` in `FUN_420e0d0c`
+  - ref from `420e0d92` in `FUN_420e0d0c`
+  - ref from `420e0d9a` in `FUN_420e0d0c`
+  - ref from `420e0222` in `FUN_420e0200`
+  - ref from `0012244c` in `<no function>`
+  - ref from `4200244c` in `<no function>`
+  - ref from `420e2ef1` in `FUN_420e2ed4`
+  - ref from `420e2f3f` in `FUN_420e2ed4`
+  - ref from `420e04fa` in `FUN_420e04d8`
+  - ref from `420e0616` in `FUN_420e05f4`
+  - ref from `420e031a` in `FUN_420e02f8`
+  - ref from `420e0382` in `FUN_420e02f8`
+  - ref from `420e038a` in `FUN_420e02f8`
+  - ref from `420e068a` in `FUN_420e05f4`
+  - ref from `420e0692` in `FUN_420e05f4`
+  - ref from `420e2f8e` in `FUN_420e2f6c`
+  - ref from `420e2fdb` in `FUN_420e2f6c`
+  - ref from `420e1a01` in `<no function>`
+  - ref from `420e1a06` in `<no function>`
+  - ref from `420e1a41` in `<no function>`
+  - ref from `420e1a46` in `<no function>`
+  - ref from `00160354` in `<no function>`
+  - ref from `42040354` in `<no function>`
+- `3c2399c4`: `"[%6u][E][%s:%u] %s(): I2S is not ready to write\r\n"`
+  - refs: none
+- `3c2399f8`: `"[%6u][E][%s:%u] %s(): i2s err %i\r\n"`
+  - refs: none
+- `3c23ad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `3c244034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `3c244435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `3c247d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `3c24818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `3c25300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `3c253066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `3c25a51a`: `"E (%u) %s: %s(%d): I2S DMA object can't be NULL\n"`
+  - ref from `00161c8c` in `<no function>`
+  - ref from `42041c8c` in `<no function>`
+- `3c25a5e0`: `"E (%u) %s: %s(%d): I2S not initialized yet\n"`
+  - ref from `00161cb4` in `<no function>`
+  - ref from `42041cb4` in `<no function>`
+- `3c25a66b`: `"E (%u) %s: I2S DMA object create failed, preparing to uninstall\n"`
+  - ref from `00161cc4` in `<no function>`
+  - ref from `42041cc4` in `<no function>`
+- `3c25a6ac`: `"E (%u) %s: %s(%d): i2s_num error\n"`
+  - ref from `00161ccc` in `<no function>`
+  - ref from `42041ccc` in `<no function>`
+- `3c25a7ba`: `"E (%u) %s: %s(%d): I2S%d has not installed yet\n"`
+  - refs: none
+- `3c25a905`: `"E (%u) %s: %s(%d): I2S TX DMA object has not initialized yet\n"`
+  - ref from `00161d44` in `<no function>`
+  - ref from `42041d44` in `<no function>`
+- `3c25a943`: `"E (%u) %s: %s(%d): I2S%d tx DMA buffer malloc failed\n"`
+  - refs: none
+- `3c25a979`: `"E (%u) %s: %s(%d): I2S%d rx DMA buffer malloc failed\n"`
+  - refs: none
+- `3c25aa28`: `"E (%u) %s: %s(%d): I2S port %d has not installed\n"`
+  - refs: none
+- `3c25aa5a`: `"E (%u) %s: %s(%d): I2S configuration must not be NULL\n"`
+  - ref from `00161da8` in `<no function>`
+  - ref from `42041da8` in `<no function>`
+- `3c25aa91`: `"E (%u) %s: %s(%d): I2S buffer count less than 128 and more than 2\n"`
+  - ref from `00161dac` in `<no function>`
+  - ref from `42041dac` in `<no function>`
+- `3c25aad4`: `"E (%u) %s: %s(%d): I2S buffer length at most 1024 and more than 8\n"`
+  - ref from `00161db0` in `<no function>`
+  - ref from `42041db0` in `<no function>`
+- `3c25ab17`: `"E (%u) %s: %s(%d): no mem for I2S driver\n"`
+  - ref from `00161db4` in `<no function>`
+  - ref from `42041db4` in `<no function>`
+- `3c25ab41`: `"E (%u) %s: register I2S object to platform failed\n"`
+  - ref from `00161db8` in `<no function>`
+  - ref from `42041db8` in `<no function>`
+- `3c25ab74`: `"E (%u) %s: %s(%d): i2s all channel are disabled\n"`
+  - ref from `00161dc0` in `<no function>`
+  - ref from `42041dc0` in `<no function>`
+- `3c25aba5`: `"E (%u) %s: %s(%d): wrong i2s channel format, going to uninstall i2s\n"`
+  - ref from `00161dc4` in `<no function>`
+  - ref from `42041dc4` in `<no function>`
+- `3c25abea`: `"E (%u) %s: %s(%d): I2S init failed\n"`
+  - ref from `00161dc8` in `<no function>`
+  - ref from `42041dc8` in `<no function>`
+- `3c25ac0e`: `"E (%u) %s: %s(%d): I2S PDM mode only support on I2S0\n"`
+  - ref from `00161dd0` in `<no function>`
+  - ref from `42041dd0` in `<no function>`
+- `3c25ac44`: `"E (%u) %s: %s(%d): I2S no TX/RX mode selected\n"`
+  - ref from `00161dd4` in `<no function>`
+  - ref from `42041dd4` in `<no function>`
+- `3c25aca5`: `"E (%u) %s: %s(%d): I2S configuration is invalid\n"`
+  - ref from `00161ddc` in `<no function>`
+  - ref from `42041ddc` in `<no function>`
+- `3c25ad9c`: `"E (%u) %s: %s(%d): I2S TX DMA object create failed\n"`
+  - refs: none
+- `3c25add0`: `"E (%u) %s: %s(%d): I2S RX DMA object create failed\n"`
+  - refs: none
+- `3c25ae04`: `"E (%u) %s: %s(%d): I2S queue create failed\n"`
+  - ref from `00161e0c` in `<no function>`
+  - ref from `42041e0c` in `<no function>`
+- `3c25ae30`: `"E (%u) %s: %s(%d): I2S set clock failed\n"`
+  - ref from `00161e10` in `<no function>`
+  - ref from `42041e10` in `<no function>`
+- `3c25ae59`: `"E (%u) %s: %s(%d): I2S dma object create failed\n"`
+  - ref from `00161e14` in `<no function>`
+  - ref from `42041e14` in `<no function>`
+- `3c25ae8a`: `"E (%u) %s: %s(%d): I2S interrupt initailze failed\n"`
+  - ref from `00161e18` in `<no function>`
+  - ref from `42041e18` in `<no function>`
+- `3c25aebd`: `"i2s_priv_deregister_object"`
+  - refs: none
+- `3c25aed8`: `"i2s_priv_register_object"`
+  - refs: none
+- `3c25aef1`: `"i2s_write"`
+  - refs: none
+- `3c25aefb`: `"i2s_driver_uninstall"`
+  - refs: none
+- `3c25af10`: `"i2s_destroy_dma_object"`
+  - ref from `00161cb0` in `<no function>`
+  - ref from `42041cb0` in `<no function>`
+- `3c25af27`: `"i2s_create_dma_object"`
+  - ref from `00161cb8` in `<no function>`
+  - ref from `42041cb8` in `<no function>`
+- `3c25af3d`: `"i2s_dma_object_init"`
+  - refs: none
+- `3c25af51`: `"i2s_dma_intr_init"`
+  - ref from `00161de0` in `<no function>`
+  - ref from `42041de0` in `<no function>`
+- `3c25af63`: `"i2s_check_cfg_validity"`
+  - ref from `00161dcc` in `<no function>`
+  - ref from `42041dcc` in `<no function>`
+- `3c25af7a`: `"i2s_driver_init"`
+  - ref from `00161dbc` in `<no function>`
+  - ref from `42041dbc` in `<no function>`
+- `3c25af8a`: `"i2s_driver_install"`
+  - ref from `00161da4` in `<no function>`
+  - ref from `42041da4` in `<no function>`
+- `3c25af9d`: `"i2s_stop"`
+  - refs: none
+- `3c25afa6`: `"i2s_start"`
+  - ref from `00161cf0` in `<no function>`
+  - ref from `42041cf0` in `<no function>`
+- `3c25afb0`: `"i2s_alloc_dma_buffer"`
+  - ref from `00161c94` in `<no function>`
+  - ref from `42041c94` in `<no function>`
+- `3c25afc5`: `"i2s_delete_dma_buffer"`
+  - ref from `00161c84` in `<no function>`
+  - ref from `42041c84` in `<no function>`
+- `3c25afdb`: `"i2s_realloc_dma_buffer"`
+  - ref from `00161c90` in `<no function>`
+  - ref from `42041c90` in `<no function>`
+- `3c25aff2`: `"i2s_calculate_common_clock"`
+  - ref from `00161d3c` in `<no function>`
+  - ref from `42041d3c` in `<no function>`
+- `3c25b00d`: `"i2s_calculate_pdm_rx_clock"`
+  - ref from `00161d34` in `<no function>`
+  - ref from `42041d34` in `<no function>`
+- `3c25b028`: `"i2s_calculate_pdm_tx_clock"`
+  - refs: none
+- `3c25b043`: `"i2s_calculate_clock"`
+  - ref from `00161d2c` in `<no function>`
+  - ref from `42041d2c` in `<no function>`
+- `3c25b057`: `"i2s_set_clk"`
+  - refs: none
+- `3c25b063`: `"i2s_set_sample_rates"`
+  - refs: none
+- `3c25b078`: `"i2s_zero_dma_buffer"`
+  - refs: none
+- `3c25b08c`: `"i2s_check_set_mclk"`
+  - ref from `00161ce4` in `<no function>`
+  - ref from `42041ce4` in `<no function>`
+- `3c25b09f`: `"i2s_set_pin"`
+  - ref from `00161cc8` in `<no function>`
+  - ref from `42041cc8` in `<no function>`
+
+Matches: 127
+
+## `i2s`
+
+- `000a3b67`: `"ERROR: Unable to install I2S drives\n"`
+  - refs: none
+- `000a781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - refs: none
+- `000a7888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - refs: none
+- `000a99c4`: `"[%6u][E][%s:%u] %s(): I2S is not ready to write\r\n"`
+  - refs: none
+- `000a99f8`: `"[%6u][E][%s:%u] %s(): i2s err %i\r\n"`
+  - refs: none
+- `000aad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `000b4034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `000b4435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `000b7d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `000b818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `000c300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `000c3066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `000ca51a`: `"E (%u) %s: %s(%d): I2S DMA object can't be NULL\n"`
+  - refs: none
+- `000ca5e0`: `"E (%u) %s: %s(%d): I2S not initialized yet\n"`
+  - refs: none
+- `000ca66b`: `"E (%u) %s: I2S DMA object create failed, preparing to uninstall\n"`
+  - refs: none
+- `000ca6ac`: `"E (%u) %s: %s(%d): i2s_num error\n"`
+  - refs: none
+- `000ca7ba`: `"E (%u) %s: %s(%d): I2S%d has not installed yet\n"`
+  - refs: none
+- `000ca905`: `"E (%u) %s: %s(%d): I2S TX DMA object has not initialized yet\n"`
+  - refs: none
+- `000ca943`: `"E (%u) %s: %s(%d): I2S%d tx DMA buffer malloc failed\n"`
+  - refs: none
+- `000ca979`: `"E (%u) %s: %s(%d): I2S%d rx DMA buffer malloc failed\n"`
+  - refs: none
+- `000caa28`: `"E (%u) %s: %s(%d): I2S port %d has not installed\n"`
+  - refs: none
+- `000caa5a`: `"E (%u) %s: %s(%d): I2S configuration must not be NULL\n"`
+  - refs: none
+- `000caa91`: `"E (%u) %s: %s(%d): I2S buffer count less than 128 and more than 2\n"`
+  - refs: none
+- `000caad4`: `"E (%u) %s: %s(%d): I2S buffer length at most 1024 and more than 8\n"`
+  - refs: none
+- `000cab17`: `"E (%u) %s: %s(%d): no mem for I2S driver\n"`
+  - refs: none
+- `000cab41`: `"E (%u) %s: register I2S object to platform failed\n"`
+  - refs: none
+- `000cab74`: `"E (%u) %s: %s(%d): i2s all channel are disabled\n"`
+  - refs: none
+- `000caba5`: `"E (%u) %s: %s(%d): wrong i2s channel format, going to uninstall i2s\n"`
+  - refs: none
+- `000cabea`: `"E (%u) %s: %s(%d): I2S init failed\n"`
+  - refs: none
+- `000cac0e`: `"E (%u) %s: %s(%d): I2S PDM mode only support on I2S0\n"`
+  - refs: none
+- `000cac44`: `"E (%u) %s: %s(%d): I2S no TX/RX mode selected\n"`
+  - refs: none
+- `000caca5`: `"E (%u) %s: %s(%d): I2S configuration is invalid\n"`
+  - refs: none
+- `000cad9c`: `"E (%u) %s: %s(%d): I2S TX DMA object create failed\n"`
+  - refs: none
+- `000cadd0`: `"E (%u) %s: %s(%d): I2S RX DMA object create failed\n"`
+  - refs: none
+- `000cae04`: `"E (%u) %s: %s(%d): I2S queue create failed\n"`
+  - refs: none
+- `000cae30`: `"E (%u) %s: %s(%d): I2S set clock failed\n"`
+  - refs: none
+- `000cae59`: `"E (%u) %s: %s(%d): I2S dma object create failed\n"`
+  - refs: none
+- `000cae8a`: `"E (%u) %s: %s(%d): I2S interrupt initailze failed\n"`
+  - refs: none
+- `000caebd`: `"i2s_priv_deregister_object"`
+  - refs: none
+- `000caed8`: `"i2s_priv_register_object"`
+  - refs: none
+- `000caef1`: `"i2s_write"`
+  - refs: none
+- `000caefb`: `"i2s_driver_uninstall"`
+  - refs: none
+- `000caf10`: `"i2s_destroy_dma_object"`
+  - refs: none
+- `000caf27`: `"i2s_create_dma_object"`
+  - refs: none
+- `000caf3d`: `"i2s_dma_object_init"`
+  - refs: none
+- `000caf51`: `"i2s_dma_intr_init"`
+  - refs: none
+- `000caf63`: `"i2s_check_cfg_validity"`
+  - refs: none
+- `000caf7a`: `"i2s_driver_init"`
+  - refs: none
+- `000caf8a`: `"i2s_driver_install"`
+  - refs: none
+- `000caf9d`: `"i2s_stop"`
+  - refs: none
+- `000cafa6`: `"i2s_start"`
+  - refs: none
+- `000cafb0`: `"i2s_alloc_dma_buffer"`
+  - refs: none
+- `000cafc5`: `"i2s_delete_dma_buffer"`
+  - refs: none
+- `000cafdb`: `"i2s_realloc_dma_buffer"`
+  - refs: none
+- `000caff2`: `"i2s_calculate_common_clock"`
+  - refs: none
+- `000cb00d`: `"i2s_calculate_pdm_rx_clock"`
+  - refs: none
+- `000cb028`: `"i2s_calculate_pdm_tx_clock"`
+  - refs: none
+- `000cb043`: `"i2s_calculate_clock"`
+  - refs: none
+- `000cb057`: `"i2s_set_clk"`
+  - refs: none
+- `000cb063`: `"i2s_set_sample_rates"`
+  - refs: none
+- `000cb078`: `"i2s_zero_dma_buffer"`
+  - refs: none
+- `000cb08c`: `"i2s_check_set_mclk"`
+  - refs: none
+- `000cb09f`: `"i2s_set_pin"`
+  - refs: none
+- `3c233b50`: `"UNINSTALL I2S\n"`
+  - ref from `00121cfc` in `<no function>`
+  - ref from `42001cfc` in `<no function>`
+- `3c233b67`: `"ERROR: Unable to install I2S drives\n"`
+  - ref from `00121d28` in `<no function>`
+  - ref from `42001d28` in `<no function>`
+  - ref from `420e5371` in `<no function>`
+  - ref from `420e537a` in `<no function>`
+  - ref from `420e538d` in `<no function>`
+  - ref from `420e5396` in `<no function>`
+- `3c23781c`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.cpp"`
+  - ref from `42002434` in `<no function>`
+  - ref from `00122434` in `<no function>`
+- `3c237888`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/Audio.h"`
+  - ref from `0020259a` in `FUN_00202568`
+  - ref from `00201841` in `FUN_0020182c`
+  - ref from `00201879` in `FUN_00201864`
+  - ref from `002018b1` in `FUN_0020189c`
+  - ref from `00201a8d` in `FUN_00201a70`
+  - ref from `00201ab5` in `FUN_00201a70`
+  - ref from `002010a1` in `FUN_00201084`
+  - ref from `0020118b` in `FUN_00201084`
+  - ref from `002011cd` in `FUN_002011b0`
+  - ref from `00201269` in `FUN_002011b0`
+  - ref from `00201421` in `FUN_002013fc`
+  - ref from `00201685` in `FUN_00201670`
+  - ref from `002016bd` in `FUN_002016a8`
+  - ref from `002016f5` in `FUN_002016e0`
+  - ref from `0020172d` in `FUN_00201718`
+  - ref from `00201765` in `FUN_00201750`
+  - ref from `0020179d` in `FUN_00201788`
+  - ref from `00201809` in `FUN_002017f4`
+  - ref from `002017d5` in `FUN_002017c0`
+  - ref from `00200d2e` in `FUN_00200d0c`
+  - ref from `00200d92` in `FUN_00200d0c`
+  - ref from `00200222` in `FUN_00200200`
+  - ref from `420e259a` in `FUN_420e2568`
+  - ref from `420e1a8d` in `FUN_420e1a70`
+  - ref from `420e1ab5` in `FUN_420e1a70`
+  - ref from `420e1ac3` in `FUN_420e1a70`
+  - ref from `420e1ace` in `FUN_420e1a70`
+  - ref from `420e1b12` in `FUN_420e1a70`
+  - ref from `420e1b1f` in `FUN_420e1a70`
+  - ref from `420e1b89` in `FUN_420e1a70`
+  - ref from `420e1b95` in `FUN_420e1a70`
+  - ref from `420e1b65` in `FUN_420e1a70`
+  - ref from `420e1b71` in `FUN_420e1a70`
+  - ref from `420e1b7d` in `FUN_420e1a70`
+  - ref from `420e1b05` in `FUN_420e1a70`
+  - ref from `420e1841` in `FUN_420e182c`
+  - ref from `420e1879` in `FUN_420e1864`
+  - ref from `420e18b1` in `FUN_420e189c`
+  - ref from `420e1421` in `FUN_420e13fc`
+  - ref from `420e1427` in `FUN_420e13fc`
+  - ref from `420e10a1` in `FUN_420e1084`
+  - ref from `420e118b` in `FUN_420e1084`
+  - ref from `420e11cd` in `FUN_420e11b0`
+  - ref from `420e1269` in `FUN_420e11b0`
+  - ref from `420e1685` in `FUN_420e1670`
+  - ref from `420e16bd` in `FUN_420e16a8`
+  - ref from `420e16f5` in `FUN_420e16e0`
+  - ref from `420e172d` in `FUN_420e1718`
+  - ref from `420e1765` in `FUN_420e1750`
+  - ref from `420e179d` in `FUN_420e1788`
+  - ref from `420e17d5` in `FUN_420e17c0`
+  - ref from `420e1809` in `FUN_420e17f4`
+  - ref from `420e0d2e` in `FUN_420e0d0c`
+  - ref from `420e0d92` in `FUN_420e0d0c`
+  - ref from `420e0d9a` in `FUN_420e0d0c`
+  - ref from `420e0222` in `FUN_420e0200`
+  - ref from `0012244c` in `<no function>`
+  - ref from `4200244c` in `<no function>`
+  - ref from `420e2ef1` in `FUN_420e2ed4`
+  - ref from `420e2f3f` in `FUN_420e2ed4`
+  - ref from `420e04fa` in `FUN_420e04d8`
+  - ref from `420e0616` in `FUN_420e05f4`
+  - ref from `420e031a` in `FUN_420e02f8`
+  - ref from `420e0382` in `FUN_420e02f8`
+  - ref from `420e038a` in `FUN_420e02f8`
+  - ref from `420e068a` in `FUN_420e05f4`
+  - ref from `420e0692` in `FUN_420e05f4`
+  - ref from `420e2f8e` in `FUN_420e2f6c`
+  - ref from `420e2fdb` in `FUN_420e2f6c`
+  - ref from `420e1a01` in `<no function>`
+  - ref from `420e1a06` in `<no function>`
+  - ref from `420e1a41` in `<no function>`
+  - ref from `420e1a46` in `<no function>`
+  - ref from `00160354` in `<no function>`
+  - ref from `42040354` in `<no function>`
+- `3c2399c4`: `"[%6u][E][%s:%u] %s(): I2S is not ready to write\r\n"`
+  - refs: none
+- `3c2399f8`: `"[%6u][E][%s:%u] %s(): i2s err %i\r\n"`
+  - refs: none
+- `3c23ad30`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/aac_decoder/aac_decoder.cpp"`
+  - refs: none
+- `3c244034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `3c244435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `3c247d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `3c24818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `3c25300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `3c253066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `3c25a51a`: `"E (%u) %s: %s(%d): I2S DMA object can't be NULL\n"`
+  - ref from `00161c8c` in `<no function>`
+  - ref from `42041c8c` in `<no function>`
+- `3c25a5e0`: `"E (%u) %s: %s(%d): I2S not initialized yet\n"`
+  - ref from `00161cb4` in `<no function>`
+  - ref from `42041cb4` in `<no function>`
+- `3c25a66b`: `"E (%u) %s: I2S DMA object create failed, preparing to uninstall\n"`
+  - ref from `00161cc4` in `<no function>`
+  - ref from `42041cc4` in `<no function>`
+- `3c25a6ac`: `"E (%u) %s: %s(%d): i2s_num error\n"`
+  - ref from `00161ccc` in `<no function>`
+  - ref from `42041ccc` in `<no function>`
+- `3c25a7ba`: `"E (%u) %s: %s(%d): I2S%d has not installed yet\n"`
+  - refs: none
+- `3c25a905`: `"E (%u) %s: %s(%d): I2S TX DMA object has not initialized yet\n"`
+  - ref from `00161d44` in `<no function>`
+  - ref from `42041d44` in `<no function>`
+- `3c25a943`: `"E (%u) %s: %s(%d): I2S%d tx DMA buffer malloc failed\n"`
+  - refs: none
+- `3c25a979`: `"E (%u) %s: %s(%d): I2S%d rx DMA buffer malloc failed\n"`
+  - refs: none
+- `3c25aa28`: `"E (%u) %s: %s(%d): I2S port %d has not installed\n"`
+  - refs: none
+- `3c25aa5a`: `"E (%u) %s: %s(%d): I2S configuration must not be NULL\n"`
+  - ref from `00161da8` in `<no function>`
+  - ref from `42041da8` in `<no function>`
+- `3c25aa91`: `"E (%u) %s: %s(%d): I2S buffer count less than 128 and more than 2\n"`
+  - ref from `00161dac` in `<no function>`
+  - ref from `42041dac` in `<no function>`
+- `3c25aad4`: `"E (%u) %s: %s(%d): I2S buffer length at most 1024 and more than 8\n"`
+  - ref from `00161db0` in `<no function>`
+  - ref from `42041db0` in `<no function>`
+- `3c25ab17`: `"E (%u) %s: %s(%d): no mem for I2S driver\n"`
+  - ref from `00161db4` in `<no function>`
+  - ref from `42041db4` in `<no function>`
+- `3c25ab41`: `"E (%u) %s: register I2S object to platform failed\n"`
+  - ref from `00161db8` in `<no function>`
+  - ref from `42041db8` in `<no function>`
+- `3c25ab74`: `"E (%u) %s: %s(%d): i2s all channel are disabled\n"`
+  - ref from `00161dc0` in `<no function>`
+  - ref from `42041dc0` in `<no function>`
+- `3c25aba5`: `"E (%u) %s: %s(%d): wrong i2s channel format, going to uninstall i2s\n"`
+  - ref from `00161dc4` in `<no function>`
+  - ref from `42041dc4` in `<no function>`
+- `3c25abea`: `"E (%u) %s: %s(%d): I2S init failed\n"`
+  - ref from `00161dc8` in `<no function>`
+  - ref from `42041dc8` in `<no function>`
+- `3c25ac0e`: `"E (%u) %s: %s(%d): I2S PDM mode only support on I2S0\n"`
+  - ref from `00161dd0` in `<no function>`
+  - ref from `42041dd0` in `<no function>`
+- `3c25ac44`: `"E (%u) %s: %s(%d): I2S no TX/RX mode selected\n"`
+  - ref from `00161dd4` in `<no function>`
+  - ref from `42041dd4` in `<no function>`
+- `3c25aca5`: `"E (%u) %s: %s(%d): I2S configuration is invalid\n"`
+  - ref from `00161ddc` in `<no function>`
+  - ref from `42041ddc` in `<no function>`
+- `3c25ad9c`: `"E (%u) %s: %s(%d): I2S TX DMA object create failed\n"`
+  - refs: none
+- `3c25add0`: `"E (%u) %s: %s(%d): I2S RX DMA object create failed\n"`
+  - refs: none
+- `3c25ae04`: `"E (%u) %s: %s(%d): I2S queue create failed\n"`
+  - ref from `00161e0c` in `<no function>`
+  - ref from `42041e0c` in `<no function>`
+- `3c25ae30`: `"E (%u) %s: %s(%d): I2S set clock failed\n"`
+  - ref from `00161e10` in `<no function>`
+  - ref from `42041e10` in `<no function>`
+- `3c25ae59`: `"E (%u) %s: %s(%d): I2S dma object create failed\n"`
+  - ref from `00161e14` in `<no function>`
+  - ref from `42041e14` in `<no function>`
+- `3c25ae8a`: `"E (%u) %s: %s(%d): I2S interrupt initailze failed\n"`
+  - ref from `00161e18` in `<no function>`
+  - ref from `42041e18` in `<no function>`
+- `3c25aebd`: `"i2s_priv_deregister_object"`
+  - refs: none
+- `3c25aed8`: `"i2s_priv_register_object"`
+  - refs: none
+- `3c25aef1`: `"i2s_write"`
+  - refs: none
+- `3c25aefb`: `"i2s_driver_uninstall"`
+  - refs: none
+- `3c25af10`: `"i2s_destroy_dma_object"`
+  - ref from `00161cb0` in `<no function>`
+  - ref from `42041cb0` in `<no function>`
+- `3c25af27`: `"i2s_create_dma_object"`
+  - ref from `00161cb8` in `<no function>`
+  - ref from `42041cb8` in `<no function>`
+- `3c25af3d`: `"i2s_dma_object_init"`
+  - refs: none
+- `3c25af51`: `"i2s_dma_intr_init"`
+  - ref from `00161de0` in `<no function>`
+  - ref from `42041de0` in `<no function>`
+- `3c25af63`: `"i2s_check_cfg_validity"`
+  - ref from `00161dcc` in `<no function>`
+  - ref from `42041dcc` in `<no function>`
+- `3c25af7a`: `"i2s_driver_init"`
+  - ref from `00161dbc` in `<no function>`
+  - ref from `42041dbc` in `<no function>`
+- `3c25af8a`: `"i2s_driver_install"`
+  - ref from `00161da4` in `<no function>`
+  - ref from `42041da4` in `<no function>`
+- `3c25af9d`: `"i2s_stop"`
+  - refs: none
+- `3c25afa6`: `"i2s_start"`
+  - ref from `00161cf0` in `<no function>`
+  - ref from `42041cf0` in `<no function>`
+- `3c25afb0`: `"i2s_alloc_dma_buffer"`
+  - ref from `00161c94` in `<no function>`
+  - ref from `42041c94` in `<no function>`
+- `3c25afc5`: `"i2s_delete_dma_buffer"`
+  - ref from `00161c84` in `<no function>`
+  - ref from `42041c84` in `<no function>`
+- `3c25afdb`: `"i2s_realloc_dma_buffer"`
+  - ref from `00161c90` in `<no function>`
+  - ref from `42041c90` in `<no function>`
+- `3c25aff2`: `"i2s_calculate_common_clock"`
+  - ref from `00161d3c` in `<no function>`
+  - ref from `42041d3c` in `<no function>`
+- `3c25b00d`: `"i2s_calculate_pdm_rx_clock"`
+  - ref from `00161d34` in `<no function>`
+  - ref from `42041d34` in `<no function>`
+- `3c25b028`: `"i2s_calculate_pdm_tx_clock"`
+  - refs: none
+- `3c25b043`: `"i2s_calculate_clock"`
+  - ref from `00161d2c` in `<no function>`
+  - ref from `42041d2c` in `<no function>`
+- `3c25b057`: `"i2s_set_clk"`
+  - refs: none
+- `3c25b063`: `"i2s_set_sample_rates"`
+  - refs: none
+- `3c25b078`: `"i2s_zero_dma_buffer"`
+  - refs: none
+- `3c25b08c`: `"i2s_check_set_mclk"`
+  - ref from `00161ce4` in `<no function>`
+  - ref from `42041ce4` in `<no function>`
+- `3c25b09f`: `"i2s_set_pin"`
+  - ref from `00161cc8` in `<no function>`
+  - ref from `42041cc8` in `<no function>`
+
+Matches: 127
+
+## `volume`
+
+- `000014b0`: `"System Volume Information"`
+  - refs: none
+- `000017e4`: `">>>music_set_volume(%d)\r\n"`
+  - ref from `002a3dd3` in `FUN_002a3a68`
+  - ref from `002a3b33` in `FUN_002a3a68`
+  - ref from `002a3bb3` in `FUN_002a3a68`
+  - ref from `42183dd3` in `FUN_42183a68`
+  - ref from `42183b33` in `FUN_42183a68`
+  - ref from `42183bb3` in `FUN_42183a68`
+- `000f0c5b`: `"pdrv < FF_VOLUMES"`
+  - refs: none
+- `3c1914b0`: `"System Volume Information"`
+  - refs: none
+- `3c1917e4`: `">>>music_set_volume(%d)\r\n"`
+  - refs: none
+- `3c280c5b`: `"pdrv < FF_VOLUMES"`
+  - ref from `001e3328` in `<no function>`
+  - ref from `420c3328` in `<no function>`
+
+Matches: 6
+
+## `mp3`
+
+- `000a8164`: `"The MP3Decoder could not be initialized"`
+  - refs: none
+- `000a818c`: `"MP3Decoder has been initialized, free Heap: %lu bytes , free stack %lu DWORDs"`
+  - refs: none
+- `000a8440`: `"audio/mp3"`
+  - refs: none
+- `000a9048`: `"file has no mp3 tag, skip metadata"`
+  - refs: none
+- `000a9244`: `"MP3 decode error %d : %s"`
+  - refs: none
+- `000b4435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `000b448c`: `"[%6u][E][%s:%u] %s(): not enough memory to allocate mp3decoder buffers\r\n"`
+  - refs: none
+- `000b4706`: `"MP3Decoder_AllocateBuffers"`
+  - refs: none
+- `3c238164`: `"The MP3Decoder could not be initialized"`
+  - ref from `0020ad07` in `FUN_0020aba4`
+  - ref from `420ead07` in `FUN_420eaba4`
+  - ref from `0020267a` in `FUN_00202568`
+  - ref from `420e557c` in `FUN_420e5474`
+  - ref from `420e267a` in `FUN_420e2568`
+  - ref from `0020557c` in `FUN_00205474`
+  - ref from `00122644` in `<no function>`
+  - ref from `42002644` in `<no function>`
+- `3c23818c`: `"MP3Decoder has been initialized, free Heap: %lu bytes , free stack %lu DWORDs"`
+  - ref from `0012264c` in `<no function>`
+  - ref from `4200264c` in `<no function>`
+- `3c238440`: `"audio/mp3"`
+  - ref from `00122694` in `<no function>`
+  - ref from `42002694` in `<no function>`
+- `3c239048`: `"file has no mp3 tag, skip metadata"`
+  - refs: none
+- `3c239244`: `"MP3 decode error %d : %s"`
+  - ref from `420e7ec1` in `FUN_420e7e64`
+  - ref from `42002ae8` in `<no function>`
+  - ref from `00122ae8` in `<no function>`
+- `3c244435`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/mp3_decoder/mp3_decoder.cpp"`
+  - refs: none
+- `3c24448c`: `"[%6u][E][%s:%u] %s(): not enough memory to allocate mp3decoder buffers\r\n"`
+  - ref from `00160c48` in `<no function>`
+  - ref from `42040c48` in `<no function>`
+- `3c244706`: `"MP3Decoder_AllocateBuffers"`
+  - ref from `00160c44` in `<no function>`
+  - ref from `42040c44` in `<no function>`
+
+Matches: 16
+
+## `flac`
+
+- `000a7de4`: `"[%6u][E][%s:%u] %s(): Magic String 'fLaC' not found in header\r\n"`
+  - refs: none
+- `000a7e38`: `"FLAC maxBlockSize: %u"`
+  - refs: none
+- `000a7e50`: `"FLAC maxFrameSize: %u"`
+  - refs: none
+- `000a7e68`: `"FLAC maxFrameSize: N/A"`
+  - refs: none
+- `000a7e80`: `"[%6u][E][%s:%u] %s(): FLAC maxFrameSize too large!\r\n"`
+  - refs: none
+- `000a7eb8`: `"FLAC sampleRate: %lu"`
+  - refs: none
+- `000a7ed0`: `"FLAC numChannels: %u"`
+  - refs: none
+- `000a7f28`: `"FLAC bitsPerSample: %u"`
+  - refs: none
+- `000a8254`: `"FLAC works only with PSRAM!"`
+  - refs: none
+- `000a8270`: `"The FLACDecoder could not be initialized"`
+  - refs: none
+- `000a829c`: `"FLACDecoder has been initialized, free Heap: %lu bytes , free stack %lu DWORDs"`
+  - refs: none
+- `000a84b8`: `"audio/flac"`
+  - refs: none
+- `000a84c4`: `"audio/x-flac"`
+  - refs: none
+- `000a927c`: `"FLAC decode error %d : %s"`
+  - refs: none
+- `000aaccf`: `"read_FLAC_Header"`
+  - refs: none
+- `000b4034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `000b408c`: `"[%6u][E][%s:%u] %s(): not enough memory to allocate flacdecoder buffers\r\n"`
+  - refs: none
+- `000b4104`: `"[%6u][E][%s:%u] %s(): FLAC signature not found\r\n"`
+  - refs: none
+- `000b431a`: `"flacDecodeFrame"`
+  - refs: none
+- `000b432a`: `"FLACDecode"`
+  - refs: none
+- `000b434e`: `"parseFlacFirstPacket"`
+  - refs: none
+- `000b436c`: `"FLACDecoder_AllocateBuffers"`
+  - refs: none
+- `3c237da8`: `".flac"`
+  - ref from `00201312` in `FUN_002011b0`
+  - ref from `420e1312` in `FUN_420e11b0`
+  - ref from `00122528` in `<no function>`
+  - ref from `42002528` in `<no function>`
+  - ref from `0016054c` in `<no function>`
+  - ref from `4204054c` in `<no function>`
+- `3c237de4`: `"[%6u][E][%s:%u] %s(): Magic String 'fLaC' not found in header\r\n"`
+  - refs: none
+- `3c237e38`: `"FLAC maxBlockSize: %u"`
+  - ref from `42002570` in `<no function>`
+- `3c237e50`: `"FLAC maxFrameSize: %u"`
+  - ref from `42002574` in `<no function>`
+- `3c237e68`: `"FLAC maxFrameSize: N/A"`
+  - ref from `00122578` in `<no function>`
+  - ref from `42002578` in `<no function>`
+- `3c237e80`: `"[%6u][E][%s:%u] %s(): FLAC maxFrameSize too large!\r\n"`
+  - ref from `0012257c` in `<no function>`
+  - ref from `4200257c` in `<no function>`
+- `3c237eb8`: `"FLAC sampleRate: %lu"`
+  - ref from `00122580` in `<no function>`
+  - ref from `42002580` in `<no function>`
+- `3c237ed0`: `"FLAC numChannels: %u"`
+  - ref from `00122584` in `<no function>`
+  - ref from `42002584` in `<no function>`
+- `3c237f28`: `"FLAC bitsPerSample: %u"`
+  - ref from `0012258c` in `<no function>`
+  - ref from `4200258c` in `<no function>`
+- `3c238254`: `"FLAC works only with PSRAM!"`
+  - ref from `00122658` in `<no function>`
+  - ref from `42002658` in `<no function>`
+- `3c238270`: `"The FLACDecoder could not be initialized"`
+  - ref from `0012265c` in `<no function>`
+  - ref from `4200265c` in `<no function>`
+- `3c23829c`: `"FLACDecoder has been initialized, free Heap: %lu bytes , free stack %lu DWORDs"`
+  - ref from `00122660` in `<no function>`
+  - ref from `42002660` in `<no function>`
+- `3c2384b8`: `"audio/flac"`
+  - ref from `420026bc` in `<no function>`
+  - ref from `001226bc` in `<no function>`
+- `3c2384c4`: `"audio/x-flac"`
+  - ref from `420026c0` in `<no function>`
+  - ref from `001226c0` in `<no function>`
+- `3c23927c`: `"FLAC decode error %d : %s"`
+  - ref from `420e7ec1` in `FUN_420e7e64`
+  - ref from `42002af8` in `<no function>`
+  - ref from `00122af8` in `<no function>`
+- `3c239ff8`: `"-flac"`
+  - ref from `00160550` in `<no function>`
+  - ref from `42040550` in `<no function>`
+- `3c23accf`: `"read_FLAC_Header"`
+  - refs: none
+- `3c244034`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/flac_decoder/flac_decoder.cpp"`
+  - refs: none
+- `3c24408c`: `"[%6u][E][%s:%u] %s(): not enough memory to allocate flacdecoder buffers\r\n"`
+  - refs: none
+- `3c244104`: `"[%6u][E][%s:%u] %s(): FLAC signature not found\r\n"`
+  - ref from `00160ba0` in `<no function>`
+  - ref from `42040ba0` in `<no function>`
+- `3c24431a`: `"flacDecodeFrame"`
+  - refs: none
+- `3c24432a`: `"FLACDecode"`
+  - ref from `00160b94` in `<no function>`
+  - ref from `42040b94` in `<no function>`
+- `3c24434e`: `"parseFlacFirstPacket"`
+  - ref from `00160b9c` in `<no function>`
+  - ref from `42040b9c` in `<no function>`
+- `3c24436c`: `"FLACDecoder_AllocateBuffers"`
+  - refs: none
+
+Matches: 46
+
+## `opus`
+
+- `000a82ec`: `"The OPUSDecoder could not be initialized"`
+  - refs: none
+- `000a8318`: `"OPUSDecoder has been initialized, free Heap: %lu bytes , free stack %lu DWORDs"`
+  - refs: none
+- `000a9298`: `"OPUS decode error %d : %s"`
+  - refs: none
+- `000b7d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `000b7dc8`: `"[%6u][E][%s:%u] %s(): OPUS countCode 3 with VBR not supported yet\r\n"`
+  - refs: none
+- `000b7e74`: `"OpusHead"`
+  - refs: none
+- `000b7ea3`: `"[%6u][E][%s:%u] %s(): OpusHead not found\r\n"`
+  - refs: none
+- `000b7eed`: `"OpusTags"`
+  - refs: none
+- `000b7f44`: `"[%6u][E][%s:%u] %s(): OpusCommemtPage not found\r\n"`
+  - refs: none
+- `000b7f76`: `"parseOpusHead"`
+  - refs: none
+- `000b7f84`: `"opus_FramePacking_Code3"`
+  - refs: none
+- `000b7f9c`: `"opusDecodePage3"`
+  - refs: none
+- `000b7fac`: `"opusDecodePage0"`
+  - refs: none
+- `000b7fbc`: `"OPUSDecode"`
+  - refs: none
+- `000b7fc7`: `"OPUSDecoder_AllocateBuffers"`
+  - refs: none
+- `000c300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `000c3066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `000c3344`: `"[%6u][E][%s:%u] %s(): OPUS_BAD_ARG\r\n"`
+  - refs: none
+- `3c2382ec`: `"The OPUSDecoder could not be initialized"`
+  - ref from `00122664` in `<no function>`
+  - ref from `42002664` in `<no function>`
+- `3c238318`: `"OPUSDecoder has been initialized, free Heap: %lu bytes , free stack %lu DWORDs"`
+  - ref from `00202e8e` in `FUN_00202e6c`
+  - ref from `420e2e8e` in `FUN_420e2e6c`
+  - ref from `00122668` in `<no function>`
+- `3c239298`: `"OPUS decode error %d : %s"`
+  - ref from `420e8053` in `FUN_420e7e64`
+  - ref from `42002b00` in `<no function>`
+  - ref from `00122b00` in `<no function>`
+- `3c23a000`: `".opus"`
+  - ref from `00160554` in `<no function>`
+  - ref from `42040554` in `<no function>`
+- `3c23a008`: `"/opus"`
+  - ref from `00160558` in `<no function>`
+  - ref from `42040558` in `<no function>`
+- `3c247d70`: `".pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/opus_decoder.cpp"`
+  - refs: none
+- `3c247dc8`: `"[%6u][E][%s:%u] %s(): OPUS countCode 3 with VBR not supported yet\r\n"`
+  - refs: none
+- `3c247e74`: `"OpusHead"`
+  - refs: none
+- `3c247ea3`: `"[%6u][E][%s:%u] %s(): OpusHead not found\r\n"`
+  - refs: none
+- `3c247eed`: `"OpusTags"`
+  - ref from `00160e58` in `<no function>`
+  - ref from `42040e58` in `<no function>`
+- `3c247f44`: `"[%6u][E][%s:%u] %s(): OpusCommemtPage not found\r\n"`
+  - refs: none
+- `3c247f76`: `"parseOpusHead"`
+  - refs: none
+- `3c247f84`: `"opus_FramePacking_Code3"`
+  - refs: none
+- `3c247f9c`: `"opusDecodePage3"`
+  - refs: none
+- `3c247fac`: `"opusDecodePage0"`
+  - refs: none
+- `3c247fbc`: `"OPUSDecode"`
+  - refs: none
+- `3c247fc7`: `"OPUSDecoder_AllocateBuffers"`
+  - refs: none
+- `3c25300a`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.h"`
+  - refs: none
+- `3c253066`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/opus_decoder/celt.cpp"`
+  - refs: none
+- `3c253344`: `"[%6u][E][%s:%u] %s(): OPUS_BAD_ARG\r\n"`
+  - refs: none
+
+Matches: 38
+
+## `vorbis`
+
+- `000a7fb4`: `"[%6u][E][%s:%u] %s(): VORBIS COMMENT section is too long\r\n"`
+  - refs: none
+- `000a8368`: `"VORBIS works only with PSRAM!"`
+  - refs: none
+- `000a8388`: `"The VORBISDecoder could not be initialized"`
+  - refs: none
+- `000a83b4`: `"VORBISDecoder has been initialized, free Heap: %lu bytes,  free stack %lu DWORDs"`
+  - refs: none
+- `000a92b4`: `"VORBIS decode error %d : %s"`
+  - refs: none
+- `000a9d88`: `"VORBIS"`
+  - refs: none
+- `000b8122`: `"[%6u][E][%s:%u] %s(): vorbis comment too long, vendorLength %i\r\n"`
+  - refs: none
+- `000b818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `000b8256`: `"error in vorbis_book_unpack, ret =%li\n"`
+  - refs: none
+- `000b84b7`: `"vorbis"`
+  - refs: none
+- `000b84be`: `"[%6u][E][%s:%u] %s(): no \"vorbis\" something went wrong %i\r\n"`
+  - refs: none
+- `000b85e3`: `"vorbis_dsp_pcmout"`
+  - refs: none
+- `000b8665`: `"vorbis_book_unpack"`
+  - refs: none
+- `000b868c`: `"parseVorbisCodebook"`
+  - refs: none
+- `000b86a0`: `"parseVorbisComment"`
+  - refs: none
+- `000b86b3`: `"parseVorbisFirstPacket"`
+  - refs: none
+- `000b86ca`: `"vorbisDecodePage4"`
+  - refs: none
+- `000b86dc`: `"vorbisDecodePage3"`
+  - refs: none
+- `000b86ee`: `"VORBISDecode"`
+  - refs: none
+- `3c237fb4`: `"[%6u][E][%s:%u] %s(): VORBIS COMMENT section is too long\r\n"`
+  - ref from `001225a0` in `<no function>`
+  - ref from `420025a0` in `<no function>`
+- `3c238368`: `"VORBIS works only with PSRAM!"`
+  - ref from `420e2ec2` in `FUN_420e2ea0`
+  - ref from `4200266c` in `<no function>`
+  - ref from `0012266c` in `<no function>`
+- `3c238388`: `"The VORBISDecoder could not be initialized"`
+  - ref from `420e2ef1` in `FUN_420e2ed4`
+  - ref from `42002670` in `<no function>`
+  - ref from `00122670` in `<no function>`
+- `3c2383b4`: `"VORBISDecoder has been initialized, free Heap: %lu bytes,  free stack %lu DWORDs"`
+  - ref from `420e2f3f` in `FUN_420e2ed4`
+  - ref from `42002674` in `<no function>`
+  - ref from `00122674` in `<no function>`
+- `3c2392b4`: `"VORBIS decode error %d : %s"`
+  - ref from `420e8053` in `FUN_420e7e64`
+  - ref from `42002b08` in `<no function>`
+  - ref from `00122b08` in `<no function>`
+- `3c239d88`: `"VORBIS"`
+  - ref from `000a7b48` in `<no function>`
+  - ref from `3c237b48` in `<no function>`
+- `3c248122`: `"[%6u][E][%s:%u] %s(): vorbis comment too long, vendorLength %i\r\n"`
+  - refs: none
+- `3c24818f`: `"/.pio/libdeps/esp32-s3-devkitc-1/ESP32-audioI2S-3.0.12/src/vorbis_decoder/vorbis_decoder.cpp"`
+  - refs: none
+- `3c248256`: `"error in vorbis_book_unpack, ret =%li\n"`
+  - ref from `00160fc0` in `<no function>`
+  - ref from `42040fc0` in `<no function>`
+- `3c2484b7`: `"vorbis"`
+  - ref from `0016102c` in `<no function>`
+  - ref from `4204102c` in `<no function>`
+- `3c2484be`: `"[%6u][E][%s:%u] %s(): no \"vorbis\" something went wrong %i\r\n"`
+  - refs: none
+- `3c2485e3`: `"vorbis_dsp_pcmout"`
+  - ref from `001610ec` in `<no function>`
+  - ref from `420410ec` in `<no function>`
+- `3c248665`: `"vorbis_book_unpack"`
+  - refs: none
+- `3c24868c`: `"parseVorbisCodebook"`
+  - refs: none
+- `3c2486a0`: `"parseVorbisComment"`
+  - refs: none
+- `3c2486b3`: `"parseVorbisFirstPacket"`
+  - ref from `00160ef4` in `<no function>`
+  - ref from `42040ef4` in `<no function>`
+- `3c2486ca`: `"vorbisDecodePage4"`
+  - refs: none
+- `3c2486dc`: `"vorbisDecodePage3"`
+  - refs: none
+- `3c2486ee`: `"VORBISDecode"`
+  - refs: none
+
+Matches: 38
+
+## `syncTime`
+
+- `000017ac`: `"syncTimeTask"`
+  - refs: none
+- `3c1917ac`: `"syncTimeTask"`
+  - refs: none
+
+Matches: 2
+
+## `updateTime`
+
+- `00001aa4`: `"updateTime"`
+  - refs: none
+- `3c191aa4`: `"updateTime"`
+  - ref from `00120660` in `<no function>`
+  - ref from `42000660` in `<no function>`
+
+Matches: 2
+
+## `Clock`
+
+- `000033ed`: `"Clock Ref Interval"`
+  - refs: none
+- `000036b4`: `"Clock"`
+  - refs: none
+- `000036df`: `"Press lock key to stop tomato clock"`
+  - refs: none
+- `000c7e07`: `"[%6u][E][%s:%u] %s(): CPU clock could not be set to %u MHz\r\n"`
+  - refs: none
+- `000ca280`: `"E (%u) %s: %s(%d): i2c clock choice is invalid, please check flag and frequency\n"`
+  - refs: none
+- `000ca86f`: `"E (%u) %s: %s(%d): PDM TX clock calculate failed\n"`
+  - refs: none
+- `000ca8a1`: `"E (%u) %s: %s(%d): PDM RX clock calculate failed\n"`
+  - refs: none
+- `000ca8d3`: `"E (%u) %s: %s(%d): Common clock calculate failed\n"`
+  - refs: none
+- `000cae30`: `"E (%u) %s: %s(%d): I2S set clock failed\n"`
+  - refs: none
+- `000caff2`: `"i2s_calculate_common_clock"`
+  - refs: none
+- `000cb00d`: `"i2s_calculate_pdm_rx_clock"`
+  - refs: none
+- `000cb028`: `"i2s_calculate_pdm_tx_clock"`
+  - refs: none
+- `000cb043`: `"i2s_calculate_clock"`
+  - refs: none
+- `000d8fc3`: `"E (%u) %s: SLEEP_MODE_1 enabled but sleep clock not configured\n"`
+  - refs: none
+- `000f0af4`: `"E (%u) %s: got corrupted data after increasing clock frequency\n"`
+  - refs: none
+- `000f54ce`: `"E (%u) %s: %s(%d): assigned clock speed not supported\n"`
+  - refs: none
+- `0011f00e`: `"spi_timing_config_set_flash_clock"`
+  - refs: none
+- `3c1933ed`: `"Clock Ref Interval"`
+  - ref from `00117ddc` in `<no function>`
+  - ref from `3fc9aa0c` in `<no function>`
+- `3c1936b4`: `"Clock"`
+  - ref from `3fc9aee8` in `<no function>`
+  - ref from `00117e88` in `<no function>`
+  - ref from `001182b8` in `<no function>`
+  - ref from `3fc9aab8` in `<no function>`
+- `3c1936df`: `"Press lock key to stop tomato clock"`
+  - ref from `00117eac` in `<no function>`
+  - ref from `3fc9aadc` in `<no function>`
+- `3c257e07`: `"[%6u][E][%s:%u] %s(): CPU clock could not be set to %u MHz\r\n"`
+  - ref from `00161668` in `<no function>`
+  - ref from `42041668` in `<no function>`
+- `3c25a280`: `"E (%u) %s: %s(%d): i2c clock choice is invalid, please check flag and frequency\n"`
+  - ref from `00161c08` in `<no function>`
+  - ref from `42041c08` in `<no function>`
+- `3c25a86f`: `"E (%u) %s: %s(%d): PDM TX clock calculate failed\n"`
+  - ref from `00161d30` in `<no function>`
+  - ref from `42041d30` in `<no function>`
+- `3c25a8a1`: `"E (%u) %s: %s(%d): PDM RX clock calculate failed\n"`
+  - ref from `00161d38` in `<no function>`
+  - ref from `42041d38` in `<no function>`
+- `3c25a8d3`: `"E (%u) %s: %s(%d): Common clock calculate failed\n"`
+  - ref from `00161d40` in `<no function>`
+  - ref from `42041d40` in `<no function>`
+- `3c25ae30`: `"E (%u) %s: %s(%d): I2S set clock failed\n"`
+  - ref from `00161e10` in `<no function>`
+  - ref from `42041e10` in `<no function>`
+- `3c25aff2`: `"i2s_calculate_common_clock"`
+  - ref from `00161d3c` in `<no function>`
+  - ref from `42041d3c` in `<no function>`
+- `3c25b00d`: `"i2s_calculate_pdm_rx_clock"`
+  - ref from `00161d34` in `<no function>`
+  - ref from `42041d34` in `<no function>`
+- `3c25b028`: `"i2s_calculate_pdm_tx_clock"`
+  - refs: none
+- `3c25b043`: `"i2s_calculate_clock"`
+  - ref from `00161d2c` in `<no function>`
+  - ref from `42041d2c` in `<no function>`
+- `3c268fc3`: `"E (%u) %s: SLEEP_MODE_1 enabled but sleep clock not configured\n"`
+  - ref from `001a2a5c` in `<no function>`
+  - ref from `42082a5c` in `<no function>`
+- `3c280af4`: `"E (%u) %s: got corrupted data after increasing clock frequency\n"`
+  - refs: none
+- `3c2854ce`: `"E (%u) %s: %s(%d): assigned clock speed not supported\n"`
+  - ref from `0022a0f8` in `<no function>`
+  - ref from `4210a0f8` in `<no function>`
+- `3fca1c3e`: `"spi_timing_config_set_flash_clock"`
+  - refs: none
+
+Matches: 34
+
+## `NTP`
+
+- `0000360f`: `"Connecting NTP server"`
+  - refs: none
+- `000c9bcf`: `"io_reg != (intptr_t)NULL"`
+  - refs: none
+- `000cbe8a`: `"atomic_load(&lock->dev[i]) == (intptr_t)NULL"`
+  - refs: none
+- `3c19360f`: `"Connecting NTP server"`
+  - ref from `00117e68` in `<no function>`
+  - ref from `3fc9aa98` in `<no function>`
+- `3c259bcf`: `"io_reg != (intptr_t)NULL"`
+  - ref from `00161ad4` in `<no function>`
+  - ref from `42041ad4` in `<no function>`
+- `3c25be8a`: `"atomic_load(&lock->dev[i]) == (intptr_t)NULL"`
+  - refs: none
+
+Matches: 6
+
+## `Alarm`
+
+- `00001522`: `"Alarms"`
+  - refs: none
+- `000034c4`: `"Modify Alarm"`
+  - refs: none
+- `000df1cc`: `"E (%u) %s: %s Unable to create alarm\n"`
+  - refs: none
+- `000df1f2`: `"W (%u) %s: %s Unable to find expected alarm in hashmap\n"`
+  - refs: none
+- `000df265`: `"btu_oneshot_alarm_cb"`
+  - refs: none
+- `000df2bd`: `"btu_general_alarm_cb"`
+  - refs: none
+- `000df2d2`: `"btu_general_alarm_process"`
+  - refs: none
+- `000df2ec`: `"btu_l2cap_alarm_process"`
+  - refs: none
+- `000e4e40`: `"alarm_mutex != NULL"`
+  - refs: none
+- `000e4e54`: `"/IDF/components/bt/common/osi/alarm.c"`
+  - refs: none
+- `000e4f6c`: `"E (%u) %s: %s alarm_cbs exhausted\n\n"`
+  - refs: none
+- `000e4f90`: `"alarm != NULL"`
+  - refs: none
+- `000e4f9e`: `"osi_alarm_is_active"`
+  - refs: none
+- `000e4fb2`: `"osi_alarm_get_remaining_ms"`
+  - refs: none
+- `000e4fcd`: `"osi_alarm_cancel"`
+  - refs: none
+- `000e4fde`: `"alarm_set"`
+  - refs: none
+- `000e4fe8`: `"osi_alarm_free"`
+  - refs: none
+- `000e4ff7`: `"alarm_cb_handler"`
+  - refs: none
+- `000e5008`: `"osi_alarm_new"`
+  - refs: none
+- `000e5016`: `"alarm_free"`
+  - refs: none
+- `000e5021`: `"osi_alarm_deinit"`
+  - refs: none
+- `000e5032`: `"osi_alarm_init"`
+  - refs: none
+- `000e5041`: `"osi_alarm_delete_mux"`
+  - refs: none
+- `000e5056`: `"osi_alarm_create_mux"`
+  - refs: none
+- `000e6d77`: `"E (%u) %s: %s unable to create alarm.\n"`
+  - refs: none
+- `000e6e1b`: `"bta_alarm_cb"`
+  - refs: none
+- `000e8b82`: `"bm_alarm_hash_map"`
+  - refs: none
+- `000e8bd5`: `"E (%u) %s: Alarm not created\n"`
+  - refs: none
+- `000e8bf3`: `"E (%u) %s: Alarm not set\n"`
+  - refs: none
+- `000e8c0d`: `"E (%u) %s: Init, alarm not found\n"`
+  - refs: none
+- `000e8c2f`: `"W (%u) %s: Submit, alarm not found\n"`
+  - refs: none
+- `000e8c53`: `"W (%u) %s: Cancel, alarm not found\n"`
+  - refs: none
+- `000e8c77`: `"W (%u) %s: Free, alarm not found\n"`
+  - refs: none
+- `000e8c99`: `"W (%u) %s: Get time, alarm not found\n"`
+  - refs: none
+- `0011de36`: `"systimer_ll_set_alarm_period"`
+  - refs: none
+- `3c191522`: `"Alarms"`
+  - refs: none
+- `3c1934c4`: `"Modify Alarm"`
+  - ref from `00117e24` in `<no function>`
+  - ref from `3fc9aa54` in `<no function>`
+- `3c26f1cc`: `"E (%u) %s: %s Unable to create alarm\n"`
+  - ref from `001a3ad4` in `<no function>`
+  - ref from `42083ad4` in `<no function>`
+- `3c26f1f2`: `"W (%u) %s: %s Unable to find expected alarm in hashmap\n"`
+  - ref from `001a3adc` in `<no function>`
+  - ref from `42083adc` in `<no function>`
+- `3c26f265`: `"btu_oneshot_alarm_cb"`
+  - refs: none
+- `3c26f2bd`: `"btu_general_alarm_cb"`
+  - refs: none
+- `3c26f2d2`: `"btu_general_alarm_process"`
+  - ref from `001a3a88` in `<no function>`
+  - ref from `42083a88` in `<no function>`
+- `3c26f2ec`: `"btu_l2cap_alarm_process"`
+  - refs: none
+- `3c274e40`: `"alarm_mutex != NULL"`
+  - refs: none
+- `3c274e54`: `"/IDF/components/bt/common/osi/alarm.c"`
+  - refs: none
+- `3c274f6c`: `"E (%u) %s: %s alarm_cbs exhausted\n\n"`
+  - ref from `001e135c` in `<no function>`
+  - ref from `420c135c` in `<no function>`
+- `3c274f90`: `"alarm != NULL"`
+  - ref from `001e136c` in `<no function>`
+  - ref from `420c136c` in `<no function>`
+- `3c274f9e`: `"osi_alarm_is_active"`
+  - ref from `001e1370` in `<no function>`
+  - ref from `420c1370` in `<no function>`
+- `3c274fb2`: `"osi_alarm_get_remaining_ms"`
+  - ref from `001e1368` in `<no function>`
+  - ref from `420c1368` in `<no function>`
+- `3c274fcd`: `"osi_alarm_cancel"`
+  - ref from `001e1364` in `<no function>`
+  - ref from `420c1364` in `<no function>`
+- `3c274fde`: `"alarm_set"`
+  - refs: none
+- `3c274fe8`: `"osi_alarm_free"`
+  - ref from `001e1360` in `<no function>`
+  - ref from `420c1360` in `<no function>`
+- `3c274ff7`: `"alarm_cb_handler"`
+  - ref from `001e1334` in `<no function>`
+  - ref from `420c1334` in `<no function>`
+- `3c275008`: `"osi_alarm_new"`
+  - refs: none
+- `3c275016`: `"alarm_free"`
+  - refs: none
+- `3c275021`: `"osi_alarm_deinit"`
+  - refs: none
+- `3c275032`: `"osi_alarm_init"`
+  - ref from `001e1344` in `<no function>`
+  - ref from `420c1344` in `<no function>`
+- `3c275041`: `"osi_alarm_delete_mux"`
+  - ref from `001e1340` in `<no function>`
+  - ref from `420c1340` in `<no function>`
+- `3c275056`: `"osi_alarm_create_mux"`
+  - ref from `001e133c` in `<no function>`
+  - ref from `420c133c` in `<no function>`
+- `3c276d77`: `"E (%u) %s: %s unable to create alarm.\n"`
+  - ref from `001e18b8` in `<no function>`
+  - ref from `420c18b8` in `<no function>`
+- `3c276e1b`: `"bta_alarm_cb"`
+  - ref from `001e1880` in `<no function>`
+  - ref from `420c1880` in `<no function>`
+- `3c278b82`: `"bm_alarm_hash_map"`
+  - ref from `001e1fa0` in `<no function>`
+  - ref from `420c1fa0` in `<no function>`
+- `3c278bd5`: `"E (%u) %s: Alarm not created\n"`
+  - ref from `001e1fbc` in `<no function>`
+  - ref from `420c1fbc` in `<no function>`
+- `3c278bf3`: `"E (%u) %s: Alarm not set\n"`
+  - ref from `001e1fc0` in `<no function>`
+  - ref from `420c1fc0` in `<no function>`
+- `3c278c0d`: `"E (%u) %s: Init, alarm not found\n"`
+  - ref from `001e1fc4` in `<no function>`
+  - ref from `420c1fc4` in `<no function>`
+- `3c278c2f`: `"W (%u) %s: Submit, alarm not found\n"`
+  - ref from `001e1fcc` in `<no function>`
+  - ref from `420c1fcc` in `<no function>`
+- `3c278c53`: `"W (%u) %s: Cancel, alarm not found\n"`
+  - ref from `001e1fd8` in `<no function>`
+  - ref from `420c1fd8` in `<no function>`
+- `3c278c77`: `"W (%u) %s: Free, alarm not found\n"`
+  - ref from `001e1fe0` in `<no function>`
+  - ref from `420c1fe0` in `<no function>`
+- `3c278c99`: `"W (%u) %s: Get time, alarm not found\n"`
+  - ref from `001e1fe8` in `<no function>`
+  - ref from `420c1fe8` in `<no function>`
+- `3fca0a66`: `"systimer_ll_set_alarm_period"`
+  - refs: none
+
+Matches: 70
+

@@ -47,6 +47,8 @@ Source:
 
 This does not prove the Murphy M3 uses the exact `GDEY037T03-FT21` module, but it matches the known resolution, UC8253 family, touch feature, and front-light claim.
 
+An external report from another owner with the same display says the front-light LED strip is wired in parallel, is intended for 3.3 V drive, and has only one light channel. That rules out warm/cool dual-channel blending for this display family and makes single-channel PWM the leading control model.
+
 ## Driver Path Evidence
 
 The firmware includes Arduino-ESP32 and ESP-IDF LEDC/PWM code:
@@ -67,11 +69,13 @@ Treat this as supporting evidence only. LEDC and GPIO functions are common in Ar
 The likely hardware shape is:
 
 - A front-light LED rail integrated into the panel assembly.
-- A board-side enable/PWM path driving the LED rail.
-- Either direct ESP32-S3 PWM into a transistor/driver, or a discrete LED driver with one or more control pins.
+- A single-channel 3.3 V LED strip with parallel LEDs.
+- A board-side PWM path driving the LED rail or a driver/transistor input.
 - User-facing brightness stored as approximately 10 levels, matching the seller listing.
 
-The Good Display panel lead says the light assembly itself is low-voltage and up to 60 mA, which is too much for a bare ESP32 GPIO. The MCU should be assumed to drive a control input, not the LED string directly.
+Use PWM above the audible range. A practical target is at least 20 kHz; 25 kHz is a good default if the LEDC resolution is still adequate for 10 brightness levels.
+
+The Good Display panel lead says the light assembly itself is low-voltage and up to 60 mA. That may be fine for a 3.3 V LED rail, but it is too much to source directly from an ESP32-S3 GPIO. Until measured otherwise, assume the MCU GPIO should drive a MOSFET/transistor gate or LED-driver control input rather than the LED current directly.
 
 ## Unknowns
 
@@ -79,9 +83,9 @@ The Good Display panel lead says the light assembly itself is low-voltage and up
 | --- | --- |
 | Front-light GPIO pin | Unknown |
 | PWM channel/timer | Unknown |
-| PWM frequency/resolution | Unknown |
+| PWM frequency/resolution | Likely single-channel PWM; use at least 20 kHz. Exact OEM value unknown. |
 | Active polarity | Unknown |
-| Whether there is a separate enable pin | Unknown |
+| Whether there is a separate enable pin | Unknown; may be PWM-only. |
 | Whether there is a dedicated LED-driver IC | Unknown |
 | Brightness persistence key/NVS field | Unknown |
 
@@ -93,6 +97,7 @@ For `community-sdk`, front light should be a board-level peripheral, not part of
 - Expose `setLevel(0..10)` and `getLevel()`.
 - Keep the implementation disabled until pin/control-path proof exists.
 - Once verified, implement the Murphy backend with configurable PWM pin, optional enable pin, PWM frequency, duty table, and active polarity.
+- Use a PWM frequency above the audible range, preferably around 25 kHz, to avoid coil/capacitor/ceramic whine.
 - Wire CrossPoint's lighting UI to the abstraction after the board backend is proven.
 
 Do not assume the front light shares touch or display pins. Treat it as its own power/control circuit.
@@ -104,5 +109,4 @@ Do not assume the front light shares touch or display pins. Treat it as its own 
 3. Search NVS/default-setting code for a small integer stored near other settings such as dark mode, refresh interval, or font size.
 4. Probe the Murphy PCB around the panel/front-light FPC for LED-driver IC markings or MOSFET/transistor routing.
 5. With the OEM firmware running, use a logic analyzer on likely LED-control pins while changing brightness with the top-right-button long press flow.
-6. Measure the front-light rail voltage/current at several brightness levels to determine whether brightness is PWM, current regulation, or stepped enable control.
-
+6. Measure the front-light rail voltage/current at several brightness levels to determine actual current draw and whether direct GPIO drive is electrically safe or a transistor/driver is required.

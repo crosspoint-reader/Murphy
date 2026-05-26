@@ -67,3 +67,20 @@ Segment files are under `analysis/segments/`:
 | 5 | `0x50000000` | `0x01c64` |
 | 6 | `0x600fe000` | `0x0002c` |
 
+## Export Scripts
+
+Custom scripts in `tools/ghidra_scripts/`:
+
+| Script | Purpose |
+| --- | --- |
+| `LoadEsp32S3Segments.java` | Map ESP32-S3 app-image segments at runtime addresses. |
+| `DumpProgramInventory.java` | Export memory blocks, functions, symbols, and strings. |
+| `FindStringRefs.java` | Find string matches and direct references. |
+| `FindPointerRefs.java` | Find string matches, literal/pointer locations, and references to those pointers. Useful for Xtensa literal pools. |
+| `DecompileAt.java` | Decompile functions containing selected addresses. |
+
+Touch-specific exports:
+
+- `analysis/touch_string_refs.md`
+- `analysis/touch_pointer_refs.md`
+- `analysis/touch_decompile.md`

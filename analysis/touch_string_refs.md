@@ -1,0 +1,425 @@
+# String Reference Report
+
+## `touch`
+
+- `000016a0`: `"<Reset custom touch area>"`
+  - ref from `00122330` in `<no function>`
+  - ref from `42002330` in `<no function>`
+- `00001c50`: `"https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/touch/update.json"`
+  - refs: none
+- `00003601`: `"Touch to exit"`
+  - refs: none
+- `0000b56e`: `"touchTask"`
+  - ref from `0001d59c` in `<no function>`
+  - ref from `3c1ad59c` in `<no function>`
+- `000fd4f6`: `"E (%d) %s: Smartconfig type is not ESP_TOUCH_V2\n"`
+  - refs: none
+- `3c1916a0`: `"<Reset custom touch area>"`
+  - refs: none
+- `3c191c50`: `"https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/touch/update.json"`
+  - ref from `001206f8` in `<no function>`
+  - ref from `420006f8` in `<no function>`
+- `3c193601`: `"Touch to exit"`
+  - ref from `00117e64` in `<no function>`
+  - ref from `3fc9aa94` in `<no function>`
+- `3c19b56e`: `"touchTask"`
+  - refs: none
+- `3c28d4f6`: `"E (%d) %s: Smartconfig type is not ESP_TOUCH_V2\n"`
+  - refs: none
+
+Matches: 10
+
+## `Touch`
+
+- `000016a0`: `"<Reset custom touch area>"`
+  - ref from `00122330` in `<no function>`
+  - ref from `42002330` in `<no function>`
+- `00001c50`: `"https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/touch/update.json"`
+  - refs: none
+- `00003601`: `"Touch to exit"`
+  - refs: none
+- `0000b56e`: `"touchTask"`
+  - ref from `0001d59c` in `<no function>`
+  - ref from `3c1ad59c` in `<no function>`
+- `000fd4f6`: `"E (%d) %s: Smartconfig type is not ESP_TOUCH_V2\n"`
+  - refs: none
+- `3c1916a0`: `"<Reset custom touch area>"`
+  - refs: none
+- `3c191c50`: `"https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/touch/update.json"`
+  - ref from `001206f8` in `<no function>`
+  - ref from `420006f8` in `<no function>`
+- `3c193601`: `"Touch to exit"`
+  - ref from `00117e64` in `<no function>`
+  - ref from `3fc9aa94` in `<no function>`
+- `3c19b56e`: `"touchTask"`
+  - refs: none
+- `3c28d4f6`: `"E (%d) %s: Smartconfig type is not ESP_TOUCH_V2\n"`
+  - refs: none
+
+Matches: 10
+
+## `touchTask`
+
+- `0000b56e`: `"touchTask"`
+  - ref from `0001d59c` in `<no function>`
+  - ref from `3c1ad59c` in `<no function>`
+- `3c19b56e`: `"touchTask"`
+  - refs: none
+
+Matches: 2
+
+## `Reset custom touch`
+
+- `000016a0`: `"<Reset custom touch area>"`
+  - ref from `00122330` in `<no function>`
+  - ref from `42002330` in `<no function>`
+- `3c1916a0`: `"<Reset custom touch area>"`
+  - refs: none
+
+Matches: 2
+
+## `Touch to exit`
+
+- `00003601`: `"Touch to exit"`
+  - refs: none
+- `3c193601`: `"Touch to exit"`
+  - ref from `00117e64` in `<no function>`
+  - ref from `3fc9aa94` in `<no function>`
+
+Matches: 2
+
+## `I2C`
+
+- `000a06c2`: `"[%6u][E][%s:%u] %s(): Can't allocate memory for I2C_%d rxBuffer\r\n"`
+  - refs: none
+- `000a0704`: `"[%6u][E][%s:%u] %s(): Can't allocate memory for I2C_%d txBuffer\r\n"`
+  - refs: none
+- `000a08b9`: `"[%6u][E][%s:%u] %s(): i2cWriteReadNonStop returned Error %d\r\n"`
+  - refs: none
+- `000a08f7`: `"[%6u][E][%s:%u] %s(): i2cRead returned Error %d\r\n"`
+  - refs: none
+- `000c7f9a`: `"C:/Users/HZW/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-i2c-slave.c"`
+  - refs: none
+- `000c8051`: `"[%6u][E][%s:%u] %s(): Lock is not initialized! Did you call i2c_slave_init()?\r\n"`
+  - refs: none
+- `000c80a1`: `"i2cSlaveDeinit"`
+  - refs: none
+- `000c80b0`: `"C:/Users/HZW/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-i2c.c"`
+  - refs: none
+- `000c813e`: `"[%6u][E][%s:%u] %s(): i2c_param_config failed\r\n"`
+  - refs: none
+- `000c816e`: `"[%6u][E][%s:%u] %s(): i2c_driver_install failed\r\n"`
+  - refs: none
+- `000c81cf`: `"i2cWriteReadNonStop"`
+  - refs: none
+- `000c81f4`: `"i2cDeinit"`
+  - refs: none
+- `000c9f5a`: `"/IDF/components/driver/i2c.c"`
+  - refs: none
+- `000c9f7b`: `"E (%u) %s: i2c command link allocation error: the buffer provided is too small.\n"`
+  - refs: none
+- `000c9fcc`: `"E (%u) %s: i2c command link malloc error\n"`
+  - refs: none
+- `000ca01d`: `"E (%u) %s: %s(%d): i2c number error\n"`
+  - refs: none
+- `000ca042`: `"E (%u) %s: %s(%d): i2c driver install error\n"`
+  - refs: none
+- `000ca06f`: `"E (%u) %s: %s(%d): i2c timing value error\n"`
+  - refs: none
+- `000ca09a`: `"E (%u) %s: %s(%d): i2c null address error\n"`
+  - refs: none
+- `000ca0c5`: `"E (%u) %s: %s(%d): i2c buffer size too small for slave mode\n"`
+  - refs: none
+- `000ca102`: `"E (%u) %s: i2c driver malloc error\n"`
+  - refs: none
+- `000ca126`: `"E (%u) %s: i2c ringbuffer error\n"`
+  - refs: none
+- `000ca147`: `"E (%u) %s: i2c semaphore error\n"`
+  - refs: none
+- `000ca167`: `"E (%u) %s: i2c driver install error\n"`
+  - refs: none
+- `000ca1e0`: `"E (%u) %s: %s(%d): this i2c pin does not support internal pull-up\n"`
+  - refs: none
+- `000ca25d`: `"E (%u) %s: %s(%d): i2c mode error\n"`
+  - refs: none
+- `000ca280`: `"E (%u) %s: %s(%d): i2c clock choice is invalid, please check flag and frequency\n"`
+  - refs: none
+- `000ca2d1`: `"E (%u) %s: %s(%d): i2c command link error\n"`
+  - refs: none
+- `000ca2fc`: `"E (%u) %s: %s(%d): i2c ack type error\n"`
+  - refs: none
+- `000ca323`: `"E (%u) %s: %s(%d): i2c data read length error\n"`
+  - refs: none
+- `000ca352`: `"E (%u) %s: %s(%d): i2c driver not installed\n"`
+  - refs: none
+- `000ca3dd`: `"i2c_master_cmd_begin"`
+  - refs: none
+- `000ca3f2`: `"i2c_master_read"`
+  - refs: none
+- `000ca402`: `"i2c_master_read_byte"`
+  - refs: none
+- `000ca417`: `"i2c_master_write_byte"`
+  - refs: none
+- `000ca42d`: `"i2c_master_write"`
+  - refs: none
+- `000ca43e`: `"i2c_master_stop"`
+  - refs: none
+- `000ca44e`: `"i2c_cmd_link_append"`
+  - refs: none
+- `000ca462`: `"i2c_master_start"`
+  - refs: none
+- `000ca473`: `"i2c_set_pin"`
+  - refs: none
+- `000ca47f`: `"i2c_isr_register"`
+  - refs: none
+- `000ca490`: `"i2c_set_timeout"`
+  - refs: none
+- `000ca4a0`: `"i2c_param_config"`
+  - refs: none
+- `000ca4b1`: `"i2c_reset_rx_fifo"`
+  - refs: none
+- `000ca4c3`: `"i2c_reset_tx_fifo"`
+  - refs: none
+- `000ca4d5`: `"i2c_driver_delete"`
+  - refs: none
+- `000ca4e7`: `"i2c_master_cmd_begin_static"`
+  - refs: none
+- `000ca503`: `"i2c_driver_install"`
+  - refs: none
+- `000cee37`: `"IDF/components/hal/esp32s3/include/hal/i2c_ll.h"`
+  - refs: none
+- `0011df09`: `"i2c_mst 0x%x: 0x%x\n"`
+  - refs: none
+- `0011dfcd`: `"i2c_bias %02d: 0x%x\n"`
+  - refs: none
+- `0011dfe2`: `"i2c_bbpll %02d: 0x%x\n"`
+  - refs: none
+- `0011dff8`: `"i2c_rfrx %02d: 0x%x\n"`
+  - refs: none
+- `0011e00d`: `"i2c_txrf %02d: 0x%x\n"`
+  - refs: none
+- `0011e022`: `"i2c_bbtop %02d: 0x%x\n"`
+  - refs: none
+- `0011e038`: `"i2c_ckgen %02d: 0x%x\n"`
+  - refs: none
+- `0011e04e`: `"i2c_rfpll %02d: 0x%x\n"`
+  - refs: none
+- `0011e064`: `"i2c_rfpll_sdm %02d: 0x%x\n"`
+  - refs: none
+- `0011e07e`: `"i2c_dig_reg %02d: 0x%x\n"`
+  - refs: none
+- `0011e096`: `"i2c_ulp %02d: 0x%x\n"`
+  - refs: none
+- `0011e0aa`: `"i2c_sar %02d: 0x%x\n"`
+  - refs: none
+- `3c2306c2`: `"[%6u][E][%s:%u] %s(): Can't allocate memory for I2C_%d rxBuffer\r\n"`
+  - ref from `420cc8b2` in `FUN_420cc86c`
+  - ref from `420cc928` in `FUN_420cc86c`
+  - ref from `420cc94d` in `FUN_420cc86c`
+  - ref from `420cc921` in `FUN_420cc86c`
+  - ref from `420cc939` in `FUN_420cc86c`
+  - ref from `001ec8b2` in `FUN_001ec86c`
+  - ref from `001ec94d` in `FUN_001ec86c`
+  - ref from `001ec921` in `FUN_001ec86c`
+  - ref from `001ec939` in `FUN_001ec86c`
+  - ref from `00121350` in `<no function>`
+  - ref from `42001350` in `<no function>`
+- `3c230704`: `"[%6u][E][%s:%u] %s(): Can't allocate memory for I2C_%d txBuffer\r\n"`
+  - ref from `420cc8ec` in `FUN_420cc86c`
+  - ref from `001ec8ec` in `FUN_001ec86c`
+  - ref from `00121354` in `<no function>`
+  - ref from `42001354` in `<no function>`
+- `3c2308b9`: `"[%6u][E][%s:%u] %s(): i2cWriteReadNonStop returned Error %d\r\n"`
+  - ref from `00121390` in `<no function>`
+  - ref from `42001390` in `<no function>`
+- `3c2308f7`: `"[%6u][E][%s:%u] %s(): i2cRead returned Error %d\r\n"`
+  - ref from `00121394` in `<no function>`
+  - ref from `42001394` in `<no function>`
+- `3c257f9a`: `"C:/Users/HZW/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-i2c-slave.c"`
+  - refs: none
+- `3c258051`: `"[%6u][E][%s:%u] %s(): Lock is not initialized! Did you call i2c_slave_init()?\r\n"`
+  - refs: none
+- `3c2580a1`: `"i2cSlaveDeinit"`
+  - refs: none
+- `3c2580b0`: `"C:/Users/HZW/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-i2c.c"`
+  - refs: none
+- `3c25813e`: `"[%6u][E][%s:%u] %s(): i2c_param_config failed\r\n"`
+  - ref from `001616fc` in `<no function>`
+  - ref from `420416fc` in `<no function>`
+- `3c25816e`: `"[%6u][E][%s:%u] %s(): i2c_driver_install failed\r\n"`
+  - ref from `00161700` in `<no function>`
+  - ref from `42041700` in `<no function>`
+- `3c2581cf`: `"i2cWriteReadNonStop"`
+  - ref from `0016171c` in `<no function>`
+  - ref from `4204171c` in `<no function>`
+- `3c2581eb`: `"i2cWrite"`
+  - ref from `0016170c` in `<no function>`
+  - ref from `4204170c` in `<no function>`
+- `3c2581f4`: `"i2cDeinit"`
+  - ref from `00161704` in `<no function>`
+  - ref from `42041704` in `<no function>`
+- `3c2581fe`: `"i2cInit"`
+  - ref from `001616e8` in `<no function>`
+  - ref from `420416e8` in `<no function>`
+- `3c259f5a`: `"/IDF/components/driver/i2c.c"`
+  - refs: none
+- `3c259f7b`: `"E (%u) %s: i2c command link allocation error: the buffer provided is too small.\n"`
+  - ref from `00161b80` in `<no function>`
+  - ref from `42041b80` in `<no function>`
+- `3c259fcc`: `"E (%u) %s: i2c command link malloc error\n"`
+  - ref from `00161b84` in `<no function>`
+  - ref from `42041b84` in `<no function>`
+- `3c25a01d`: `"E (%u) %s: %s(%d): i2c number error\n"`
+  - refs: none
+- `3c25a042`: `"E (%u) %s: %s(%d): i2c driver install error\n"`
+  - ref from `00161ba8` in `<no function>`
+  - ref from `42041ba8` in `<no function>`
+- `3c25a06f`: `"E (%u) %s: %s(%d): i2c timing value error\n"`
+  - ref from `00161bb8` in `<no function>`
+  - ref from `42041bb8` in `<no function>`
+- `3c25a09a`: `"E (%u) %s: %s(%d): i2c null address error\n"`
+  - ref from `00161bc0` in `<no function>`
+  - ref from `42041bc0` in `<no function>`
+- `3c25a0c5`: `"E (%u) %s: %s(%d): i2c buffer size too small for slave mode\n"`
+  - ref from `00161bc8` in `<no function>`
+  - ref from `42041bc8` in `<no function>`
+- `3c25a102`: `"E (%u) %s: i2c driver malloc error\n"`
+  - ref from `00161bcc` in `<no function>`
+  - ref from `42041bcc` in `<no function>`
+- `3c25a126`: `"E (%u) %s: i2c ringbuffer error\n"`
+  - ref from `00161bd0` in `<no function>`
+  - ref from `42041bd0` in `<no function>`
+- `3c25a147`: `"E (%u) %s: i2c semaphore error\n"`
+  - ref from `00161bd4` in `<no function>`
+  - ref from `42041bd4` in `<no function>`
+- `3c25a167`: `"E (%u) %s: i2c driver install error\n"`
+  - ref from `00161bd8` in `<no function>`
+  - ref from `42041bd8` in `<no function>`
+- `3c25a1e0`: `"E (%u) %s: %s(%d): this i2c pin does not support internal pull-up\n"`
+  - ref from `00161bf8` in `<no function>`
+  - ref from `42041bf8` in `<no function>`
+- `3c25a25d`: `"E (%u) %s: %s(%d): i2c mode error\n"`
+  - ref from `00161c04` in `<no function>`
+  - ref from `42041c04` in `<no function>`
+- `3c25a280`: `"E (%u) %s: %s(%d): i2c clock choice is invalid, please check flag and frequency\n"`
+  - ref from `00161c08` in `<no function>`
+  - ref from `42041c08` in `<no function>`
+- `3c25a2d1`: `"E (%u) %s: %s(%d): i2c command link error\n"`
+  - refs: none
+- `3c25a2fc`: `"E (%u) %s: %s(%d): i2c ack type error\n"`
+  - ref from `00161c38` in `<no function>`
+  - ref from `42041c38` in `<no function>`
+- `3c25a323`: `"E (%u) %s: %s(%d): i2c data read length error\n"`
+  - ref from `00161c44` in `<no function>`
+  - ref from `42041c44` in `<no function>`
+- `3c25a352`: `"E (%u) %s: %s(%d): i2c driver not installed\n"`
+  - ref from `00161c4c` in `<no function>`
+  - ref from `42041c4c` in `<no function>`
+- `3c25a3dd`: `"i2c_master_cmd_begin"`
+  - ref from `00161c48` in `<no function>`
+  - ref from `42041c48` in `<no function>`
+- `3c25a3f2`: `"i2c_master_read"`
+  - ref from `00161c40` in `<no function>`
+  - ref from `42041c40` in `<no function>`
+- `3c25a402`: `"i2c_master_read_byte"`
+  - ref from `00161c34` in `<no function>`
+  - ref from `42041c34` in `<no function>`
+- `3c25a417`: `"i2c_master_write_byte"`
+  - ref from `00161c2c` in `<no function>`
+  - ref from `42041c2c` in `<no function>`
+- `3c25a42d`: `"i2c_master_write"`
+  - ref from `00161c30` in `<no function>`
+  - ref from `42041c30` in `<no function>`
+- `3c25a43e`: `"i2c_master_stop"`
+  - ref from `00161c28` in `<no function>`
+  - ref from `42041c28` in `<no function>`
+- `3c25a44e`: `"i2c_cmd_link_append"`
+  - ref from `00161b8c` in `<no function>`
+  - ref from `42041b8c` in `<no function>`
+- `3c25a462`: `"i2c_master_start"`
+  - refs: none
+- `3c25a473`: `"i2c_set_pin"`
+  - refs: none
+- `3c25a47f`: `"i2c_isr_register"`
+  - ref from `00161bbc` in `<no function>`
+  - ref from `42041bbc` in `<no function>`
+- `3c25a490`: `"i2c_set_timeout"`
+  - ref from `00161bb4` in `<no function>`
+  - ref from `42041bb4` in `<no function>`
+- `3c25a4a0`: `"i2c_param_config"`
+  - ref from `00161c00` in `<no function>`
+  - ref from `42041c00` in `<no function>`
+- `3c25a4b1`: `"i2c_reset_rx_fifo"`
+  - ref from `00161bb0` in `<no function>`
+  - ref from `42041bb0` in `<no function>`
+- `3c25a4c3`: `"i2c_reset_tx_fifo"`
+  - ref from `00161bac` in `<no function>`
+  - ref from `42041bac` in `<no function>`
+- `3c25a4d5`: `"i2c_driver_delete"`
+  - refs: none
+- `3c25a4e7`: `"i2c_master_cmd_begin_static"`
+  - refs: none
+- `3c25a503`: `"i2c_driver_install"`
+  - ref from `00161bc4` in `<no function>`
+  - ref from `42041bc4` in `<no function>`
+- `3c25ee37`: `"IDF/components/hal/esp32s3/include/hal/i2c_ll.h"`
+  - refs: none
+- `3fca0b39`: `"i2c_mst 0x%x: 0x%x\n"`
+  - refs: none
+- `3fca0bfd`: `"i2c_bias %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c12`: `"i2c_bbpll %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c28`: `"i2c_rfrx %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c3d`: `"i2c_txrf %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c52`: `"i2c_bbtop %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c68`: `"i2c_ckgen %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c7e`: `"i2c_rfpll %02d: 0x%x\n"`
+  - refs: none
+- `3fca0c94`: `"i2c_rfpll_sdm %02d: 0x%x\n"`
+  - refs: none
+- `3fca0cae`: `"i2c_dig_reg %02d: 0x%x\n"`
+  - refs: none
+- `3fca0cc6`: `"i2c_ulp %02d: 0x%x\n"`
+  - refs: none
+- `3fca0cda`: `"i2c_sar %02d: 0x%x\n"`
+  - refs: none
+
+Matches: 124
+
+## `Wire`
+
+- `0000389f`: `"Version too low, please use Wired firmware flashing!"`
+  - refs: none
+- `000a04d6`: `"8C:/Users/HZW/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.cpp"`
+  - refs: none
+- `000a0971`: `"allocateWireBuffer"`
+  - refs: none
+- `000f4f3c`: `"E (%u) %s: %s(%d): Incompatible when setting to both Octal mode and 3-wire-mode\n"`
+  - refs: none
+- `000f4fe3`: `"E (%u) %s: %s(%d): Incompatible when setting to both multi-line mode and 3-wire-mode\n"`
+  - refs: none
+- `3c19389f`: `"Version too low, please use Wired firmware flashing!"`
+  - ref from `00117f0c` in `<no function>`
+  - ref from `3fc9ab3c` in `<no function>`
+- `3c2304d6`: `"8C:/Users/HZW/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.cpp"`
+  - refs: none
+- `3c230971`: `"allocateWireBuffer"`
+  - ref from `420cc846` in `FUN_420cc7f8`
+  - ref from `420cc84b` in `FUN_420cc7f8`
+  - ref from `420cc859` in `FUN_420cc7f8`
+  - ref from `001ec846` in `FUN_001ec7f8`
+  - ref from `001ec859` in `FUN_001ec7f8`
+  - ref from `0012134c` in `<no function>`
+  - ref from `4200134c` in `<no function>`
+- `3c284f3c`: `"E (%u) %s: %s(%d): Incompatible when setting to both Octal mode and 3-wire-mode\n"`
+  - refs: none
+- `3c284fe3`: `"E (%u) %s: %s(%d): Incompatible when setting to both multi-line mode and 3-wire-mode\n"`
+  - refs: none
+
+Matches: 10
+

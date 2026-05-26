@@ -2,7 +2,9 @@
 
 ## Summary
 
-The firmware has a visible clock/calendar/alarm feature set. The strongest evidence points to network-synchronized system time using NTP, with ESP32-S3 internal RTC/timer domains used for normal ESP-IDF timekeeping and sleep behavior.
+The firmware has a visible clock/calendar/alarm feature set. The strongest firmware evidence points to network-synchronized system time using NTP, with ESP32-S3 internal RTC/timer domains used for normal ESP-IDF timekeeping and sleep behavior.
+
+Online research adds one important external clue: the HamGeek M3 product listing claims a built-in independent clock chip that can be used offline without internet connection. That makes an external RTC plausible, but it is not yet proven from the firmware strings or PCB evidence.
 
 There is not yet strong evidence of an external battery-backed RTC chip. The available Elecrow CrowPanel schematic does not show an RTC IC, a 32.768 kHz RTC crystal, or a coin-cell/backup domain dedicated to RTC. Because the physical Murphy M3 differs from that schematic in at least one known way, the absence of RTC evidence in the schematic is not final proof.
 
@@ -47,6 +49,7 @@ No strong external RTC markers were recovered from the current firmware and vend
 
 - No clear `DS3231`, `PCF8563`, `BM8563`, `RX8025`, or similar RTC part strings.
 - No clear RTC I2C address evidence recovered yet.
+- Seller listing claims an independent clock chip, but no RTC part number/address has been recovered yet.
 - No RTC-specific NVS key names found in the simple NVS string scan.
 - The Elecrow CrowPanel reference schematic does not list a dedicated RTC chip or 32.768 kHz RTC crystal.
 
@@ -82,7 +85,6 @@ This leaves three plausible interpretations:
 
 ## Porting Impact
 
-For `community-sdk` and `crosspoint-reader-main`, assume no external RTC until the PCB proves otherwise. The initial port should use WiFi/NTP plus ESP32-S3 internal timekeeping. Keep the time provider behind a small board abstraction so an external RTC driver can be added later without rewriting application clock logic.
+For `community-sdk` and `crosspoint-reader-main`, keep the initial port functional with WiFi/NTP plus ESP32-S3 internal timekeeping, but leave a board-level RTC hook. The seller's independent-clock-chip claim is enough to justify scanning for external RTC devices during bring-up.
 
 Avoid assigning unknown I2C pins permanently until touch, audio codec, and possible RTC devices are mapped.
-

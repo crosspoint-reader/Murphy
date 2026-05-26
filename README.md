@@ -16,7 +16,9 @@ The hardware most likely matches the Elecrow CrowPanel ESP32 3.7-inch E-paper HM
 - 240x416 panel resolution.
 - SD card slot on a separate SPI bus.
 
-The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based so far; an external RTC remains unproven.
+The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based in firmware, while the HamGeek M3 listing claims a built-in independent clock chip, so an external RTC is now plausible but still unproven at IC/address level.
+
+Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL), but the exact touch controller and GPIO pins are not yet proven. Online panel research makes Good Display's `FT6336U`-based 3.7-inch touch/front-light module the strongest external match so far. The public CrowPanel schematic names display FPC pins `TSCL`/`TSDA`; the matching public board file does not route those pins, so the Murphy unit needs probing or deeper firmware recovery for touch pin mapping.
 
 ## Findings
 
@@ -29,6 +31,8 @@ Detailed notes:
 - [Flash layout](findings/flash_layout.md): ESP-IDF partition table, extracted partitions, hashes.
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
+- [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
+- [Online research notes](findings/online_research.md): product listings and panel references found on the web.
 - [Audio hardware and capabilities](findings/audio.md): headphone-jack evidence, I2S audio stack, supported formats, unknown codec/pins.
 - [Clock, time sync, and RTC](findings/clock_rtc.md): NTP/timekeeping evidence, alarm UI, RTC unknowns and test plan.
 - [Network and UI](findings/network_and_ui.md): web endpoints, OTA behavior, WiFi/weather/UI strings.
@@ -43,6 +47,7 @@ Detailed notes:
 - `analysis/ghidra-project/`: Ghidra project created for the app image.
 - `analysis/ghidra_inventory.md`: exported Ghidra inventory.
 - `analysis/audio_rtc_string_refs.md`: Ghidra string-reference export for audio and clock/RTC terms.
+- `analysis/touch_string_refs.md`, `analysis/touch_pointer_refs.md`: Ghidra exports for touch-related strings and pointer/literal-pool references.
 - `analysis/vendor/`: vendor CrowPanel reference material cloned for hardware comparison.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: binwalk-style extraction directory populated with ESP partitions.
 - `findings/`: human-readable reverse-engineering and porting notes.
@@ -83,5 +88,6 @@ Minimum viable port:
 - SD card mounts and files can be read.
 - GPIO1/GPIO2/GPIO4/GPIO5/GPIO6 inputs navigate CrossPoint.
 - Battery and touch can be stubbed or disabled initially.
+- Touch can be added later as a target-rectangle event source that invokes the same actions as existing button-driven menu selection.
 - Audio and external RTC support can be disabled initially, with board abstractions left in place.
 - Partial refresh and grayscale can come after basic display stability.

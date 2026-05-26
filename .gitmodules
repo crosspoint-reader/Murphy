@@ -1,0 +1,3 @@
+[submodule "tools/ghidra-xtensa"]
+	path = tools/ghidra-xtensa
+	url = https://github.com/Ebiroll/ghidra-xtensa.git

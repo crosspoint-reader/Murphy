@@ -1,0 +1,48 @@
+esptool v5.2.0
+Image size: 7143424 bytes
+Detected image type: ESP32-S3
+
+ESP32-S3 Image Header
+=====================
+Image version: 1
+Entry point: 0x40377b70
+Segments: 7
+Flash size: 16MB
+Flash freq: 80m
+Flash mode: DIO
+
+ESP32-S3 Extended Image Header
+==============================
+WP pin: 0xee (disabled)
+Flash pins drive settings: clk_drv: 0x0, q_drv: 0x0, d_drv: 0x0, cs0_drv: 0x0, hd_drv: 0x0, wp_drv: 0x0
+Chip ID: 9 (ESP32-S3)
+Minimal chip revision: v0.0, (legacy min_rev = 0)
+Maximal chip revision: v655.35
+
+Segments Information
+====================
+Segment   Length   Load addr   File offs  Memory types
+-------  -------  ----------  ----------  ------------
+      0  0x117a58  0x3c190020  0x00000018  DROM
+      1  0x075b0  0x3fc9a6b0  0x00117a78  BYTE_ACCESSIBLE, MEM_INTERNAL, DRAM
+      2  0x00fe0  0x40374000  0x0011f030  MEM_INTERNAL, IRAM
+      3  0x18737c  0x42000020  0x00120018  IROM
+      4  0x156c4  0x40374fe0  0x002a739c  MEM_INTERNAL, IRAM
+      5  0x01c64  0x50000000  0x002bca68  RTC_DATA
+      6  0x0002c  0x600fe000  0x002be6d4  RTC_DRAM, RTC_IRAM
+
+ESP32-S3 Image Footer
+=====================
+Checksum: 0xe2 (valid)
+Validation hash: d4e3bd0c34f93becbbba37e0ceba4173c636dd546f7aec6de61b85f5b9b45459 (valid)
+
+Application Information
+=======================
+Project name: arduino-lib-builder
+App version: esp-idf: v4.4.7 38eeba213a
+Compile time: Mar  5 2024 12:12:53
+ELF file SHA256: a6f205d9e091d605cf2d0e1684ee43f08ae63ff52edcdd3becbf81d62563ca3b
+ESP-IDF: v4.4.7-dirty
+Minimal eFuse block revision: 0.0
+Maximal eFuse block revision: 0.0
+Secure version: 0

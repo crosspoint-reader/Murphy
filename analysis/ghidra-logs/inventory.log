@@ -1,0 +1,43 @@
+2026-05-25 19:58:55 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-05-25 19:58:55 INFO  (LoggingInitialization) Using log file: analysis/ghidra-logs/inventory.log  
+2026-05-25 19:58:55 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-05-25 19:58:55 INFO  (Preferences) Loading user preferences: /Users/jmitch/Library/ghidra/ghidra_12.1_PUBLIC/preferences  
+2026-05-25 19:58:55 INFO  (ClassSearcher) Searching for classes...  
+2026-05-25 19:58:56 INFO  (ClassSearcher) Class search complete (839 ms)  
+2026-05-25 19:58:56 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-05-25 19:58:56 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-05-25 19:58:56 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2026-05-25 19:58:56 INFO  (DefaultTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2026-05-25 19:58:57 INFO  (AnalyzeHeadless) Headless startup complete (1981 ms)  
+2026-05-25 19:58:57 INFO  (ClassSearcher) Class searcher loaded 59 extension points (20 false positives)  
+2026-05-25 19:58:57 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /Users/jmitch/GitHub/Murphy_M3/tools/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts  
+2026-05-25 19:58:57 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2026-05-25 19:58:57 INFO  (HeadlessAnalyzer) Opening existing project: /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project/MurphyM3  
+2026-05-25 19:58:57 INFO  (HeadlessProject) Opening project: /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project/MurphyM3  
+2026-05-25 19:58:58 INFO  (HeadlessAnalyzer) REPORT: Processing read-only project file: /app0.bin  
+2026-05-25 19:58:58 INFO  (HeadlessAnalyzer) REPORT: Execute script: DumpProgramInventory.java '/Users/jmitch/GitHub/Murphy_M3/analysis/ghidra_inventory.md'   
+2026-05-25 19:58:58 INFO  (HeadlessAnalyzer) SCRIPT: /Users/jmitch/GitHub/Murphy_M3/tools/ghidra_scripts/DumpProgramInventory.java  
+2026-05-25 19:58:59 INFO  (GhidraScript) Wrote /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra_inventory.md  

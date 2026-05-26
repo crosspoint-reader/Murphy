@@ -1,0 +1,3 @@
+
+A fatal error occurred: This is not a valid image (invalid magic number: 0xff).
+esptool v5.2.0

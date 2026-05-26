@@ -1,0 +1,133 @@
+58 Assert failed in %s, %s:%d (%s)
+7a abort() was called at PC 0x%08x
+9c mosi_len <= 32
+ab /IDF/components/bootloader_support/src/bootloader_flash.c
+e5 miso_len <= 32
+f4 miso_byte_num <= 4
+107 bootloader_flash_read_sfdp
+122 bootloader_flash_execute_command_common
+14a end1>start1
+156 /IDF/components/bootloader_support/include/bootloader_util.h
+193 end2>start2
+19f load_end > load_addr
+1b4 /IDF/components/bootloader_support/src/esp_image_format.c
+1ee Calculated hash
+1fe Expected hash
+20c bootloader_util_regions_overlap
+22c verify_load_addresses
+242 handle != NULL
+251 /IDF/components/bootloader_support/src/esp32s3/bootloader_sha.c
+291 data_len % 4 == 0
+2a3 bootloader_sha256_finish
+2bc bootloader_sha256_data
+2d3 &_bss_start <= &_bss_end
+2ec /IDF/components/bootloader_support/src/esp32s3/bootloader_esp32s3.c
+330 &_data_start <= &_data_end
+34b bootloader_init
+35b buffer != NULL
+36a /IDF/components/bootloader_support/src/bootloader_random.c
+3a5 bootloader_fill_random
+3bc MXIC
+3c1 ISSI
+3c6 WinBond
+3d1 XM25QU64A
+45c 0 && "LDO dbias need to modified"
+47e /IDF/components/esp_hw_support/port/esp32s3/rtc_clk.c
+4b4 rtc_clk_cpu_freq_to_8m
+527 ?d@`
+807 D&#
+813 +0K
+87c @9 00t
+c1b  Z%
+c57 <Ze
+d5f 0@3 7
+d7e 0D 2
+d8a @C 2
+d93 @3 B
+d9c PD R
+da5 @E R
+e96 91)!
+f51 K3fR
+102b 0" 1
+1090 30bP
+10be <@*
+117b @0A`
+1292 <@b8
+1406 `gfff
+1467 ``t,
+146c   tPPt
+155e PPTPS 
+1626 PPtRa
+1659 P`u:60(
+1668 >*& 8
+167a  Z%
+169e P8t&
+16cb Pt#``
+174a <Z%
+1792 00t9
+184c  *0  t  `F
+186d @t0vT0
+1874 T0lT0RU08U
+1952  b@  
+197b   t1
+19f8   4@
+1a94 "0  t
+1ab2  "%Vr
+1ba9   B 
+1d0f 2s0"
+1d57 75;%
+1de1  $  #   
+1dea PPtV
+1ef7  Jer
+2251 2'']
+22e1 @@t-
+2521 B"&G#
+2572 8"(29
+2582 8R(B9
+282f :778k1
+287b jdg8
+28a6 *''3
+29b1 !08A0
+29e0 2$7
+29e5 jcbd7-
+2a63 ""7i!*#)a"
+2a73 X!)Q
+2a80   t8aI
+2a9c "'7XaP"
+2aa4 :22g7
+2af9 5000
+2cd0 "$7"
+2cd5  "d7"$7'3
+2d47 :4,
+2d9e prAw3
+2ee1 "(&A#
+2f05 "(&A
+2f17 "(&A
+2f29 "(&A
+2f3b "(&B
+2f64 "(&@"
+2f87 |t@"
+2f98 "(&B
+2faa "(&A
+2fbc "(&B
+2fce "(&A
+2fe0 "(&A
+302b I0"
+30f2 PP$&
+30fb &#J&3j
+3107 2(&!
+3119 Rh&@AA
+312b 2(&!
+314c 2(&!
+316f 2(&!
+3192 &#nf3
+35c2 -\
+35d4 Nm\
+3629 |uP"
+3638 EP" 
+365f L T
+36aa ':  
+36c5 #)3
+370a D&$M
+38a0 Ml
+395f Ml

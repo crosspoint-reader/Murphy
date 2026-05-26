@@ -1,0 +1,98 @@
+1048 ap.max.conn
+1066 ]Vbcn.interval
+1088 ap.p_cipher
+10a8 ap.ftm_r
+10c7 gsta.chan
+10e8 sta.apinfo
+1104 COROGOO
+1124 s580716777s
+13c8 sta.apinfo
+13e6 E#WIFI_STA_DEF
+1408 eeprom
+1c07 2eeprom
+1c26 "-ap.chan
+1c48 ap.chan
+1c67 &ap.ssid
+1c84 E-Paper Reader
+1cc8 ap.ssid
+1ce8 ap.pmk_info
+1d04 E-Paper Reader
+1d24 88888888
+1da8 ap.pmk_info
+2048 eeprom
+25a7 2eeprom
+25c8 misc
+25e7 Fnvs.net80211
+2608 ap.sndchan
+2627 iphy
+2648 cal_data
+267f o_O?/
+26d5 o_O?/
+2740 1111d
+2760 PPPLLHLHHDJFFB
+27d2 .$$
+27de <<<e^^^
+281c '3?KWco{
+2de8 cal_data
+2e07 #cal_mac
+2e48 cal_mac
+2e67 acal_version
+2e88 ap.authmode
+2ea6 Hpap.chan
+2ec7 6ap.ssid
+2ee4 E-Paper Reader
+2f27 kap.ssid
+2f48 ap.passwd
+2f60 88888888
+2fc8 ap.passwd
+2fe7 wap.hidden
+3048 eeprom
+3160 COROGOO
+3180 s580716777s
+35c7 ueeprom
+3867 2eeprom
+3888 opmode
+38a6 "-ap.chan
+38c8 ap.ssid
+38e4 E-Paper Reader
+3928 ap.ssid
+3948 ap.pmk_info
+3964 E-Paper Reader
+3984 88888888
+3a08 ap.pmk_info
+3a28 eeprom
+4047 @eeprom
+4068 dhcp_state
+4088 sta.ssid
+40a4 COROGOO
+40e7 Qsta.ssid
+4108 sta.pswd
+4120 s580716777s
+4187 Qsta.pswd
+41a7 bssid.set
+41c8 sta.lis_intval
+41e8 sta.scan_method
+4208 sta.sort_method
+4228 sta.minrssi
+4248 sta.minauth
+4268 sta.apsw
+42a8 sta.apsw
+42c8 sta.pmf_e
+42e7 Lsta.pmf_r
+4307 0sta.rrm_e
+4327 Msta.btm_e
+4348 sta.mbo_e
+4368 sta.bss_retry
+4388 sta.trans_d
+43a8 sta.sae_h2e
+43c8 eeprom
+4a28 eeprom
+4a48 ap.chan
+4a68 ap.ssid
+4a84 E-Paper Reader
+4ac7 kap.ssid
+4ae8 ap.pmk_info
+4b04 E-Paper Reader
+4b24 88888888
+4ba8 ap.pmk_info
+4bc8 eeprom

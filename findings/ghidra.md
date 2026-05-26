@@ -4,6 +4,10 @@
 
 Ghidra installed: `/opt/homebrew/Cellar/ghidra/12.1/libexec`
 
+The GUI is not required for the current workflow. Use the headless runner:
+
+`/opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless`
+
 The Homebrew Ghidra 12.1 installation did not include an Xtensa processor module. I cloned Ebiroll's `ghidra-xtensa` into:
 
 `tools/ghidra-xtensa`
@@ -79,6 +83,8 @@ Custom scripts in `tools/ghidra_scripts/`:
 | `FindPointerRefs.java` | Find string matches, literal/pointer locations, and references to those pointers. Useful for Xtensa literal pools. |
 | `DumpMemoryAt.java` | Dump bytes around selected Ghidra addresses for inspecting pointer tables and adjacent data. |
 | `DecompileAt.java` | Decompile functions containing selected addresses. |
+| `FindCallsiteContexts.java` | Search hardware API names/strings and dump references, nearby instructions, and decompile context. |
+| `FindHardwareConstants.java` | Broad hardware keyword mining helper for stripped OEM code. |
 
 Touch-specific exports:
 
@@ -99,3 +105,11 @@ Button/input-specific exports:
 - `analysis/button_combo_disassembly.md`
 - `analysis/button_combo_objdump_42000020.md`
 - `analysis/button_combo_objdump_keymap.md`
+
+OEM hardware-mining exports:
+
+- `analysis/oem_hardware_calls.md`
+- `analysis/oem_symbol_table_disasm.md`
+- `analysis/oem_hardware_keyword_mining.md`
+
+See `findings/oem_headless_ghidra.md` for the exact headless commands and current limits of the static OEM hardware recovery.

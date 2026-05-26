@@ -34,7 +34,9 @@ Relevant strings:
 
 `$GC9` may indicate a GC9-series display-controller dependency or signature, but the surrounding binary context is not enough to assert the exact display controller. No clear `ILI`, `ST77`, `SSD`, or Waveshare panel identifier was recovered from the first string pass.
 
-Custom firmware display bring-up has not yet changed the panel. A standalone probe using the public CrowPanel UC8253 pin sets and vendor-style bit-banged writes leaves GPIO48 BUSY low and produces no visible update. Treat the public CrowPanel display pin mapping as unconfirmed for this Murphy unit until OEM signal capture proves it. See `display_bringup.md`.
+Custom firmware display bring-up has not yet changed the panel. A standalone probe using the public CrowPanel UC8253 pin sets and vendor-style bit-banged writes leaves GPIO48 BUSY low and produces no visible update. The vendor sample archive for `GDEY037T03-FT21` uses a different ESP32 adapter-board control-pin mapping (`CS=A17/DC=A16/RST=A15/BUSY=A14`) and a different fast-init sequence (`0xE5=0x32`, `0x50=0x97`). Under the current ESP32-S3 Arduino variant those aliases map to `CS18/DC17/RST16/BUSY15`, which is now included in the standalone probe. Treat all board-level display GPIO mappings as unconfirmed for this Murphy unit until OEM signal capture proves them. See `display_bringup.md`.
+
+The panel is Good Display `GDEY037T03-FT21`: 3.7-inch, UC8253, 416x240, SPI display interface, touch, and front light. The visible FPC markings `YSFK082048A-W-3` / `LH37004D 2513` appear to be module/FPC production markings for this assembly.
 
 ## User-Facing Features
 

@@ -116,5 +116,6 @@ Do not assume the front light shares touch or display pins. Treat it as its own 
 2. Search decompiled code for callers of Arduino `ledcSetup` / `ledcWrite` and ESP-IDF `ledc_*` functions, then recover constant GPIO/channel values.
 3. Search NVS/default-setting code for a small integer stored near other settings such as dark mode, refresh interval, or font size.
 4. Probe the Murphy PCB around the panel/front-light FPC for LED-driver IC markings or MOSFET/transistor routing.
-5. With the OEM firmware running, use a logic analyzer on likely LED-control pins while changing brightness through the right-side-button long-press front-light controls.
+5. With the OEM firmware running, use a logic analyzer, scope, or meter on likely LED-control pins while changing brightness through the right-side-button long-press front-light controls. OEM USB logs are optional; pin/rail behavior is the source of truth.
 6. Measure the front-light rail voltage/current at several brightness levels to determine actual current draw and whether direct GPIO drive is electrically safe or a transistor/driver is required.
+7. If stock-firmware probing is not possible, run a custom front-light sweep firmware that PWM-tests candidate GPIOs one at a time at 25 kHz with conservative duty limits, watching for visible light changes and avoiding any display/touch pins already under test.

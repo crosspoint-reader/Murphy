@@ -22,12 +22,14 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 - The firmware includes clock, calendar, alarm, and NTP synchronization features. The HamGeek M3 listing claims an independent clock chip; an external RTC is plausible but not yet proven.
 - NVS contains readable WiFi configuration, including SSID/password-like values. Treat `analysis/extracted/nvs.bin` as sensitive.
 - Ghidra 12.1 has been set up with Xtensa support and a project was created at `analysis/ghidra-project/MurphyM3`.
+- Ghidra GUI is not required for the current workflow. Headless Ghidra runs successfully via `/opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless`; see `oem_headless_ghidra.md`.
 
 ## Output Map
 
 - `findings/flash_layout.md`: partition table, extracted files, hashes.
 - `findings/firmware_identity.md`: ESP-IDF/app metadata and build provenance.
 - `findings/hardware.md`: inferred hardware features and confidence.
+- `findings/display_bringup.md`: UC8253 display bring-up, pin/power probe matrix, BUSY polarity tests, and OEM LUT evidence.
 - `findings/touch.md`: OEM touch strings, controller candidates, routing evidence, and SDK integration plan.
 - `findings/button_input.md`: physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - `findings/front_light.md`: OEM front-light settings evidence, external panel lead, likely driver shape, and pin/PWM unknowns.
@@ -38,6 +40,7 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 - `findings/network_and_ui.md`: web endpoints, OTA, WiFi/weather UI.
 - `findings/storage_and_nvs.md`: NVS and filesystem observations.
 - `findings/ghidra.md`: Ghidra/Xtensa setup and analysis artifacts.
+- `findings/oem_headless_ghidra.md`: headless Ghidra commands, OEM hardware-mining scripts, and current static-analysis limits.
 - `findings/porting_crosspoint.md`: feasibility and work breakdown for porting `community-sdk` and `crosspoint-reader-main`.
 - `analysis/`: raw extracted partitions, strings, segments, Ghidra logs.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: requested binwalk-style extraction directory populated with ESP partitions.

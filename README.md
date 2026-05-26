@@ -33,7 +33,7 @@ Detailed notes:
 - [Flash layout](findings/flash_layout.md): ESP-IDF partition table, extracted partitions, hashes.
 - [Firmware identity](findings/firmware_identity.md): app metadata, ESP-IDF/Arduino/PlatformIO evidence, build provenance.
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
-- [Display bring-up notes](findings/display_bringup.md): UC8253 probe results, failed pin/power matrix, and required OEM signal-capture next steps.
+- [Display bring-up notes](findings/display_bringup.md): UC8253 probe results, failed pin/power matrix, OEM LUT evidence, and required signal-capture next steps.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, likely driver shape, and open pin/PWM questions.
@@ -44,6 +44,7 @@ Detailed notes:
 - [Network and UI](findings/network_and_ui.md): web endpoints, OTA behavior, WiFi/weather/UI strings.
 - [Storage and NVS](findings/storage_and_nvs.md): NVS contents, filesystem observations, sensitive-data notes.
 - [Ghidra setup](findings/ghidra.md): Xtensa support, project setup, and analysis artifacts.
+- [OEM headless Ghidra notes](findings/oem_headless_ghidra.md): no-GUI analysis workflow, scripts, outputs, and current limits.
 - [CrossPoint porting plan](findings/porting_crosspoint.md): feasibility, board profile, SDK changes, and work breakdown.
 
 ## Repository Layout
@@ -57,10 +58,11 @@ Detailed notes:
 - `analysis/button_combo_string_refs.md`, `analysis/button_combo_pointer_refs.md`: Ghidra exports for key-map, long-press, and lock-key strings.
 - `analysis/frontlight_string_refs.md`, `analysis/frontlight_pointer_refs.md`, `analysis/frontlight_table_memory.md`: Ghidra exports for front-light settings strings and adjacent pointer tables.
 - `analysis/usb_logging_string_refs.md`: Ghidra export for observed USB log strings and log-level-related symbols.
+- `analysis/oem_hardware_calls.md`, `analysis/oem_hardware_keyword_mining.md`: headless Ghidra hardware-mining outputs.
 - `analysis/vendor/`: vendor CrowPanel reference material cloned for hardware comparison.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: binwalk-style extraction directory populated with ESP partitions.
 - `findings/`: human-readable reverse-engineering and porting notes.
-- `tools/ghidra_scripts/`: scripts used to load ESP32-S3 app segments and export inventory.
+- `tools/ghidra_scripts/`: scripts used to load ESP32-S3 app segments, export inventory, and mine OEM hardware references without the GUI.
 - `tools/ghidra-xtensa/`: local copy/build of the Xtensa Ghidra processor plugin.
 
 ## Flash Layout Summary

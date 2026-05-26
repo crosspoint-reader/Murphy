@@ -13,6 +13,8 @@ Observed over USB from a running device:
 
 This confirms the USB path is not limited to bootloader output or mass-storage/card-transfer behavior. At least some application-level `printf`/log output reaches the host over USB on the stock image.
 
+Current practical constraint: these logs are not reliably accessible on the available setup. Treat OEM USB logs as opportunistic evidence, not as a required input for display/front-light/audio bring-up.
+
 ## Firmware Evidence
 
 Relevant strings in `analysis/extracted/app0.bin`:
@@ -62,7 +64,7 @@ Things to try on hardware:
 4. Trigger errors intentionally but safely, such as missing SD card, bad WiFi credentials, or failed weather sync, and see whether ESP-IDF `E/W/I` logs appear.
 5. Compare logs before and after factory reset to see whether persisted settings affect output.
 
-## Capture Workflow
+## Capture Workflow If Available
 
 On macOS:
 
@@ -107,15 +109,26 @@ Exercise one feature at a time while capturing logs:
 
 For front-light work, capture the exact log lines while changing from level 0 through level 10. If the OEM logs print setting indices or timing counters near brightness changes, they may give us the settings-table index or state variable needed to find the handler in Ghidra.
 
+## No-Log Fallback
+
+If OEM USB logs are unavailable, use these paths instead:
+
+1. Static firmware mining with headless Ghidra outputs under `analysis/oem_*`.
+2. Live electrical observation while stock firmware runs: meter/scope/logic analyzer on candidate GPIOs and panel/front-light rails.
+3. Controlled custom firmware probes that print their own serial output and sweep only one subsystem at a time.
+4. Visual behavior as the signal: display refresh noise, front-light brightness changes, touch interrupt transitions, and headphone output.
+
+For display and front-light recovery, lack of USB logs is annoying but not blocking. Electrical state changes during stock firmware are more valuable than log text because they directly reveal which ESP32-S3 pins are connected.
+
 ## Binary Patch Impact
 
-Because stock USB logs already work, patching the image to enable USB logs is not the first priority.
+Because stock USB logs are only partially/irregularly accessible, patching the image to force more logs is still not the first priority. It is high-risk compared with writing targeted probe firmware or measuring pins under the stock firmware.
 
-Better next steps:
+Better next steps if logs are available:
 
 1. Capture a complete USB log while using each UI path.
 2. Search observed log strings in `analysis/app0.strings.txt`.
 3. Use Ghidra xrefs from those strings to locate the surrounding handlers.
-4. Only patch logging if a specific path is silent and we identify a safe hook.
+4. Only patch logging if a specific path is silent, the hook is clearly identified, and the patch can be tested without risking boot loops.
 
 If patching becomes necessary, the safer target is adding or redirecting specific application debug prints, not changing global USB initialization.

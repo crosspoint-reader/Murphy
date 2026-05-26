@@ -49,6 +49,8 @@ This does not prove the Murphy M3 uses the exact `GDEY037T03-FT21` module, but i
 
 An external report from another owner with the same display says the front-light LED strip is wired in parallel, is intended for 3.3 V drive, and has only one light channel. That rules out warm/cool dual-channel blending for this display family and makes single-channel PWM the leading control model.
 
+The same report notes the useful electrical distinction: series LED strings, such as the 4.26-inch panel variant, need higher voltage but only draw roughly 15 mA; parallel LED strips need lower voltage but higher current. That matches the Good Display 3.7-inch front-light spec: low operating voltage, but a maximum current high enough that the board-side current path still matters.
+
 ## Driver Path Evidence
 
 The firmware includes Arduino-ESP32 and ESP-IDF LEDC/PWM code:
@@ -70,6 +72,7 @@ The likely hardware shape is:
 
 - A front-light LED rail integrated into the panel assembly.
 - A single-channel 3.3 V LED strip with parallel LEDs.
+- Low-voltage, higher-current behavior compared with higher-voltage series LED strings.
 - A board-side PWM path driving the LED rail or a driver/transistor input.
 - User-facing brightness stored as approximately 10 levels, matching the seller listing.
 

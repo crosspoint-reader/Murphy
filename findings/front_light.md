@@ -4,6 +4,8 @@
 
 The OEM firmware exposes a front-light setting.
 
+On the physical Murphy unit, pressing and holding either right-side button opens the front-light controls. The top-right button and the lower button directly below it perform the same front-light shortcut. This should be treated as confirmed user-facing behavior for this hardware, not only a seller-listing claim.
+
 Recovered strings from `analysis/extracted/app0.bin`:
 
 | String | Evidence |
@@ -27,7 +29,7 @@ The pointer/reference pass shows `Front Light` in a contiguous string-pointer ta
 The HamGeek M3 product listing claims:
 
 - 10-level adjustable backlight/front light.
-- A top-right-button long press opens the backlight brightness setting menu.
+- A top-right-button long press opens the backlight brightness setting menu. On the Murphy unit, the lower right-side button does the same thing.
 
 Source:
 
@@ -74,7 +76,7 @@ The likely hardware shape is:
 - A single-channel 3.3 V LED strip with parallel LEDs.
 - Low-voltage, higher-current behavior compared with higher-voltage series LED strings.
 - A board-side PWM path driving the LED rail or a driver/transistor input.
-- User-facing brightness stored as approximately 10 levels, matching the seller listing.
+- User-facing brightness controlled through a right-side-button long-press UI, with approximately 10 levels matching the seller listing.
 
 Use PWM above the audible range. A practical target is at least 20 kHz; 25 kHz is a good default if the LEDC resolution is still adequate for 10 brightness levels.
 
@@ -102,6 +104,7 @@ For `community-sdk`, front light should be a board-level peripheral, not part of
 - Once verified, implement the Murphy backend with configurable PWM pin, optional enable pin, PWM frequency, duty table, and active polarity.
 - Use a PWM frequency above the audible range, preferably around 25 kHz, to avoid coil/capacitor/ceramic whine.
 - Wire CrossPoint's lighting UI to the abstraction after the board backend is proven.
+- Preserve the OEM shortcut: long-pressing either right-side button should open front-light controls.
 
 Do not assume the front light shares touch or display pins. Treat it as its own power/control circuit.
 
@@ -111,5 +114,5 @@ Do not assume the front light shares touch or display pins. Treat it as its own 
 2. Search decompiled code for callers of Arduino `ledcSetup` / `ledcWrite` and ESP-IDF `ledc_*` functions, then recover constant GPIO/channel values.
 3. Search NVS/default-setting code for a small integer stored near other settings such as dark mode, refresh interval, or font size.
 4. Probe the Murphy PCB around the panel/front-light FPC for LED-driver IC markings or MOSFET/transistor routing.
-5. With the OEM firmware running, use a logic analyzer on likely LED-control pins while changing brightness with the top-right-button long press flow.
+5. With the OEM firmware running, use a logic analyzer on likely LED-control pins while changing brightness through the right-side-button long-press front-light controls.
 6. Measure the front-light rail voltage/current at several brightness levels to determine actual current draw and whether direct GPIO drive is electrically safe or a transistor/driver is required.

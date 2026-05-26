@@ -20,7 +20,7 @@ The physical Murphy M3 unit also has a headphone jack. Firmware evidence points 
 
 Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL), but the exact touch controller and GPIO pins are not yet proven. Online panel research makes Good Display's `FT6336U`-based 3.7-inch touch/front-light module the strongest external match so far. The public CrowPanel schematic names display FPC pins `TSCL`/`TSDA`; the matching public board file does not route those pins, so the Murphy unit needs probing or deeper firmware recovery for touch pin mapping.
 
-Front-light support is also present in the OEM UI as a `Front Light` settings label. HamGeek claims 10 brightness levels and Good Display's closest panel-family match lists a 9-LED front-light assembly, but the Murphy GPIO/PWM/driver path is not yet recovered.
+Front-light support is also present in the OEM UI as a `Front Light` settings label. Pressing and holding either right-side button on the Murphy unit opens the front-light controls. HamGeek claims 10 brightness levels and Good Display's closest panel-family match lists a 9-LED front-light assembly, but the Murphy GPIO/PWM/driver path is not yet recovered.
 
 ## Findings
 

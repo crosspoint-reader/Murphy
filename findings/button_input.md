@@ -38,6 +38,7 @@ Recovered strings from `analysis/extracted/app0.bin` show these input features:
 | `Short press toggle, long press modify` | Some settings use short-vs-long press semantics. |
 | `Hold up/down keys to adjust faster` | Repeated/held direction keys accelerate numeric adjustments. |
 | `Lock screen long press` | Lock-screen behavior has a configurable long-press action. |
+| Right-side button long press | Confirmed on hardware: both the top-right button and the lower button below it open front-light controls. |
 | `Press lock key to stop tomato clock` | Lock key exits/stops the tomato timer mode. |
 | `Use direction keys to adjust tomato time` | Direction keys adjust timer duration. |
 | `Time sync failed, press lock key to return` | Lock key is used as a return/back action in at least one modal state. |
@@ -71,7 +72,7 @@ What is not yet proven:
 - A hidden verbose/debug/logging combo.
 - A boot-time key chord.
 - A factory/test-mode chord in the OEM app.
-- A specific top-right/backlight chord recovered from code, beyond the seller listing's long-press brightness-menu claim.
+- The exact firmware handler for the right-side-button long-press front-light shortcut.
 
 ## Practical Hardware Tests
 
@@ -86,7 +87,7 @@ Capture USB logs while testing:
 6. Try the same pair after boot, while already in the UI.
 7. Enter `Custom keys`, change a mapping, then capture the logs and compare NVS before/after.
 8. Enter the lock screen and test the `Lock screen long press` setting.
-9. Enter front-light adjustment and capture all USB output while using short press, long press, up/down hold if exposed by touch/UI, and return.
+9. Press and hold each right-side button to enter front-light controls, then capture all USB output while changing brightness and returning.
 
 Useful log strings to watch for:
 

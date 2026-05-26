@@ -28,11 +28,13 @@ Frame bytes per 1-bit plane=12480
 The next useful step is to turn the probe into a real image writer:
 
 1. Convert an image to a 1-bit `240 x 416` packed framebuffer.
-2. Send old plane with command `0x10`.
-3. Send new plane with command `0x13`.
+2. Send the **current** plane with command `0x10`.
+3. Send the **current** plane again with command `0x13` (see note below).
 4. Refresh with command `0x12`.
 5. Wait for BUSY ready-high.
 6. Power off with command `0x02`.
+
+Important: the OEM frame writer `FUN_42038cac` (`analysis/display_function_refs_20260526.md:497-513`) calls the plane-write helper twice with the **same source buffer** — once for `0x10`, once for `0x13`. There is no old-vs-new differential write in the default refresh path. The default LUTs are destination-only: with `(old=new)` for every pixel, only LUTWW/LUTBB fire, and those are the long ghost-clearing waveforms that fully drive each pixel to its target value. The LUTBW/LUTWB tables exist for the alternate `0x17/0xA5` partial-refresh path and only do a short kick — using them on a "changed pixel" differential leaves pixels half-flipped (verified empirically: a prev-vs-new write flashes but doesn't latch, and a second refresh "completes" the previous frame).
 
 LUTs are not required for the first real image test because the probe already writes black and white. The OEM LUT tables below are the next lever for cleaner full refresh, partial refresh, and possibly faster updates.
 
@@ -230,14 +232,13 @@ Minimal full-image write path:
 ```cpp
 resetPanel();
 initUc8253OemSimple();
-
-// Optional next test: load default LUT set here with commands 0x20..0x24.
+loadDefaultLuts();  // commands 0x20..0x24 with the MURPHY_LUT_*_DEFAULT tables
 
 writeCommand(0x10);
-writePlane(oldFrame, 12480);
+writePlane(currentFrame, 12480);  // same buffer to both planes
 
 writeCommand(0x13);
-writePlane(newFrame, 12480);
+writePlane(currentFrame, 12480);
 
 writeCommand(0x12);
 waitBusyReadyHigh("display refresh", 12000);
@@ -246,7 +247,7 @@ writeCommand(0x02);
 waitBusyReadyHigh("power off", 5000);
 ```
 
-For first image tests, make `oldFrame` all `0xFF` and use `newFrame` as the packed 1-bit image. If polarity is inverted, invert every byte of `newFrame` before sending.
+If polarity is inverted on the panel, invert every byte of `currentFrame` before sending. The visible "full inversion flash" before the image settles is intentional in these LUTs — phases drive positive then negative before holding at the destination value, which clears ghosting.
 
 ## What We Need Now
 

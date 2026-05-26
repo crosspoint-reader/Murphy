@@ -25,6 +25,6 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 - `findings/network_and_ui.md`: web endpoints, OTA, WiFi/weather UI.
 - `findings/storage_and_nvs.md`: NVS and filesystem observations.
 - `findings/ghidra.md`: Ghidra/Xtensa setup and analysis artifacts.
+- `findings/porting_crosspoint.md`: feasibility and work breakdown for porting `community-sdk` and `crosspoint-reader-main`.
 - `analysis/`: raw extracted partitions, strings, segments, Ghidra logs.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: requested binwalk-style extraction directory populated with ESP partitions.
-

@@ -1,3 +1,6 @@
 [submodule "tools/ghidra-xtensa"]
 	path = tools/ghidra-xtensa
 	url = https://github.com/Ebiroll/ghidra-xtensa.git
+[submodule "analysis/vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416"]
+	path = analysis/vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416
+	url = https://github.com/Elecrow-RD/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416.git

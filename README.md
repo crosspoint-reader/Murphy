@@ -22,6 +22,8 @@ Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI,
 
 Front-light support is present and now electrically confirmed. Pressing and holding either right-side button on the Murphy unit opens the OEM front-light controls. Custom firmware confirms Murphy front-light control on `GPIO48`, active high, with smooth 25 kHz PWM brightness control. Earlier public-reference leads that treated `GPIO42` as the front light or `GPIO48` as EPD `BUSY` are superseded for this Murphy unit.
 
+The three physical side buttons are now electrically confirmed as active-low digital inputs: top button `GPIO1`, middle button `GPIO2`, and bottom button `GPIO0`. These pins should be reserved for input and excluded from display, touch, RTC, audio, and front-light probing.
+
 ## Findings
 
 Start here:
@@ -97,7 +99,7 @@ Minimum viable port:
 - ESP32-S3 build boots.
 - Full-screen black/white UC8253 refresh works. This is not yet achieved; standalone probes on the public CrowPanel pin sets have not changed the panel.
 - SD card mounts and files can be read.
-- GPIO1/GPIO2 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
+- GPIO1/GPIO2/GPIO0 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
 - Battery can be stubbed or disabled initially.
 - Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button.
 - Front light can be implemented now as a board-level `GPIO48` active-high PWM brightness peripheral, preferably around 25 kHz.

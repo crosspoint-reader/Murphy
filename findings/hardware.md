@@ -8,6 +8,7 @@
 - Storage: SD/MMC support is included. Strings include `SDCard mounted at: %s`, `SDCard sector count`, `SD_MMC.cpp`, `/cdcard`, `/FONT`.
 - Filesystem: LittleFS support is included and mounted at `/littlefs`.
 - Input: touch handling exists. Strings include `touchTask`, `<Reset custom touch area>`, and `Touch to exit`. See `touch.md`.
+- Physical buttons: custom passive input probing confirms three active-low side buttons: top `GPIO1`, middle `GPIO2`, and bottom `GPIO0`. See `button_input.md`.
 - Display class: e-paper / ink screen reader. Strings include `E-Paper Reader`, `Ink screen reader`, `3.7-inch-ink-screen-reader`, and ePub reader UI strings.
 - Audio output connector: the physical Murphy M3 unit has a headphone jack.
 - Front light/backlight: the OEM firmware includes a `Front Light` setting, and custom firmware confirms active-high PWM control on `GPIO48`. A 25 kHz, 10-bit PWM probe visibly adjusted brightness. See `front_light.md`.

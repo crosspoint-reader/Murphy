@@ -8,10 +8,13 @@ Confirmed physical controls on this unit:
 
 | Control | GPIO | Behavior |
 | --- | ---: | --- |
-| Back / exit | GPIO1 | Digital active-low candidate from CrowPanel reference; verify on Murphy |
-| Menu / home / lock key candidate | GPIO2 | Digital active-low candidate; sleep wake source in vendor reference |
+| Top side button | GPIO1 | Confirmed digital active-low: `1 -> 0` while pressed |
+| Middle side button | GPIO2 | Confirmed digital active-low: `1 -> 0` while pressed |
+| Bottom side button | GPIO0 | Confirmed digital active-low: `1 -> 0` while pressed |
 
 The OEM firmware and/or board may still use direction/OK-style logical actions internally, but those actions must be reached through the actual buttons, touch targets, or hidden mappings rather than a physical rotary control.
+
+Porting/probing consequence: reserve `GPIO0`, `GPIO1`, and `GPIO2` for button input on this Murphy unit. Do not use them as display control pins, touch/RTC I2C pins, audio pins, or front-light candidates in future probes. `GPIO0` is also an ESP32-S3 strapping pin, so production firmware should avoid holding it low during reset.
 
 ## Public CrowPanel Reference
 

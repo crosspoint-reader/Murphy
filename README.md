@@ -35,6 +35,7 @@ Detailed notes:
 - [Hardware inferences](findings/hardware.md): hardware features recovered from strings and firmware structure.
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, likely controller families, routing evidence, and SDK port shape.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, likely driver shape, and open pin/PWM questions.
+- [USB logging and console notes](findings/usb_logging.md): confirmed stock USB app logs, capture workflow, and verbosity/debug-flag search notes.
 - [Online research notes](findings/online_research.md): product listings and panel references found on the web.
 - [Audio hardware and capabilities](findings/audio.md): headphone-jack evidence, I2S audio stack, supported formats, unknown codec/pins.
 - [Clock, time sync, and RTC](findings/clock_rtc.md): NTP/timekeeping evidence, alarm UI, RTC unknowns and test plan.
@@ -52,6 +53,7 @@ Detailed notes:
 - `analysis/audio_rtc_string_refs.md`: Ghidra string-reference export for audio and clock/RTC terms.
 - `analysis/touch_string_refs.md`, `analysis/touch_pointer_refs.md`: Ghidra exports for touch-related strings and pointer/literal-pool references.
 - `analysis/frontlight_string_refs.md`, `analysis/frontlight_pointer_refs.md`, `analysis/frontlight_table_memory.md`: Ghidra exports for front-light settings strings and adjacent pointer tables.
+- `analysis/usb_logging_string_refs.md`: Ghidra export for observed USB log strings and log-level-related symbols.
 - `analysis/vendor/`: vendor CrowPanel reference material cloned for hardware comparison.
 - `_m3_flash_dump.bin.extracted/esp-partitions/`: binwalk-style extraction directory populated with ESP partitions.
 - `findings/`: human-readable reverse-engineering and porting notes.

@@ -63,17 +63,18 @@ Relevant pins from vendor factory source and schematic:
 | EPD DC | 6 | Strong Murphy-specific lead |
 | EPD reset | 7 | Strong Murphy-specific lead |
 | EPD busy | 8 | Strong Murphy-specific lead; ready-high observed |
-| EPD SCK | 12 | Bit-banged in vendor examples |
-| EPD MOSI/SDA | 11 | Display write path |
-| EPD CS | 45 | Display chip select |
-| EPD DC | 46 | Data/command |
-| EPD reset | 47 | Panel reset |
-| EPD busy | Unknown | Public CrowPanel says GPIO48, but Murphy custom probing confirms GPIO48 is front-light PWM, not display BUSY |
-| EPD power enable | 7 | Vendor sets high before display init |
-| SD MOSI | 40 | Separate SD SPI bus |
-| SD MISO | 13 | Separate SD SPI bus |
-| SD SCK | 39 | Separate SD SPI bus |
-| SD CS | 10 | Separate SD SPI bus |
+| Superseded EPD SCK | 12 | Public/vendor-reference lead only; not the working Murphy tuple |
+| Superseded EPD MOSI/SDA | 11 | Public/vendor-reference lead only |
+| Superseded EPD CS | 45 | Public/vendor-reference lead only |
+| Superseded EPD DC | 46 | Public/vendor-reference lead only; clicks but not a display tuple |
+| Superseded EPD reset | 47 | Public/vendor-reference lead only |
+| Superseded EPD busy | 48 | Public CrowPanel says GPIO48, but Murphy custom probing confirms GPIO48 is front-light PWM, not display BUSY |
+| SDMMC CLK | 16 | OEM recovered; native SDMMC |
+| SDMMC CMD | 17 | OEM recovered; native SDMMC |
+| SDMMC D0 | 15 | OEM recovered; native SDMMC |
+| SDMMC D1 | 14 | OEM recovered; native SDMMC |
+| SDMMC D2 | 21 | OEM recovered; native SDMMC |
+| SDMMC D3 | 18 | OEM recovered; native SDMMC |
 | Front light/backlight PWM | 48 | Confirmed on Murphy; active high, 25 kHz PWM works |
 | Power/status LED | 41 | Vendor sets high |
 | Top side button | 1 | Confirmed digital active-low |
@@ -121,7 +122,7 @@ The library should support runtime dimensions of 240x416. The existing static bu
 
 Bring-up caveat: early standalone probes using public and vendor-derived pin sets did not change the panel. A later focused probe on `MOSI3/SCK4/CS5/DC6/RST7/BUSY8` produced real ready-high BUSY transitions after reset, power-on, refresh, and power-off, making this the strongest Murphy display pin map. GPIO48 must no longer be used as BUSY because it is confirmed front-light PWM. If the panel still does not visibly change, continue with init/waveform/frame-polarity work on the GPIO3-8 map rather than broad pin sweeps.
 
-### 3. Split SD Onto Its Own SPI Bus
+### 3. Add Murphy SDMMC Storage
 
 Current `SDCardManager` hardcodes:
 
@@ -129,13 +130,23 @@ Current `SDCardManager` hardcodes:
 - 40 MHz.
 - Default `SdFat::begin(SD_CS, SPI_FQ)`.
 
-Murphy uses a separate SD SPI bus:
+Murphy OEM firmware uses Arduino `SD_MMC`, not SdFat/SPI. The recovered callsite is:
 
-- `SD_SPI.begin(39, 13, 40, 10)`.
-- `SD.begin(10, SD_SPI)` in vendor Arduino code, or equivalent SdFat configuration.
+```c
+FUN_4202b698(uVar3, 0x10, 0x11, 0x0f, 0x0e, 0x15, 0x12);
+FUN_4202b6c4(uVar3, mountpoint, 0, 0, frequency, 5);
+```
+
+This maps to:
+
+- `SD_MMC.setPins(16, 17, 15, 14, 21, 18)`.
+- `SD_MMC.begin("/sd", false, false, frequency, 5)`.
+
+Use `4000` kHz for first bring-up. The current CrossPoint/SdFat path hangs on the older public-reference SPI tuple, so Murphy needs a separate `SD_MMC`/Arduino `fs::FS` storage backend or an adapter layer that lets reader code use `SD_MMC` files.
+
 GPIO42 appears in the public vendor example as the screen backlight/front-light enable, but Murphy hardware testing did not light GPIO42. GPIO48 is the confirmed front-light PWM pin, so GPIO42 should not be treated as SD power and should remain unassigned until proven.
 
-The SDK needs either constructor/config injection for SD pins and `SPIClass`, or a board-specific `SDCardManager` backend.
+The SDK needs either constructor/config injection for an `SD_MMC` backend, or a board-specific `SDCardManager` backend.
 
 ### 4. Replace The ADC-Ladder Input Manager
 
@@ -250,7 +261,7 @@ The first usable Murphy build should target:
 
 - ESP32-S3 PlatformIO build with PSRAM enabled.
 - UC8253 black/white full-screen display refresh.
-- SD card mount/list/read on the separate SPI bus.
+- SD card mount/list/read through native `SD_MMC`.
 - Digital input for GPIO1/GPIO2/GPIO0 plus touch-assisted navigation.
 - Basic CrossPoint navigation and book open/page turn.
 - Deep sleep wake from GPIO2.
@@ -265,7 +276,7 @@ The first usable Murphy build should target:
 2. Build CrossPoint for ESP32-S3 with display/input temporarily stubbed.
 3. Port the vendor UC8253 driver into `EInkDisplay` as a new panel mode.
 4. Verify display with clear screen, checkerboard, text, and full refresh.
-5. Add configurable SD SPI/power support in `SDCardManager`; verify card listing and file reads.
+5. Add Murphy `SD_MMC` storage support in `SDCardManager`; verify card listing and file reads.
 6. Add a digital input manager for GPIO1/GPIO2/GPIO0 and map touch targets to CrossPoint logical actions.
 7. Add a Murphy front-light backend on GPIO48.
 8. Wire display/input/storage through `HalGPIO`/`HalDisplay` using board flags instead of X3/X4 detection.
@@ -281,7 +292,7 @@ The first usable Murphy build should target:
 | --- | --- |
 | Flash size | Vendor docs say 8 MB, dump is 16 MiB. Use dump for this device, but verify physical module markings if shipping images. |
 | UC8253 waveform quality | Vendor code is simple and should work for black/white; partial refresh and grayscale quality will require tuning. |
-| SD bus | Current SDK assumes one default SPI bus. Murphy uses a separate SD SPI bus. GPIO42 is not SD power; GPIO48 is confirmed front-light PWM. |
+| SD bus | Current SDK assumes SdFat/SPI. Murphy OEM uses native 4-bit `SD_MMC` on GPIO16/17/15/14/21/18. GPIO42 is not SD power; GPIO48 is confirmed front-light PWM. |
 | Input UX | CrossPoint expects more buttons than Murphy exposes directly. Touch and long-press mappings need a real usability pass. |
 | Battery | ADC pin/divider not identified yet. |
 | GPIO0/strapping | GPIO0 is the confirmed bottom button and an ESP32-S3 strapping pin. Firmware must tolerate boot-loader entry risk if held low during reset. |

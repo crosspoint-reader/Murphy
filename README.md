@@ -14,8 +14,8 @@ The hardware most likely matches the Elecrow CrowPanel ESP32 3.7-inch E-paper HM
 - 3.7-inch black/white e-paper panel.
 - UC8253 display controller.
 - 240x416 panel resolution.
-- SD card slot on a separate SPI bus.
-- SD SPI mapping is now carried in the SDK board profile: `SCK=GPIO39`, `MISO=GPIO13`, `MOSI=GPIO40`, `CS=GPIO10`.
+- SD card slot driven by the OEM firmware through Arduino `SD_MMC`, not SdFat/SPI.
+- OEM SDMMC mapping recovered from the binary: `CLK=GPIO16`, `CMD=GPIO17`, `D0=GPIO15`, `D1=GPIO14`, `D2=GPIO21`, `D3=GPIO18`, 4-bit mode.
 
 The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based in firmware, while the HamGeek M3 listing claims a built-in independent clock chip, so an external RTC is now plausible but still unproven at IC/address level.
 
@@ -43,7 +43,7 @@ Detailed notes:
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, controller candidates, failed `SDA=13/SCL=12` probe results, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.
-- [SD card GPIO mapping](findings/sd_card_gpio.md): bounded Murphy SD SPI pin map, OEM SD evidence, and fallback SDMMC notes.
+- [SD card GPIO mapping](findings/sd_card_gpio.md): OEM-recovered 4-bit SDMMC pin map, superseded SPI lead, and next probe code.
 - [USB logging and console notes](findings/usb_logging.md): confirmed stock USB app logs, capture workflow, and verbosity/debug-flag search notes.
 - [Online research notes](findings/online_research.md): product listings and panel references found on the web.
 - [Audio hardware and capabilities](findings/audio.md): headphone-jack evidence, I2S audio stack, supported formats, unknown codec/pins.
@@ -57,6 +57,7 @@ Detailed notes:
 ## Repository Layout
 
 - `m3_flash_dump.bin`: original 16 MiB flash dump.
+- `murphy_sd_mmc_probe.cpp`: minimal Arduino probe for the OEM-recovered SDMMC pins.
 - `analysis/extracted/`: carved ESP32 partitions.
 - `analysis/ghidra-project/`: Ghidra project created for the app image.
 - `analysis/ghidra_inventory.md`: exported Ghidra inventory.
@@ -95,7 +96,7 @@ Required work:
 - Add an ESP32-S3 PlatformIO environment for Murphy M3 / CrowPanel 3.7.
 - Add a board profile to `community-sdk` with Murphy pins and capabilities.
 - Add a UC8253 240x416 display backend to `EInkDisplay`.
-- Move SD support to a configurable, separate SPI bus.
+- Move SD support to a configurable Murphy `SD_MMC` backend; the OEM binary uses native 4-bit SDMMC, not the SdFat/SPI path.
 - Replace the Xteink ADC-button input path with Murphy digital button input and touch-assisted navigation.
 - Add display power sequencing and separate SD SPI support.
 - Reserve pins and abstractions for headphone/I2S audio and a possible RTC until hardware mapping is complete.
@@ -104,7 +105,7 @@ Minimum viable port:
 
 - ESP32-S3 build boots.
 - Full-screen black/white UC8253 refresh works. This is not yet achieved; standalone probes on the public CrowPanel pin sets have not changed the panel.
-- SD card mounts and files can be read.
+- SD card mounts and files can be read through `SD_MMC` on the OEM-recovered 4-bit pin tuple.
 - GPIO1/GPIO2/GPIO0 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
 - Battery can be stubbed or disabled initially.
 - Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button.

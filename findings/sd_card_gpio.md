@@ -6,16 +6,58 @@ Scope: Murphy M3 only. Do not mix this with Xteink X3/X4 SD or display pin maps.
 
 ## Practical Answer
 
-Use this SD-card mapping first:
+The OEM firmware is using Arduino `SD_MMC`, not the `SD.h`/SdFat SPI path.
 
-| SD signal | GPIO | Status | Notes |
+Recovered OEM SDMMC mapping:
+
+| SDMMC signal | GPIO | Status | Notes |
 | --- | ---: | --- | --- |
-| `SCK` / `CLK` | `39` | High-confidence vendor mapping | Public Elecrow/CrowPanel 3.7-inch docs and existing port notes agree. |
-| `MISO` | `13` | High-confidence vendor mapping | In SD native terminology this is likely `D0`. |
-| `MOSI` | `40` | High-confidence vendor mapping | In SD native terminology this is likely `CMD`. |
-| `CS` | `10` | High-confidence vendor mapping | In SD native terminology this may correspond to `D3`/card-select behavior. |
+| `CLK` | `16` | OEM recovered | First argument to the OEM `setPins` wrapper. |
+| `CMD` | `17` | OEM recovered | Second argument to the OEM `setPins` wrapper. |
+| `D0` | `15` | OEM recovered | Third argument. Required in 1-bit and 4-bit modes. |
+| `D1` | `14` | OEM recovered | Fourth argument. OEM uses 4-bit mode, so this is required. |
+| `D2` | `21` | OEM recovered | Fifth argument. OEM uses 4-bit mode, so this is required. |
+| `D3` | `18` | OEM recovered | Sixth argument. OEM uses 4-bit mode, so this is required. |
 
-First Arduino SPI probe:
+Minimal Arduino SDMMC probe:
+
+```cpp
+#include <Arduino.h>
+#include <SD_MMC.h>
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+
+  SD_MMC.setPins(16, 17, 15, 14, 21, 18);
+
+  if (!SD_MMC.begin("/sd", false, false, 4000, 5)) {
+    Serial.println("SD_MMC 4-bit mount failed");
+    return;
+  }
+
+  Serial.printf("SD_MMC mounted: type=%d size=%llu MB\n",
+                SD_MMC.cardType(),
+                SD_MMC.cardSize() / (1024ULL * 1024ULL));
+}
+
+void loop() {}
+```
+
+Start at `4000` kHz. The OEM passes a firmware-selected frequency value, but the pin/mode recovery is the important part: `mode1bit=false`, max-open-files `5`.
+
+## Superseded SPI Lead
+
+The earlier public CrowPanel-style SPI tuple is still useful as a historical lead, but it is not what the Murphy OEM firmware is doing:
+
+| SPI-style label | GPIO | Current status | Notes |
+| --- | ---: | --- | --- |
+| `SCK` / `CLK` | `39` | Superseded for Murphy OEM path | Public docs and existing port notes list this, but CrossPoint/SdFat hangs here. |
+| `MISO` | `13` | Superseded for Murphy OEM path | Public docs list this. |
+| `MOSI` | `40` | Superseded for Murphy OEM path | Public docs list this. |
+| `CS` | `10` | Superseded for Murphy OEM path | Public docs list this. |
+
+The old Arduino SPI probe was:
 
 ```cpp
 #include <Arduino.h>
@@ -52,13 +94,13 @@ The same probe has been preserved as:
 
 - `murphy_sd_spi_probe.cpp`
 
-Start at `4 MHz`. If it mounts reliably, test higher frequencies later. Do not spend time on SD power-enable guesses first; no Murphy-specific SD power pin is confirmed yet.
+This should no longer be the primary Murphy probe. It may describe a reference carrier or another board variant, but the OEM binary points at native 4-bit SDMMC on GPIO16/17/15/14/21/18.
 
 ## Confidence And Caveat
 
-This SD tuple is not yet live-confirmed on Murphy in the same way the display GPIO3-8 tuple is. Treat it as the first bounded probe, not final truth until an SD card mounts and lists files.
+The OEM SDMMC tuple is statically recovered but not yet live-confirmed in our custom firmware. Treat it as the next bounded probe, not final truth until an SD card mounts and lists files.
 
-The reason it is still the best first try is that the official CrowPanel 3.7-inch source labels the SD slot as SPI and gives the same four pins:
+The older SPI tuple came from official CrowPanel 3.7-inch source that labels the SD slot as SPI:
 
 ```text
 MOSI GPIO40
@@ -113,14 +155,35 @@ Local API evidence:
 - `/Users/patryk/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/driver/include/driver/sdmmc_host.h:54-82`
 - `/Users/patryk/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/driver/include/driver/sdmmc_host.h:93-108`
 
-Unresolved OEM detail: the actual callsite supplying those six SDMMC parameters to `FUN_420140a4`/`FUN_42013f34` has not been recovered yet. The Ghidra pass found the SD mount class and wrapper, but not the concrete runtime arguments.
+The concrete OEM callsite has now been recovered:
+
+```c
+FUN_4202b864(_DAT_41f40194, 10, 0);
+FUN_4202b698(uVar3, 0x10, 0x11, 0x0f, 0x0e, 0x15, 0x12);
+FUN_4202b6c4(uVar3, _DAT_41f401a8, 0, 0, uVar4, 5);
+```
+
+Interpretation:
+
+- `FUN_4202b698` is the OEM wrapper for `SD_MMC.setPins(clk, cmd, d0, d1, d2, d3)`.
+- It stores the six byte pin values at object offsets `0x0c..0x11`.
+- `FUN_4202b6c4` is the OEM wrapper for `SD_MMC.begin(mountpoint, mode1bit, format_if_mount_failed, sdmmc_frequency, maxOpenFiles)`.
+- The third argument to `FUN_4202b6c4` is `0`, so `mode1bit=false` and the OEM uses 4-bit SDMMC.
+- The sixth argument is `5`, matching Arduino `SD_MMC.begin(..., maxOpenFiles=5)`.
+- The recovered pin tuple is decimal `16,17,15,14,21,18`.
+
+Evidence:
+
+- `analysis/oem_hardware_constant_mining.md:354811-354842`
+- `analysis/oem_hardware_constant_mining.md:385267-385318`
+- `analysis/oem_hardware_constant_mining.md:385293-385368`
+- `analysis/oem_hardware_keyword_mining.md:241055-241086`
 
 ## If SPI Fails
 
-If the SPI probe above does not mount:
+The SPI probe already hangs in CrossPoint's SdFat path. The next test should be native SDMMC:
 
-1. Try lower SPI speeds first: `1 MHz`, then `400 kHz`.
-2. Try native one-bit SDMMC with the three shared signal names:
+1. Try OEM 4-bit SDMMC:
 
 ```cpp
 #include <Arduino.h>
@@ -130,12 +193,10 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
-  // SDMMC terminology for the same likely slot:
-  // CLK=39, CMD=40, D0=13.
-  SD_MMC.setPins(39, 40, 13);
+  SD_MMC.setPins(16, 17, 15, 14, 21, 18);
 
-  if (!SD_MMC.begin("/sd", true, false, 4000, 5)) {
-    Serial.println("SD_MMC 1-bit mount failed");
+  if (!SD_MMC.begin("/sd", false, false, 4000, 5)) {
+    Serial.println("SD_MMC 4-bit mount failed");
     return;
   }
 
@@ -147,17 +208,27 @@ void setup() {
 void loop() {}
 ```
 
-3. Do not random-sweep GPIOs. The next useful static RE task is to recover the caller that passes six parameters into `FUN_420140a4` or inspect an actual Murphy schematic/board trace for SD `D1`/`D2` if OEM native 4-bit SDMMC is required.
+2. If that fails, try the same pins in 1-bit mode as a control:
+
+```cpp
+SD_MMC.setPins(16, 17, 15);
+SD_MMC.begin("/sd", true, false, 4000, 5);
+```
+
+3. If both fail, reduce frequency to `1000` and then `400` kHz before revisiting power sequencing.
 
 ## Current Recommendation
 
-Use SPI first:
+Use the OEM SDMMC tuple first:
 
 ```text
-SCK=39
-MISO=13
-MOSI=40
-CS=10
+CLK=16
+CMD=17
+D0=15
+D1=14
+D2=21
+D3=18
+mode1bit=false
 ```
 
 Once an SD card mounts and lists files, mark these as confirmed in this file and in `findings/codex_handoff.md`.

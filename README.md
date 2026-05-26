@@ -15,6 +15,7 @@ The hardware most likely matches the Elecrow CrowPanel ESP32 3.7-inch E-paper HM
 - UC8253 display controller.
 - 240x416 panel resolution.
 - SD card slot on a separate SPI bus.
+- SD SPI mapping is now carried in the SDK board profile: `SCK=GPIO39`, `MISO=GPIO13`, `MOSI=GPIO40`, `CS=GPIO10`.
 
 The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based in firmware, while the HamGeek M3 listing claims a built-in independent clock chip, so an external RTC is now plausible but still unproven at IC/address level.
 
@@ -42,6 +43,7 @@ Detailed notes:
 - [Touch hardware and firmware notes](findings/touch.md): OEM touch strings, controller candidates, failed `SDA=13/SCL=12` probe results, and SDK port shape.
 - [Button input and combo notes](findings/button_input.md): physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - [Front light hardware and firmware notes](findings/front_light.md): OEM front-light UI evidence, panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.
+- [SD card GPIO mapping](findings/sd_card_gpio.md): bounded Murphy SD SPI pin map, OEM SD evidence, and fallback SDMMC notes.
 - [USB logging and console notes](findings/usb_logging.md): confirmed stock USB app logs, capture workflow, and verbosity/debug-flag search notes.
 - [Online research notes](findings/online_research.md): product listings and panel references found on the web.
 - [Audio hardware and capabilities](findings/audio.md): headphone-jack evidence, I2S audio stack, supported formats, unknown codec/pins.

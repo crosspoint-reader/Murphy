@@ -18,6 +18,7 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 - OEM touch logic is present (`touchTask`, touch-area reset UI, touch-specific OTA URL). Online panel research makes `FT6336U` the leading controller candidate, but custom probing has not found a valid touch bus yet. `SDA=13/SCL=12` ACKs at `0x38`, but the data is static/invalid and does not respond to taps.
 - OEM button logic includes long-press handling, held-direction acceleration, custom key mapping, key-map reset, and key-swap support. The actual Murphy unit has no rotary button. Custom passive input probing confirms three active-low side buttons: top `GPIO1`, middle `GPIO2`, and bottom `GPIO0`; CrowPanel GPIO4/GPIO5/GPIO6 input assumptions are reference-only until verified. No explicit hidden debug/verbose multi-button combo has been recovered yet.
 - OEM front-light UI is present (`Front Light`) and custom firmware confirms the Murphy front light is controlled by `GPIO48`, active high, with 25 kHz PWM working cleanly.
+- Murphy SD SPI uses `SCK=GPIO39`, `MISO=GPIO13`, `MOSI=GPIO40`, `CS=GPIO10`; the SDK board profile now carries this mapping.
 - Stock firmware emits application-level logs over USB, including observed `#ClickLock` and `>>>Count:%d Time:%dms` messages. A hidden verbosity flag is possible but not yet proven.
 - The firmware includes clock, calendar, alarm, and NTP synchronization features. The HamGeek M3 listing claims an independent clock chip; an external RTC is plausible but not yet proven.
 - NVS contains readable WiFi configuration, including SSID/password-like values. Treat `analysis/extracted/nvs.bin` as sensitive.
@@ -36,6 +37,7 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 - `findings/touch.md`: OEM touch strings, controller candidates, custom probe results, and SDK integration plan.
 - `findings/button_input.md`: physical key map, OEM long-press/custom-key evidence, and combo test plan.
 - `findings/front_light.md`: OEM front-light settings evidence, external panel lead, confirmed `GPIO48` PWM control, and SDK implementation notes.
+- `findings/sd_card_gpio.md`: Murphy SD SPI mapping, OEM SD-card evidence, and SDMMC fallback notes.
 - `findings/usb_logging.md`: confirmed stock USB app logs, capture workflow, and verbosity/debug-flag search notes.
 - `findings/online_research.md`: web-sourced product, panel, and module clues.
 - `findings/audio.md`: headphone-jack/audio playback evidence, codec unknowns, and porting impact.

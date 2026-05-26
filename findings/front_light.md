@@ -131,7 +131,7 @@ Do not assume the front light shares touch or display pins. Treat it as its own 
 
 ## Next Reverse-Engineering Steps
 
-1. Implement `GPIO48` active-high PWM in `community-sdk` as the Murphy front-light backend.
+1. Implement `GPIO48` active-high PWM in `community-sdk` as the Murphy front-light backend. Current CrossPoint work has introduced a board-level `HalBacklight` wrapper that reads the Murphy `GPIO48` / 25 kHz PWM config from `BoardConfig`.
 2. Choose a conservative 10-level duty table and validate the perceived brightness curve on hardware.
 3. In Ghidra, continue from the `Front Light` string-pointer table and identify the settings-dispatch table that consumes it.
 4. Search NVS/default-setting code for a small integer stored near other settings such as dark mode, refresh interval, or font size.

@@ -16,7 +16,7 @@
 ## Likely / Medium Confidence
 
 - Product lineage/codebase: the firmware references `https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/touch/update.json`, so this image appears derived from or directly built from the Corogoo 3.7-inch ink-screen reader firmware.
-- Touch controller: likely an external capacitive controller. Online panel research makes `FT6336U` the best current candidate, but the exact Murphy part and GPIO pins are not proven. Custom probing found `0x38` on `SDA=13/SCL=12`, but the register data is static/invalid and does not respond to touch. See `touch.md`.
+- Touch controller: likely an external CHSC6x/Chipsemi-class capacitive controller. Current OEM RE points to `SDA=GPIO13`, `SCL=GPIO12`, address `0x2e`, command bytes `0xa3`/`0xa5`, and a 5-byte coordinate sample path. `GPIO44` is confirmed as the touch INT/wake line by passive probing, and `GPIO45` is the strongest reset/control candidate. The earlier `0x38` ACK on `SDA=13/SCL=12` returns static invalid FT-style data and is not a usable touch path unless future tap-correlated reads prove otherwise. See `touch.md`.
 - Front-light driver: confirmed board-level control input on `GPIO48`; the LED current path is still assumed to be a transistor/driver rather than direct GPIO LED current. See `front_light.md`.
 - External RTC: the HamGeek M3 listing claims a built-in independent clock chip. Firmware evidence has not yet revealed an RTC part number or I2C address. See `clock_rtc.md`.
 - Audio implementation details: `ESP32-audioI2S-3.0.12` is present, including MP3/AAC/FLAC/Opus/Vorbis decoder strings, I2S driver strings, `musicTask`, and `Connect to DAC codec...`. Given the observed headphone jack, the best current read is an external I2S DAC/codec path, but the codec IC and pins are still unknown. See `audio.md`.
@@ -35,7 +35,7 @@ Relevant strings:
 
 `$GC9` may indicate a GC9-series display-controller dependency or signature, but the surrounding binary context is not enough to assert the exact display controller. No clear `ILI`, `ST77`, `SSD`, or Waveshare panel identifier was recovered from the first string pass.
 
-Custom firmware display bring-up has not yet produced a confirmed visible screen change, but the GPIO path is now much stronger. A focused probe using `MOSI3/SCK4/CS5/DC6/RST7/BUSY8` produced ready-high BUSY transitions after reset, power-on, refresh, and power-off, which strongly suggests this is the Murphy EPD control tuple. `GPIO48` is confirmed as front-light PWM on this Murphy unit, so public mappings that use `GPIO48` as EPD `BUSY` are invalid here. The remaining display work is likely UC8253 init/waveform/frame polarity on the GPIO3-8 map. See `display_bringup.md`.
+Custom firmware display bring-up now produces visible output through the OEM-derived `MOSI3/SCK4/CS5/DC6/RST7/BUSY8` display bus. `GPIO48` is confirmed as front-light PWM on this Murphy unit, so public mappings that use `GPIO48` as EPD `BUSY` are invalid here. The remaining display work is UC8253 refresh quality, LUT/plane handling, and UI/rendering polish on the GPIO3-8 map. See `display_bringup.md`.
 
 The panel is Good Display `GDEY037T03-FT21`: 3.7-inch, UC8253, 416x240, SPI display interface, touch, and front light. The visible FPC markings `YSFK082048A-W-3` / `LH37004D 2513` appear to be module/FPC production markings for this assembly.
 

@@ -19,7 +19,7 @@ The hardware most likely matches the Elecrow CrowPanel ESP32 3.7-inch E-paper HM
 
 The physical Murphy M3 unit also has a headphone jack. Firmware evidence points to an I2S DAC/codec audio path, but the codec part and pins are not yet identified. Clock features appear to be NTP/system-time based in firmware, while the HamGeek M3 listing claims a built-in independent clock chip, so an external RTC is now plausible but still unproven at IC/address level.
 
-Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL), but the exact touch controller and GPIO pins are not yet proven. Online panel research makes Good Display's `FT6336U`-based 3.7-inch touch/front-light module the strongest external match so far. A custom probe found an `0x38` ACK on `SDA=13/SCL=12`, but the returned bytes do not change on touch and decode as invalid FT6x36 data, so this is not yet a usable touch bus.
+Touch handling is present in the OEM firmware (`touchTask`, touch-area reset UI, and touch-specific OTA URL). Fresh Murphy-specific Ghidra work now points the low-level path at a CHSC6x/Chipsemi-style I2C controller on `SDA=GPIO13`, `SCL=GPIO12`, address `0x2e`, with command reads using `0xa3`/`0xa5` and a compact 5-byte sample. Passive probing confirmed `GPIO44` as the touch interrupt/wake line. `GPIO45` remains the strongest reset/control candidate. The older `0x38` ACK on `SDA=13/SCL=12` is still logged as an FT-style lead, but it returns static invalid data and should not be treated as a working touch controller.
 
 Front-light support is present and now electrically confirmed. Pressing and holding either right-side button on the Murphy unit opens the OEM front-light controls. Custom firmware confirms Murphy front-light control on `GPIO48`, active high, with smooth 25 kHz PWM brightness control. Earlier public-reference leads that treated `GPIO42` as the front light or `GPIO48` as EPD `BUSY` are superseded for this Murphy unit.
 
@@ -89,7 +89,7 @@ The firmware uses ESP-IDF OTA partitioning:
 
 ## Port Overview
 
-Porting CrossPoint is feasible, but it requires a new board target rather than a simple pin swap.
+Porting CrossPoint is feasible and the Murphy target now boots far enough to run the CrossPoint home UI with display, SD, buttons, and front light enabled. It still requires a new board target rather than a simple pin swap.
 
 Required work:
 
@@ -104,11 +104,11 @@ Required work:
 Minimum viable port:
 
 - ESP32-S3 build boots.
-- Full-screen black/white UC8253 refresh works. This is not yet achieved; standalone probes on the public CrowPanel pin sets have not changed the panel.
-- SD card is still unresolved in custom firmware. The current CrossPoint build mirrors the OEM SDMMC tuple and now also drives GPIO10 low before mount; the previous run without that GPIO10-low step failed at SDMMC card init and the fallback SPI path failed at CMD0.
+- Full-screen black/white UC8253 refresh works on the OEM-derived GPIO3-8 display bus, though refresh quality/plane handling still needs tuning.
+- SD card mount works through OEM-style 4-bit `SD_MMC` with `CLK=GPIO16`, `CMD=GPIO17`, `D0=GPIO15`, `D1=GPIO14`, `D2=GPIO21`, `D3=GPIO18`, and GPIO10 driven low before mount.
 - GPIO1/GPIO2/GPIO0 inputs cover the confirmed physical buttons; GPIO4/GPIO5/GPIO6 are CrowPanel-reference inputs only until proven on Murphy hardware.
 - Battery can be stubbed or disabled initially.
-- Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button.
+- Touch should be added as a target-rectangle event source that invokes the same actions as existing button-driven menu selection, because this Murphy unit has no rotary button. Current hardware evidence points to `GPIO44` as touch IRQ and an OEM CHSC6x-style data path on `SDA=GPIO13`, `SCL=GPIO12`, address `0x2e`; the stale `0x38` responder is not considered usable touch.
 - Front light can be implemented now as a board-level `GPIO48` active-high PWM brightness peripheral, preferably around 25 kHz.
 - Audio and external RTC support can be disabled initially, with board abstractions left in place.
 - Partial refresh and grayscale can come after basic display stability.

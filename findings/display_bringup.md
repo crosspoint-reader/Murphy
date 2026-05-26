@@ -2,7 +2,7 @@
 
 ## Current Status
 
-The Murphy M3 CrossPoint bring-up can boot ESP32-S3 firmware and run display code, but the e-paper panel has not visibly changed under custom firmware yet.
+The Murphy M3 CrossPoint bring-up can boot ESP32-S3 firmware and now visibly drives the e-paper panel from custom firmware. The working hardware path is the OEM-derived GPIO3-8 bit-banged UC8253 bus; the remaining work is refresh quality, LUT/plane handling, and app/UI rendering polish.
 
 Confirmed panel family:
 
@@ -49,7 +49,7 @@ New Murphy-specific display pin lead: a focused GPIO3-8 probe produced real BUSY
 | EPD RST | 7 |
 | EPD BUSY | 8, ready-high |
 
-Observed behavior from `murphy_epd_gpio3_8_probe_v1`: initial BUSY was low, reset made BUSY high, and `0x04` power-on, `0x12` refresh, and `0x02` power-off each produced a low-to-high BUSY transition within roughly 10-50 ms. This is the first strong evidence of the actual Murphy EPD control path. If the panel still does not visibly change, the remaining blocker is likely init/waveform/frame polarity or a missing power/waveform detail, not the basic GPIO tuple.
+Observed behavior from `murphy_epd_gpio3_8_probe_v1`: initial BUSY was low, reset made BUSY high, and `0x04` power-on, `0x12` refresh, and `0x02` power-off each produced a low-to-high BUSY transition within roughly 10-50 ms. Later CrossPoint builds on this same tuple rendered the boot/home UI, confirming it as the actual Murphy EPD control path. Current display issues are not broad pin-map issues; they are refresh/waveform/frame-plane behavior on the GPIO3-8 map.
 
 See `display_gpio_recovery.md` for the OEM constructor/decompile evidence and the recovered OEM init sequence:
 `0x01: 03 10 3F 3B 0D`, `0x06: D7 D7 1F`, `0x04`, `0x00: FF`, `0x30: 09`, `0x61: F0 01 A0`, `0x82: 0F`, `0x50: 97`.
@@ -188,14 +188,20 @@ Update: the GPIO3-8 map above supersedes the older Waveshare-style interpretatio
 
 ## Interpretation
 
-The current evidence does not support treating the public CrowPanel board-level GPIO mapping as confirmed for this Murphy M3 unit. Since the panel is `GDEY037T03-FT21`, the display-side protocol/sequence is still UC8253-class SPI, but one or more of the following is likely true:
+The current evidence does not support treating the public CrowPanel board-level GPIO mapping as confirmed for this Murphy M3 unit. The Murphy display FPC/control pins differ from the public CrowPanel example, and `GPIO48` must not be considered for BUSY because it is confirmed front-light PWM.
 
-- The Murphy display FPC/control pins differ from the public CrowPanel example.
-- GPIO15/GPIO14/GPIO3 are not the actual BUSY signal on this unit, or the display controller is not powered/enabled when these probes run. GPIO48 should not be considered further for BUSY on Murphy because it is confirmed front-light PWM.
-- An additional display power/enable rail is required.
-- The panel is behind a different board-level buffer, gate, or PMIC sequence.
+The correct path is the OEM-derived GPIO3-8 map:
 
-This failure is below CrossPoint UI/rendering. It occurs with a standalone firmware that only bit-bangs the vendor UC8253 sequence.
+```text
+MOSI=GPIO3
+SCK=GPIO4
+CS=GPIO5
+DC=GPIO6
+RST=GPIO7
+BUSY=GPIO8 ready-high
+```
+
+Custom firmware has rendered the CrossPoint boot/home UI with this path. Any remaining visible failures should be debugged as UC8253 init/LUT/plane/refresh problems, not as a reason to return to broad pin sweeps.
 
 ## Next Required Evidence
 

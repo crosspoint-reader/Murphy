@@ -11,7 +11,7 @@ app0 dump.
 This is the OEM's stock LUT recipe — the one that produces the
 bench-observed behavior on Murphy hardware — and was the missing piece
 in the earlier reverse-engineering documented in
-`findings/display_lut_refresh.md`.
+`findings/display_driver.md`.
 
 ## Where it lives
 
@@ -74,7 +74,7 @@ For example, `lut21_ww_white_drive`:
 ```
 
 This is push-pull settle — exactly the pattern we bench-tuned in
-`display_lut_refresh.md`, except the OEM uses a 4-4-4 frame split where
+`display_driver.md`, except the OEM uses a 4-4-4 frame split where
 we landed on slightly different counts. Using these OEM frame counts as
 the baseline before any further tuning is now the right starting point.
 
@@ -83,7 +83,7 @@ the VCOM channel doesn't swing, only the cell electrodes do — confirming
 the symmetric drive scheme.
 
 The `0x88`/`0x48` voltage codes are the same ones we identified by
-probe in `findings/display_lut_refresh.md`:
+probe in `findings/display_driver.md`:
 `0x88` = VSL/white drive, `0x48` = VSH/black drive.
 
 ### Power/voltage config blocks
@@ -188,17 +188,15 @@ What this leaves still open:
 ```
 analysis/upstream_murphy_reader/
   mofei-corogoo-touch-v525.bin
-  oem_touch_v525_lut_block.bin       (504 bytes — the full DROM region)
+  oem_touch_v525_lut_block.bin              (504 bytes — full DROM region)
   oem_luts/
-    lut21_ww_white_drive.bin         (42 bytes)
-    lut22_bw_black_to_white.bin      (42 bytes)
-    lut23_wb_white_to_black.bin      (42 bytes)
-    lut24_bb_black_drive.bin         (42 bytes)
-    lutc_vcom.bin                    (42 bytes)
-    volt_init_0f8f4f.bin             (42 bytes)
-    volt_4f8f4f.bin
-    volt_0f8f0f.bin
-    volt_4f8f0f.bin
+    lut_20_vcom.bin                         (42 bytes — VCOM tracking)
+    lut_21_ww_or_22_bw_first.bin            (42 bytes — dst 0x88, slot A)
+    lut_21_ww_or_22_bw_second.bin           (42 bytes — dst 0x88, slot B)
+    lut_23_wb_or_24_bb_first.bin            (42 bytes — dst 0x48, slot A)
+    lut_23_wb_or_24_bb_second.bin           (42 bytes — dst 0x48, slot B)
+    volt_0f8f4f.bin   volt_4f8f4f.bin
+    volt_0f8f0f.bin   volt_4f8f0f.bin
     volt_0f0f0f.bin
-    oem_touch_v525_luts.h            (C header bundling all above)
+    oem_touch_v525_luts.h                   (C header bundling all above)
 ```

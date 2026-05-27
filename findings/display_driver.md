@@ -124,6 +124,8 @@ Related app strings: `_PowerOn`, `_PowerOff`, `_Update_Fast`, `_Update_Part`, `d
 
 LUTs were extracted from `analysis/segments/app0_seg0_3c190020.bin`. `FUN_42038b60` loads them with commands `0x20..0x24` before each frame write.
 
+Cross-reference: the same 504-byte LUT block also exists in the gitee upstream `firmware/touch/firmware.bin v525` at file offset `0x000ab7e0` (vaddr `0x3c23b7e0`). Byte-for-byte identical to the device dump. See [OEM Touch v525 LUT extraction](oem_touch_v525_grayscale_luts.md) for the upstream pointer map and an out-of-tree C header bundling all 10 register payloads.
+
 ### Default Set (5 x 42 bytes)
 
 ```cpp
@@ -251,7 +253,7 @@ An earlier pass identified a third LUT-shaped region at `0x3c236d24..0x3c236df5`
 
 The pointer table at `0x420022e0..0x420022f4` is read by code around `0x420dee2f` (`l32r a8, 0x420022e0; callx8 a8`) — the address `0x3c236df6` stored there is being **called as a function**. ESP32-S3 maps the same flash content through both the DROM (`0x3c…`) and IROM (`0x42…`) windows, so the "LUT-shaped" tables at `0x3c236d24+` are actually code or data structs accessed via the DROM alias of an executable region. The bytes happen to satisfy UC8253 LUT format closely enough that the controller accepts them, but with non-design drive intensities.
 
-Conclusion: **the factory firmware does not contain a grayscale LUT set.** The OEM never validated grayscale on this panel. Anyone pursuing grayscale must hand-tune from scratch — see below.
+Conclusion: **the factory firmware (touch branch) does not contain a grayscale LUT set.** This is now corroborated by the touch v525 binary extraction — the 504-byte LUT block at `0x3c23b7e0` contains only B/W refresh LUTs (5 × 42 B for LUT_20..24) plus 5 voltage-config blocks; no grayscale LUT. The sibling `EPD426-v1` build adds a "Gray Refresh Test" diagnostic and references runtime-loaded `/lut.bin` / `/lut_full.bin` files, but Murphy hardware does not run that build. Anyone pursuing grayscale on this hardware must hand-tune from scratch or capture the EPD426-v1's runtime LUT for cross-application — see below.
 
 ## Practical Image Writer
 

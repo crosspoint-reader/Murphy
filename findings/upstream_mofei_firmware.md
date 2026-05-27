@@ -1,85 +1,79 @@
-# Upstream Project: MoFei / corogoo EPD426
+# Upstream Project: MoFei / corogoo
 
-A second firmware blob (`~/Downloads/firmware.bin`, 5,626,704 bytes, MD5
-`4821b423e69d72d09b43027a00ca34ba`, build `Mar  5 2024 12:12:53`, ESP-IDF
-`v4.4.7-dirty`) was analyzed and turned out to be the **public open-source
-project that Murphy M3's firmware is built from**, not a Murphy build.
+The device's app image and firmware track an open-source upstream
+published on Gitee under:
 
-## Identity
+  https://gitee.com/corogoo/3.7-inch-ink-screen-reader
+
+The repo itself has no source code — the README is the empty Gitee
+template — but the `firmware/` directory hosts compiled binaries for
+two distinct hardware tracks. All blobs share the same compile
+timestamp (`Mar  5 2024 12:12:53`), the same `arduino-lib-builder`
+project name, and the same ESP-IDF `v4.4.7-dirty` toolchain, but they
+have distinct ELF SHA-256 values and different feature sets.
+
+## Identity strings
 
 - App name in OTA UI: **MoFei** (墨非 / Pinyin for "Murphy")
-- OTA update URL embedded in the binary:
-  `https://gitee.com/corogoo/3.7-inch-ink-screen-reader/raw/master/firmware/EPD426-v1/update.json`
 - mDNS host: `mofei.local`
 - USB MSC volume label: `MOFEI Storage`
 - On-device data directory: `/.mofei/` (epub cache, `read_history.json`,
   `lock_screen_pic.bin`)
-- Build target: `EPD426-v1` (4.26-inch panel — same physical dimensions as
-  Murphy's 240x416)
-- Same ESP-IDF version, Arduino-lib-builder project name, and exact build
-  timestamp as the Murphy app image extracted from the device. Murphy is
-  almost certainly a rebrand/fork of this upstream, not an independent
-  implementation.
 
-## Why this matters for the RE work
+## Tracks
 
-Until now we have been treating Murphy as a closed binary and bench-tuning
-panel behavior from scratch (see `display_lut_refresh.md`). The upstream is
-public source on Gitee:
+| Track | Gitee path | Version | Date | Local copy |
+|---|---|---|---|---|
+| `touch` | `firmware/touch/firmware.bin` | 525 | 2026-01-14 | `analysis/upstream_murphy_reader/mofei-corogoo-touch-v525.bin` |
+| `EPD426-v1` | `firmware/EPD426-v1/firmware.bin` | 621 | 2026-05-19 | `analysis/upstream_murphy_reader/mofei-corogoo-EPD426-v1.bin` |
 
-  https://gitee.com/corogoo/3.7-inch-ink-screen-reader
+The `update.json` URL embedded in the device's dumped app0 image
+points at the **`touch/` branch** — that is the track this hardware is
+on. `EPD426-v1` is a newer, larger sibling that runs on a related (but
+not identical) form factor; not what ships to Murphy M3 owners over OTA.
 
-That source should contain:
+## Relationship to the device dump
 
-- The actual UC8253 init sequence and LUTs (B/W fast, gray, ghost-clear)
-- The DTM1/DTM2 plane-write conventions we reverse-engineered (which match
-  what we found — destination-only, same buffer to both planes)
-- The grayscale pipeline. The upstream binary has a built-in diagnostic
-  page `Gray Refresh Test` / `Tap screen to draw black circle` /
-  `Expected: black | dark gray | light gray | white` — meaning the OEM
-  ships **working 4-level grayscale** on the same panel. Our conclusion
-  in `display_lut_refresh.md` that "the panel can't do clean AA" should
-  be revisited against the upstream LUT recipe before staying with the
-  AA-disabled shipping state.
-- The pin map, touch driver (FT6336 family), front-light PWM tables,
-  audio and RTC code that we have separately reverse-engineered.
+`analysis/extracted/app0.bin` (the app pulled off Murphy M3 hardware)
+and `mofei-corogoo-touch-v525.bin` share:
 
-## Shared reader internals (string-level evidence)
+- Identical compile timestamp / ESP-IDF / project name
+- The same 504-byte UC8253 LUT block (see
+  `oem_touch_v525_grayscale_luts.md`)
+- The same EPUB/reader log-format strings (`[EPUB][reader] cache
+  no-progress ...`, `[EPUB][chapter] parse start tocIndex=...`,
+  `[READER] page render %s: %lu ms`, etc.)
 
-Same log-tag conventions as Murphy:
+They have **different ELF SHA-256s**:
+- Device app0: `a6f205d9e091d605cf2d0e1684ee43f08ae63ff52edcdd3becbf81d62563ca3b`
+- Touch v525:  `54a62a86e269e08cc8eb0196d9e7f20eb2d33a6208cb2f26f21b4f1a999e96a7`
 
-- `[EPUB][reader] cache no-progress ...`
-- `[EPUB][chapter] parse start tocIndex=...`
-- `[EPUB][layout] marker hit pos=...`
-- `[EPUB][drawTXT] pageStart=...`
-- `[READER] page render %s: %lu ms`
-- `[UI ] lines pageStart=... count=... y=`
+So the device shipped with an earlier sibling build than what the OTA
+URL now serves. Touch v525 is the closest publicly-available reference
+firmware for the device.
 
-These are identical format strings, in identical order, with the same
-percent-format placeholders — so the EPUB/reader subsystem is shared
-code.
+## What this means for the SDK port
 
-## Diffs from the on-device Murphy build
+- The OEM's compiled-in LUTs from `touch/firmware.bin` match the LUTs
+  on the device byte-for-byte, and they match the SDK's existing
+  `MURPHY_LUT_*_DEFAULT` constants — see
+  `oem_touch_v525_grayscale_luts.md` for the byte-level comparison.
+- The `EPD426-v1` build adds a "Gray Refresh Test" diagnostic
+  (`Tap screen to draw black circle` / `Expected: black | dark gray |
+  light gray | white`) and references runtime-loaded `/lut.bin` /
+  `/lut_full.bin` files. The `touch` build the device runs does
+  **not** ship a grayscale diag and has no compiled-in grayscale LUT.
+  Whether the panel can do clean 4-level grayscale at all on this
+  hardware track is therefore still open; the EPD426-v1 diag is
+  evidence for the sibling panel, not Murphy's.
+- The Gitee repo is binary-only, so it isn't a source for the LUT
+  contents — extraction-from-binary, as in
+  `oem_touch_v525_grayscale_luts.md`, is the available route.
 
-The downloaded upstream blob is **smaller** (5.6 MB vs ~7.1 MB partition
-on Murphy) and the MD5 differs. The most likely interpretation is that
-Murphy is a downstream branch with extra customization (cover-art cache,
-device-specific UI strings, possibly the touch-driver tweaks we already
-ship in `crosspoint-reader-main`).
+## Related findings
 
-The Settings/UI strings show the upstream uses a web tab layout with
-WiFi / Weather / FileManager / Universal-Input / FirmwareUpdate. Murphy
-appears to have added device profile abstractions and a different
-shell on top.
-
-## Next steps if revisiting
-
-1. Clone the Gitee repo and diff its display driver against our
-   `community-sdk/libs/display/EInkDisplay` Murphy paths — especially:
-   - UC8253 LUT tables (gray + B/W)
-   - Booster (cmd `0x06`) and VCOM_DC (cmd `0x82`) values
-   - Two-plane write convention
-2. Re-run the grayscale tuning with upstream LUTs as the starting point
-   before re-deciding whether to keep AA disabled on Murphy.
-3. Check upstream commit history for OEM-side fixes (touch polarity,
-   front-light curve) we may have independently reproduced.
+- `findings/oem_touch_v525_grayscale_luts.md` — OEM LUT extraction
+- `findings/murphy_reader_code_reuse.md` — the separately-shipped
+  Murphy Reader v1.2.16 at `murphy.pandacat.ai` is a *different* fork
+  (built from `crosspoint-reader-main`, not directly from MoFei), and
+  is the firmware that adds OPDS / KOReader Sync / Calibre features.

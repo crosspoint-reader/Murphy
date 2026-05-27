@@ -1,5 +1,10 @@
 # Murphy Reader v1.2.16 contains code derived from `crosspoint-reader-main`
 
+## Related findings
+
+- [Upstream MoFei firmware](upstream_mofei_firmware.md) — the corogoo Gitee project that ships the *other* firmware track Murphy M3 hardware actually runs (`touch/firmware.bin`). Murphy Reader at pandacat.ai is a separate fork that diverged from MoFei before incorporating crosspoint.
+- [OEM touch v525 grayscale LUTs](oem_touch_v525_grayscale_luts.md) — LUT extraction from the MoFei `touch` build. Does **not** apply to Murphy Reader v1.2.16, whose display driver came from crosspoint.
+
 ## Summary
 
 The current Murphy Reader firmware (`v1.2.16`, distributed at

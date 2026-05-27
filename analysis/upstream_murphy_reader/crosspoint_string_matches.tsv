@@ -1,0 +1,702 @@
+firmware_offset	source_file	source_line	length	string
+0x00008a52	lib/EpdFont/FontDecompressor.cpp	69	33	Decompression failed for group %u
+0x00008af6	lib/EpdFont/FontDecompressor.cpp	167	31	Glyph %u not found in any group
+0x00008aa6	lib/EpdFont/FontDecompressor.cpp	358	52	Failed to allocate page buffer (%u bytes, %u glyphs)
+0x00035be8	lib/EpdFont/SdCardFont.cpp	437	21	Failed to read header
+0x00036676	lib/EpdFont/SdCardFontManager.cpp	57	17	Failed to load %s
+0x00009189	lib/Epub/Epub.cpp	16	22	META-INF/container.xml
+0x000091b7	lib/Epub/Epub.cpp	16	22	META-INF/container.xml
+0x000091de	lib/Epub/Epub.cpp	16	22	META-INF/container.xml
+0x000091a0	lib/Epub/Epub.cpp	21	45	Could not find or size META-INF/container.xml
+0x000091cf	lib/Epub/Epub.cpp	33	37	Could not read META-INF/container.xml
+0x000091f6	lib/Epub/Epub.cpp	39	46	Could not find valid rootfile in container.xml
+0x00009226	lib/Epub/Epub.cpp	50	33	Could not find content.opf in zip
+0x00009249	lib/Epub/Epub.cpp	60	33	Could not get size of content.opf
+0x0000926c	lib/Epub/Epub.cpp	66	34	Could not setup content.opf parser
+0x00009290	lib/Epub/Epub.cpp	71	26	Could not read content.opf
+0x00009b7d	lib/Epub/Epub.cpp	100	12	"xlink:href="""
+0x0006ebfd	lib/Epub/Epub/BookMetadataCache.cpp	14	14	/spine.bin.tmp
+0x0006ebf0	lib/Epub/Epub/BookMetadataCache.cpp	15	12	/toc.bin.tmp
+0x00009eec	lib/Epub/Epub/BookMetadataCache.cpp	175	45	Could not open EPUB zip for size calculations
+0x00009f44	lib/Epub/Epub/BookMetadataCache.cpp	248	46	Warning: Could not get size for spine item: %s
+0x00009cdc	lib/Epub/Epub/BookMetadataCache.cpp	405	41	getSpineEntry called but cache not loaded
+0x00009d07	lib/Epub/Epub/BookMetadataCache.cpp	410	35	getSpineEntry index %d out of range
+0x00009d64	lib/Epub/Epub/BookMetadataCache.cpp	424	39	getTocEntry called but cache not loaded
+0x00009d8d	lib/Epub/Epub/BookMetadataCache.cpp	429	33	getTocEntry index %d out of range
+0x0000abe4	lib/Epub/Epub/Page.cpp	121	24	Failed to write footnote
+0x0000ac1c	lib/Epub/Epub/Page.cpp	152	38	Deserialization failed: Unknown tag %u
+0x0000ac44	lib/Epub/Epub/Page.cpp	161	25	Invalid footnote count %u
+0x0000ac5f	lib/Epub/Epub/Page.cpp	169	26	Failed to read footnote %u
+0x0000ace4	lib/Epub/Epub/Section.cpp	28	33	File not open for writing page %d
+0x0000ad07	lib/Epub/Epub/Section.cpp	34	27	Failed to serialize page %d
+0x0000aded	lib/Epub/Epub/Section.cpp	91	42	Deserialization failed: Unknown version %u
+0x0000ae19	lib/Epub/Epub/Section.cpp	122	47	Deserialization failed: Parameters do not match
+0x0000901e	lib/Epub/Epub/Section.cpp	143	21	Failed to clear cache
+0x000313eb	lib/Epub/Epub/Section.cpp	143	21	Failed to clear cache
+0x0000afaa	lib/Epub/Epub/Section.cpp	196	57	Failed to stream item contents to temp file after retries
+0x0000b0cf	lib/Epub/Epub/Section.cpp	219	29	Failed to load CSS from cache
+0x0000b0ee	lib/Epub/Epub/Section.cpp	236	35	Failed to parse XML and build pages
+0x0000b14a	lib/Epub/Epub/Section.cpp	258	49	Failed to write LUT due to invalid page positions
+0x00037a32	lib/Epub/Epub/Section.h	32	10	/sections/
+0x00031a43	lib/Epub/Epub/blocks/BlockStyle.h	116	12	Book's Style
+0x0000b249	lib/Epub/Epub/blocks/ImageBlock.cpp	47	40	Cache dimension mismatch: %dx%d vs %dx%d
+0x00008f9f	lib/Epub/Epub/blocks/ImageBlock.cpp	62	29	Failed to allocate row buffer
+0x0000b273	lib/Epub/Epub/blocks/ImageBlock.cpp	71	26	Cache read error at row %d
+0x0000b202	lib/Epub/Epub/blocks/ImageBlock.cpp	102	60	Invalid render position: (%d,%d) size (%dx%d) screen (%dx%d)
+0x0000b28f	lib/Epub/Epub/blocks/ImageBlock.cpp	117	24	Image file not found: %s
+0x0000b2a9	lib/Epub/Epub/blocks/ImageBlock.cpp	124	23	Image file is empty: %s
+0x0000b2c2	lib/Epub/Epub/blocks/ImageBlock.cpp	143	30	No decoder found for image: %s
+0x0000b2e2	lib/Epub/Epub/blocks/ImageBlock.cpp	151	26	Failed to decode image: %s
+0x0000b3bf	lib/Epub/Epub/blocks/TextBlock.cpp	127	53	Deserialization failed: word count %u exceeds maximum
+0x0000b2c2	lib/Epub/Epub/converters/ImageDecoderFactory.cpp	38	30	No decoder found for image: %s
+0x0000b3fa	lib/Epub/Epub/converters/ImageToFramebufferDecoder.cpp	7	64	Image too large (%dx%d = %d pixels %s), max supported: %d pixels
+0x0000b43c	lib/Epub/Epub/converters/ImageToFramebufferDecoder.cpp	15	81	Warning: Unsupported feature '%s' in image '%s'. Image may not display correctly.
+0x00008d74	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	348	51	Not enough heap for JPEG decoder (%u free, need %u)
+0x0000b48f	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	354	46	Failed to allocate JPEG decoder for dimensions
+0x0000b4bf	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	361	47	Failed to open JPEG for dimensions (err=%d): %s
+0x00008da9	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	384	31	Failed to allocate JPEG decoder
+0x0000b48f	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	384	31	Failed to allocate JPEG decoder
+0x0000b4f0	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	397	32	Failed to open JPEG (err=%d): %s
+0x0000b512	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	405	30	Invalid JPEG dimensions: %dx%d
+0x00000750	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	476	59	Failed to allocate cache buffer, continuing without caching
+0x0000b569	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	476	59	Failed to allocate cache buffer, continuing without caching
+0x0000b5a6	lib/Epub/Epub/converters/JpegToFramebufferConverter.cpp	486	35	Decode failed (rc=%d, lastError=%d)
+0x0000b532	lib/Epub/Epub/converters/PixelCache.h	34	53	Cache buffer too large: %d bytes for %dx%d (limit %d)
+0x000007a8	lib/Epub/Epub/converters/PixelCache.h	61	41	Failed to open cache file for writing: %s
+0x0000b5cb	lib/Epub/Epub/converters/PixelCache.h	61	41	Failed to open cache file for writing: %s
+0x00000540	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	245	50	Not enough heap for PNG decoder (%u free, need %u)
+0x00000578	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	251	45	Failed to allocate PNG decoder for dimensions
+0x000005a8	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	260	37	Failed to open PNG for dimensions: %d
+0x00000578	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	283	30	Failed to allocate PNG decoder
+0x00000604	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	283	30	Failed to allocate PNG decoder
+0x00000624	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	297	22	Failed to open PNG: %d
+0x0000063c	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	333	99	PNG row buffer too small: need %d bytes for width=%d type=%d, configured PNG_MAX_BUFFERED_PIXELS=%d
+0x000006a4	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	335	56	Aborting decode to avoid PNGdec internal buffer overflow
+0x000006fc	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	340	11	bit depth (
+0x00000728	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	347	35	Failed to allocate gray line buffer
+0x00000750	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	363	59	Failed to allocate cache buffer, continuing without caching
+0x0000b569	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	363	59	Failed to allocate cache buffer, continuing without caching
+0x00000790	lib/Epub/Epub/converters/PngToFramebufferConverter.cpp	376	17	Decode failed: %d
+0x0000b73c	lib/Epub/Epub/css/CssParser.cpp	56	10	!important
+0x0000b65d	lib/Epub/Epub/css/CssParser.cpp	273	10	text-align
+0x0000b668	lib/Epub/Epub/css/CssParser.cpp	276	10	font-style
+0x0000b673	lib/Epub/Epub/css/CssParser.cpp	279	11	font-weight
+0x0000b67f	lib/Epub/Epub/css/CssParser.cpp	282	15	text-decoration
+0x0000b68f	lib/Epub/Epub/css/CssParser.cpp	282	15	text-decoration
+0x0000b68f	lib/Epub/Epub/css/CssParser.cpp	282	20	text-decoration-line
+0x0000b6a4	lib/Epub/Epub/css/CssParser.cpp	285	11	text-indent
+0x0000b6b0	lib/Epub/Epub/css/CssParser.cpp	288	10	margin-top
+0x0000b6bb	lib/Epub/Epub/css/CssParser.cpp	291	13	margin-bottom
+0x0000b6c9	lib/Epub/Epub/css/CssParser.cpp	294	11	margin-left
+0x0000b6d5	lib/Epub/Epub/css/CssParser.cpp	297	12	margin-right
+0x0000b6e9	lib/Epub/Epub/css/CssParser.cpp	309	11	padding-top
+0x0000b6f5	lib/Epub/Epub/css/CssParser.cpp	312	14	padding-bottom
+0x0000b704	lib/Epub/Epub/css/CssParser.cpp	315	12	padding-left
+0x0000b711	lib/Epub/Epub/css/CssParser.cpp	318	13	padding-right
+0x0000b77a	lib/Epub/Epub/css/CssParser.cpp	465	29	Cannot read from invalid file
+0x00071974	lib/Epub/Epub/css/CssParser.cpp	666	16	/css_rules.cache
+0x0000c0a1	lib/Epub/Epub/htmlEntities.cpp	59	10	&thetasym;
+0x0000c469	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	26	10	blockquote
+0x0000c38c	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	58	11	javascript:
+0x0000c318	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	529	25	Failed to create new page
+0x0000c333	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	536	29	Failed to create initial page
+0x0000c2f8	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	574	30	Failed to get image dimensions
+0x0000c352	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	578	23	Failed to extract image
+0x0000c374	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	612	13	doc-pagebreak
+0x0000c3a0	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	1145	35	Couldn't allocate memory for parser
+0x0000c3c5	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	1173	35	Couldn't allocate memory for buffer
+0x0000c3ea	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	1182	15	File read error
+0x0000c3fb	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	1191	27	"Parse error at line %lu:
+%s"
+0x0000c2ae	lib/Epub/Epub/parsers/ChapterHtmlSlimParser.cpp	1251	37	!! No text block to make pages for !!
+0x0000c3a0	lib/Epub/Epub/parsers/ContainerParser.cpp	9	35	Couldn't allocate memory for parser
+0x0000c49a	lib/Epub/Epub/parsers/ContainerParser.cpp	40	15	Parse error: %s
+0x0000c4b4	lib/Epub/Epub/parsers/ContainerParser.cpp	71	10	media-type
+0x0000c4c9	lib/Epub/Epub/parsers/ContainerParser.cpp	79	29	application/oebps-package+xml
+0x000bddb5	lib/Epub/Epub/parsers/ContentOpfParser.cpp	13	24	application/x-dtbncx+xml
+0x000bdda0	lib/Epub/Epub/parsers/ContentOpfParser.cpp	16	11	/.items.bin
+0x0000c3a0	lib/Epub/Epub/parsers/ContentOpfParser.cpp	38	35	Couldn't allocate memory for parser
+0x0000c3c5	lib/Epub/Epub/parsers/ContentOpfParser.cpp	71	35	Couldn't allocate memory for buffer
+0x0000c535	lib/Epub/Epub/parsers/ContentOpfParser.cpp	98	11	opf:package
+0x0000c528	lib/Epub/Epub/parsers/ContentOpfParser.cpp	103	12	opf:metadata
+0x0000c511	lib/Epub/Epub/parsers/ContentOpfParser.cpp	116	10	dc:creator
+0x0000c51c	lib/Epub/Epub/parsers/ContentOpfParser.cpp	121	11	dc:language
+0x0000c4fb	lib/Epub/Epub/parsers/ContentOpfParser.cpp	126	12	opf:manifest
+0x0000c4b4	lib/Epub/Epub/parsers/ContentOpfParser.cpp	190	10	media-type
+0x0000c63a	lib/Epub/Epub/parsers/ContentOpfParser.cpp	192	10	properties
+0x0000c64f	lib/Epub/Epub/parsers/ContentOpfParser.cpp	243	11	cover-image
+0x0000c65d	lib/Epub/Epub/parsers/ContentOpfParser.cpp	243	11	cover-image
+0x0000c64f	lib/Epub/Epub/parsers/ContentOpfParser.cpp	245	12	cover-image 
+0x0000c65c	lib/Epub/Epub/parsers/ContentOpfParser.cpp	246	12	 cover-image
+0x0000c669	lib/Epub/Epub/parsers/ContentOpfParser.cpp	256	11	opf:itemref
+0x0000c67b	lib/Epub/Epub/parsers/ContentOpfParser.cpp	311	13	opf:reference
+0x0000c689	lib/Epub/Epub/parsers/ContentOpfParser.cpp	325	10	cover-page
+0x0000c689	lib/Epub/Epub/parsers/ContentOpfParser.h	67	10	cover-page
+0x0000c3a0	lib/Epub/Epub/parsers/TocNavParser.cpp	12	35	Couldn't allocate memory for parser
+0x0000c3c5	lib/Epub/Epub/parsers/TocNavParser.cpp	35	35	Couldn't allocate memory for buffer
+0x0000c3a0	lib/Epub/Epub/parsers/TocNcxParser.cpp	12	35	Couldn't allocate memory for parser
+0x0000c3c5	lib/Epub/Epub/parsers/TocNcxParser.cpp	35	35	Couldn't allocate memory for buffer
+0x00008b1f	lib/GfxRenderer/GfxRenderer.cpp	31	43	Compressed font but no FontDecompressor set
+0x00008b50	lib/GfxRenderer/GfxRenderer.cpp	82	17	!! No framebuffer
+0x00008c12	lib/GfxRenderer/GfxRenderer.cpp	313	17	Font %d not found
+0x00008cff	lib/GfxRenderer/GfxRenderer.cpp	831	37	!! Failed to allocate BMP row buffers
+0x00008d26	lib/GfxRenderer/GfxRenderer.cpp	850	33	Failed to read row %d from bitmap
+0x00008ca9	lib/GfxRenderer/GfxRenderer.cpp	912	43	!! Failed to allocate 1-bit BMP row buffers
+0x00008cd6	lib/GfxRenderer/GfxRenderer.cpp	1002	39	Failed to read row %d from 1-bit bitmap
+0x00008d49	lib/GfxRenderer/GfxRenderer.cpp	1060	41	!! Failed to allocate polygon node buffer
+0x00008c25	lib/GfxRenderer/GfxRenderer.cpp	1578	75	!! BW buffer chunk %zu already stored - this is likely a bug, freeing chunk
+0x00008c72	lib/GfxRenderer/GfxRenderer.cpp	1588	53	!! Failed to allocate BW buffer chunk %zu (%zu bytes)
+0x00033468	lib/I18n/I18nStrings.cpp	122	10	Nederlands
+0x00008d74	lib/JpegToBmpConverter/JpegToBmpConverter.cpp	392	51	Not enough heap for JPEG decoder (%u free, need %u)
+0x00008dca	lib/JpegToBmpConverter/JpegToBmpConverter.cpp	406	25	JPEG open failed (err=%d)
+0x0000b51a	lib/JpegToBmpConverter/JpegToBmpConverter.cpp	420	22	JPEG dimensions: %dx%d
+0x00008e56	lib/JpegToBmpConverter/JpegToBmpConverter.cpp	553	34	JPEG decode failed (rc=%d, err=%d)
+0x000337b1	lib/KOReaderSync/ChapterXPathResolver.cpp	54	18	/body/DocFragment[
+0x00033794	lib/KOReaderSync/ChapterXPathResolver.cpp	85	27	Failed to create XML parser
+0x00033775	lib/KOReaderSync/ChapterXPathResolver.cpp	104	25	Final XML parse error: %s
+0x0003377b	lib/KOReaderSync/ChapterXPathResolver.cpp	120	19	XML parse error: %s
+0x000d1dc8	lib/KOReaderSync/KOReaderCredentialStore.cpp	24	31	https://sync.koreader.rocks:443
+0x000337d8	lib/KOReaderSync/KOReaderCredentialStore.cpp	65	52	Failed to save KOReader credentials during migration
+0x00007985	lib/KOReaderSync/KOReaderDocumentId.cpp	47	23	Failed to open file: %s
+0x0003582c	lib/KOReaderSync/KOReaderJsonIO.cpp	15	12	password_obf
+0x0003586e	lib/KOReaderSync/KOReaderJsonIO.cpp	17	11	matchMethod
+0x000358e4	lib/KOReaderSync/KOReaderJsonIO.cpp	29	20	JSON parse error: %s
+0x00036f2c	lib/KOReaderSync/KOReaderSyncClient.cpp	16	10	CrossPoint
+0x001645f4	lib/KOReaderSync/KOReaderSyncClient.cpp	16	10	CrossPoint
+0x00033889	lib/KOReaderSync/KOReaderSyncClient.cpp	86	32	application/vnd.koreader.v1+json
+0x000338aa	lib/KOReaderSync/KOReaderSyncClient.cpp	87	11	x-auth-user
+0x000338b6	lib/KOReaderSync/KOReaderSyncClient.cpp	88	10	x-auth-key
+0x0003193a	lib/KOReaderSync/KOReaderSyncClient.cpp	101	25	No credentials configured
+0x000338c8	lib/KOReaderSync/KOReaderSyncClient.cpp	105	11	/users/auth
+0x000338d4	lib/KOReaderSync/KOReaderSyncClient.cpp	138	16	/syncs/progress/
+0x00034f3b	lib/KOReaderSync/KOReaderSyncClient.cpp	164	21	JSON parse failed: %s
+0x000338ec	lib/KOReaderSync/KOReaderSyncClient.cpp	170	10	percentage
+0x000338d4	lib/KOReaderSync/KOReaderSyncClient.cpp	191	15	/syncs/progress
+0x0003390b	lib/KOReaderSync/KOReaderSyncClient.cpp	191	15	/syncs/progress
+0x0003391b	lib/KOReaderSync/KOReaderSyncClient.cpp	216	12	Content-Type
+0x000e8675	lib/KOReaderSync/KOReaderSyncClient.cpp	216	12	Content-Type
+0x00033928	lib/KOReaderSync/KOReaderSyncClient.cpp	216	16	application/json
+0x000e88ff	lib/KOReaderSync/KOReaderSyncClient.cpp	216	16	application/json
+0x0003381c	lib/KOReaderSync/KOReaderSyncClient.cpp	243	13	Network error
+0x0003382a	lib/KOReaderSync/KOReaderSyncClient.cpp	245	21	Authentication failed
+0x0005472c	lib/KOReaderSync/KOReaderSyncClient.cpp	245	21	Authentication failed
+0x00033840	lib/KOReaderSync/KOReaderSyncClient.cpp	247	30	Server error (try again later)
+0x0003385f	lib/KOReaderSync/KOReaderSyncClient.cpp	249	16	JSON parse error
+0x000358e4	lib/KOReaderSync/KOReaderSyncClient.cpp	249	16	JSON parse error
+0x000358fa	lib/KOReaderSync/KOReaderSyncClient.cpp	249	16	JSON parse error
+0x00033870	lib/KOReaderSync/KOReaderSyncClient.cpp	251	17	No progress found
+0x0000c6b1	lib/KOReaderSync/KOReaderSyncClient.cpp	255	13	Unknown error
+0x0003904e	lib/KOReaderSync/KOReaderSyncClient.cpp	255	13	Unknown error
+0x000390a2	lib/KOReaderSync/KOReaderSyncClient.cpp	255	13	Unknown error
+0x00048118	lib/KOReaderSync/KOReaderSyncClient.cpp	255	13	Unknown error
+0x000337b1	lib/KOReaderSync/ProgressMapper.cpp	70	18	/body/DocFragment[
+0x00006af0	lib/Logging/Logging.cpp	44	16	[%lu] [%s] [%s] 
+0x0000c3a0	lib/OpdsParser/OpdsParser.cpp	12	35	Couldn't allocate memory for parser
+0x0000c3c5	lib/OpdsParser/OpdsParser.cpp	36	35	Couldn't allocate memory for buffer
+0x00033eb4	lib/OpdsParser/OpdsParser.cpp	101	13	{searchTerms}
+0x00033ecb	lib/OpdsParser/OpdsParser.cpp	111	25	opds-spec.org/acquisition
+0x00033ee5	lib/OpdsParser/OpdsParser.cpp	112	20	application/epub+zip
+0x00033efa	lib/OpdsParser/OpdsParser.cpp	123	20	application/atom+xml
+0x00008fe7	lib/PngToBmpConverter/PngToBmpConverter.cpp	314	23	Unknown filter type: %d
+0x00008e84	lib/PngToBmpConverter/PngToBmpConverter.cpp	405	21	Invalid PNG signature
+0x00008ea0	lib/PngToBmpConverter/PngToBmpConverter.cpp	415	18	Missing IHDR chunk
+0x00008eb4	lib/PngToBmpConverter/PngToBmpConverter.cpp	437	37	Unsupported compression/filter method
+0x00008edb	lib/PngToBmpConverter/PngToBmpConverter.cpp	442	29	Interlaced PNGs not supported
+0x00008efa	lib/PngToBmpConverter/PngToBmpConverter.cpp	451	31	Image too large or zero (%ux%u)
+0x00008f1b	lib/PngToBmpConverter/PngToBmpConverter.cpp	490	26	Unsupported color type: %d
+0x00008f37	lib/PngToBmpConverter/PngToBmpConverter.cpp	496	23	Row too large: %u bytes
+0x00008f50	lib/PngToBmpConverter/PngToBmpConverter.cpp	515	51	Failed to allocate scanline buffers (%u bytes each)
+0x00008f8a	lib/PngToBmpConverter/PngToBmpConverter.cpp	552	19	No IDAT chunk found
+0x0000830c	lib/PngToBmpConverter/PngToBmpConverter.cpp	560	29	Failed to init inflate reader
+0x00008f9f	lib/PngToBmpConverter/PngToBmpConverter.cpp	616	29	Failed to allocate row buffer
+0x00008fbe	lib/PngToBmpConverter/PngToBmpConverter.cpp	653	39	Failed to allocate grayscale row buffer
+0x00009000	lib/PngToBmpConverter/PngToBmpConverter.cpp	671	28	Failed to decode scanline %u
+0x00008024	lib/Serialization/ObfuscationUtils.cpp	59	40	Base64 decode size query failed (ret=%d)
+0x00008052	lib/Serialization/ObfuscationUtils.cpp	67	29	Base64 decode failed (ret=%d)
+0x00007985	lib/Txt/Txt.cpp	26	23	Failed to open file: %s
+0x0000c771	lib/Txt/Txt.cpp	98	10	/cover.bmp
+0x000371b1	lib/Txt/Txt.cpp	108	33	No cover image found for TXT file
+0x00033e27	lib/Txt/Txt.cpp	145	43	Failed to generate BMP from JPG cover image
+0x00033e54	lib/Txt/Txt.cpp	154	52	Cover image format not supported (only BMP/JPG/JPEG)
+0x0000901e	lib/Txt/Txt.cpp	165	21	Failed to clear cache
+0x000313eb	lib/Txt/Txt.cpp	165	21	Failed to clear cache
+0x0000c75d	lib/Xtc/Xtc.cpp	23	18	Failed to load: %s
+0x0000901e	lib/Xtc/Xtc.cpp	40	21	Failed to clear cache
+0x000313eb	lib/Xtc/Xtc.cpp	40	21	Failed to clear cache
+0x0000c771	lib/Xtc/Xtc.cpp	114	10	/cover.bmp
+0x0000c77c	lib/Xtc/Xtc.cpp	123	42	Cannot generate cover BMP, file not loaded
+0x0000c7a8	lib/Xtc/Xtc.cpp	128	20	No pages in XTC file
+0x0000c7be	lib/Xtc/Xtc.cpp	156	42	Failed to allocate page buffer (%lu bytes)
+0x0000c7ea	lib/Xtc/Xtc.cpp	163	25	Failed to load cover page
+0x00009146	lib/Xtc/Xtc.cpp	263	19	/thumb_[HEIGHT].bmp
+0x0000c805	lib/Xtc/Xtc/XtcParser.cpp	380	32	Failed to lazy-load chapters: %s
+0x0000c6bf	lib/Xtc/Xtc/XtcTypes.h	127	14	File not found
+0x0004cdb2	lib/Xtc/Xtc/XtcTypes.h	127	14	File not found
+0x0000c6ce	lib/Xtc/Xtc/XtcTypes.h	129	20	Invalid magic number
+0x0000c6e3	lib/Xtc/Xtc/XtcTypes.h	131	19	Unsupported version
+0x0000c6f7	lib/Xtc/Xtc/XtcTypes.h	133	16	Corrupted header
+0x0000c708	lib/Xtc/Xtc/XtcTypes.h	135	17	Page out of range
+0x0000c71a	lib/Xtc/Xtc/XtcTypes.h	137	10	Read error
+0x0000c725	lib/Xtc/Xtc/XtcTypes.h	139	11	Write error
+0x0000c731	lib/Xtc/Xtc/XtcTypes.h	141	23	Memory allocation error
+0x0000c749	lib/Xtc/Xtc/XtcTypes.h	143	19	Decompression error
+0x0000c6b1	lib/Xtc/Xtc/XtcTypes.h	145	13	Unknown error
+0x0003904e	lib/Xtc/Xtc/XtcTypes.h	145	13	Unknown error
+0x000390a2	lib/Xtc/Xtc/XtcTypes.h	145	13	Unknown error
+0x00048118	lib/Xtc/Xtc/XtcTypes.h	145	13	Unknown error
+0x0000810f	lib/ZipFile/ZipFile.cpp	203	45	Something went wrong reading the local header
+0x0000813e	lib/ZipFile/ZipFile.cpp	209	27	Not a valid zip file header
+0x00008097	lib/ZipFile/ZipFile.cpp	228	32	File too small to be a valid zip
+0x000080b9	lib/ZipFile/ZipFile.cpp	237	46	Failed to allocate memory for EOCD scan buffer
+0x000080e9	lib/ZipFile/ZipFile.cpp	255	36	EOCD signature not found in zip file
+0x0000815b	lib/ZipFile/ZipFile.cpp	384	55	Failed to allocate memory for output buffer (%zu bytes)
+0x00008194	lib/ZipFile/ZipFile.cpp	393	19	Failed to read data
+0x000081dd	lib/ZipFile/ZipFile.cpp	393	19	Failed to read data
+0x0004d7f1	lib/ZipFile/ZipFile.cpp	393	19	Failed to read data
+0x000081a9	lib/ZipFile/ZipFile.cpp	403	50	Failed to allocate memory for decompression buffer
+0x000081dd	lib/ZipFile/ZipFile.cpp	411	39	Failed to read data, expected %d got %d
+0x00008206	lib/ZipFile/ZipFile.cpp	427	22	Failed to inflate file
+0x0000821e	lib/ZipFile/ZipFile.cpp	434	30	Unsupported compression method
+0x0000823e	lib/ZipFile/ZipFile.cpp	462	36	Failed to allocate memory for buffer
+0x00008264	lib/ZipFile/ZipFile.cpp	470	25	Could not read more bytes
+0x0000827f	lib/ZipFile/ZipFile.cpp	476	42	Failed to write all output bytes to stream
+0x000082ab	lib/ZipFile/ZipFile.cpp	490	50	Failed to allocate memory for zip file read buffer
+0x0000815b	lib/ZipFile/ZipFile.cpp	496	43	Failed to allocate memory for output buffer
+0x000082df	lib/ZipFile/ZipFile.cpp	496	43	Failed to allocate memory for output buffer
+0x0000830c	lib/ZipFile/ZipFile.cpp	508	29	Failed to init inflate reader
+0x0000832b	lib/ZipFile/ZipFile.cpp	524	46	Decompressed size exceeds expected (%zu > %zu)
+0x0000835b	lib/ZipFile/ZipFile.cpp	538	50	Decompressed size mismatch (expected %zu, got %zu)
+0x0000838f	lib/ZipFile/ZipFile.cpp	548	20	Decompression failed
+0x00008a52	lib/ZipFile/ZipFile.cpp	548	20	Decompression failed
+0x00039354	lib/hal/HalClock.cpp	161	12	pool.ntp.org
+0x001b2d9c	lib/hal/HalSystem.cpp	23	22	(unknown panic reason)
+0x00007b64	lib/hal/HalSystem.cpp	97	17	/crash_report.txt
+0x00007b76	lib/hal/HalSystem.cpp	103	43	Failed to open crash_report.txt for writing
+0x00007b2f	lib/hal/HalSystem.cpp	123	16	"
+
+Panic reason: "
+0x00007b40	lib/hal/HalSystem.cpp	124	13	"
+
+Last logs:
+"
+0x00007b4e	lib/hal/HalSystem.cpp	125	16	"
+
+Stack memory:
+"
+0x00034d41	src/CrossPointSettings.cpp	98	45	Failed to resave settings after format update
+0x00034d70	src/CrossPointSettings.cpp	115	40	Failed to save migrated settings to JSON
+0x0000aded	src/CrossPointSettings.cpp	157	42	Deserialization failed: Unknown version %u
+0x00034d9a	src/CrossPointState.cpp	56	37	Failed to save state during migration
+0x0000aded	src/CrossPointState.cpp	74	42	Deserialization failed: Unknown version %u
+0x0003587a	src/JsonSettingsIO.cpp	71	12	openEpubPath
+0x00035887	src/JsonSettingsIO.cpp	72	17	recentSleepImages
+0x00035899	src/JsonSettingsIO.cpp	74	14	recentSleepPos
+0x000358a8	src/JsonSettingsIO.cpp	75	15	recentSleepFill
+0x000358b8	src/JsonSettingsIO.cpp	76	23	readerActivityLoadCount
+0x000358d0	src/JsonSettingsIO.cpp	77	19	lastSleepFromReader
+0x000358e4	src/JsonSettingsIO.cpp	89	20	JSON parse error: %s
+0x0003595b	src/JsonSettingsIO.cpp	107	14	lastSleepImage
+0x00035727	src/JsonSettingsIO.cpp	140	15	frontButtonBack
+0x00035737	src/JsonSettingsIO.cpp	141	18	frontButtonConfirm
+0x0003574a	src/JsonSettingsIO.cpp	142	15	frontButtonLeft
+0x0003575a	src/JsonSettingsIO.cpp	143	16	frontButtonRight
+0x000354e6	src/JsonSettingsIO.cpp	145	10	fontFamily
+0x0003569a	src/JsonSettingsIO.cpp	177	25	statusBarChapterPageCount
+0x00035920	src/JsonSettingsIO.cpp	202	57	Misconfigured SettingInfo: stringMaxLen is 0 for key '%s'
+0x00035846	src/JsonSettingsIO.cpp	259	17	lastConnectedSsid
+0x000312cb	src/JsonSettingsIO.cpp	261	11	credentials
+0x0003193d	src/JsonSettingsIO.cpp	261	11	credentials
+0x000337f0	src/JsonSettingsIO.cpp	261	11	credentials
+0x00034b93	src/JsonSettingsIO.cpp	261	11	credentials
+0x00034bc8	src/JsonSettingsIO.cpp	261	11	credentials
+0x00035858	src/JsonSettingsIO.cpp	261	11	credentials
+0x00036c7c	src/JsonSettingsIO.cpp	261	11	credentials
+0x0003582c	src/JsonSettingsIO.cpp	265	12	password_obf
+0x00035839	src/JsonSettingsIO.cpp	313	12	coverBmpPath
+0x00014645	src/OpdsServerStore.cpp	53	11	OPDS Server
+0x0001df15	src/OpdsServerStore.cpp	53	11	OPDS Server
+0x0003596a	src/OpdsServerStore.cpp	53	11	OPDS Server
+0x0000aded	src/RecentBooksStore.cpp	212	42	Deserialization failed: Unknown version %u
+0x000354e6	src/SettingsList.h	53	10	fontFamily
+0x00035432	src/SettingsList.h	110	11	sleepScreen
+0x0003543e	src/SettingsList.h	110	11	sleepScreen
+0x00035453	src/SettingsList.h	110	11	sleepScreen
+0x0003546a	src/SettingsList.h	110	11	sleepScreen
+0x0003543e	src/SettingsList.h	112	20	sleepScreenCoverMode
+0x00035453	src/SettingsList.h	115	22	sleepScreenCoverFilter
+0x0003547f	src/SettingsList.h	120	21	hideBatteryPercentage
+0x00035495	src/SettingsList.h	125	16	refreshFrequency
+0x00035515	src/SettingsList.h	143	11	lineSpacing
+0x00035521	src/SettingsList.h	144	12	screenMargin
+0x0003552e	src/SettingsList.h	149	18	paragraphAlignment
+0x00035541	src/SettingsList.h	150	13	embeddedStyle
+0x0003554f	src/SettingsList.h	154	18	hyphenationEnabled
+0x00035591	src/SettingsList.h	158	11	orientation
+0x0003559d	src/SettingsList.h	160	21	extraParagraphSpacing
+0x000355b3	src/SettingsList.h	161	16	textAntiAliasing
+0x000355c4	src/SettingsList.h	165	14	imageRendering
+0x000355d3	src/SettingsList.h	168	16	sideButtonLayout
+0x000355f9	src/SettingsList.h	178	11	shortPwrBtn
+0x00035619	src/SettingsList.h	184	12	sleepTimeout
+0x00035626	src/SettingsList.h	185	15	showHiddenFiles
+0x0003566a	src/SettingsList.h	199	10	koUsername
+0x00035675	src/SettingsList.h	206	10	koPassword
+0x00035680	src/SettingsList.h	213	11	koServerUrl
+0x0003568c	src/SettingsList.h	221	13	koMatchMethod
+0x0003569a	src/SettingsList.h	224	25	statusBarChapterPageCount
+0x000356b4	src/SettingsList.h	226	31	statusBarBookProgressPercentage
+0x000356d4	src/SettingsList.h	228	20	statusBarProgressBar
+0x000356e9	src/SettingsList.h	228	20	statusBarProgressBar
+0x000356e9	src/SettingsList.h	232	29	statusBarProgressBarThickness
+0x00035707	src/SettingsList.h	234	14	statusBarTitle
+0x00035716	src/SettingsList.h	236	16	statusBarBattery
+0x00036f2c	src/WifiCredentialStore.cpp	21	10	CrossPoint
+0x001645f4	src/WifiCredentialStore.cpp	21	10	CrossPoint
+0x00036c99	src/WifiCredentialStore.cpp	60	36	Failed to save wifi during migration
+0x0003848b	src/activities/Activity.cpp	3	17	ActivityManager.h
+0x0003848b	src/activities/Activity.h	9	17	ActivityManager.h
+0x0003848b	src/activities/ActivityManager.cpp	1	17	ActivityManager.h
+0x00036cbf	src/activities/ActivityManager.cpp	24	21	ActivityManagerRender
+0x00036cf5	src/activities/ActivityManager.cpp	30	28	Failed to create render task
+0x00036ebd	src/activities/ActivityManager.cpp	74	57	Pop set but currentActivity is null; ignoring pop request
+0x00036f20	src/activities/ActivityManager.cpp	294	11	FileBrowser
+0x00036f14	src/activities/ActivityManager.cpp	296	11	RecentBooks
+0x00036f40	src/activities/ActivityManager.cpp	298	15	OpdsBookBrowser
+0x00036f2c	src/activities/ActivityManager.cpp	300	19	CrossPointWebServer
+0x00036e89	src/activities/ActivityManager.cpp	313	50	pendingActivity while pushActivity is not expected
+0x00036e56	src/activities/ActivityManager.cpp	323	49	pendingActivity while popActivity is not expected
+0x00036d67	src/activities/ActivityManager.cpp	375	46	Render task cannot call requestUpdateAndWait()
+0x00036dd8	src/activities/ActivityManager.cpp	378	40	Already waiting for a render to complete
+0x00036e19	src/activities/ActivityManager.cpp	381	59	Cannot call requestUpdateAndWait() while holding RenderLock
+0x00038520	src/activities/ActivityManager.h	83	32	Failed to create rendering mutex
+0x0000ded9	src/activities/boot_sleep/SleepActivity.cpp	67	10	/sleep.bmp
+0x00014094	src/activities/boot_sleep/SleepActivity.cpp	67	10	/sleep.bmp
+0x0003715d	src/activities/boot_sleep/SleepActivity.cpp	267	23	Failed to load last XTC
+0x00037176	src/activities/boot_sleep/SleepActivity.cpp	272	32	Failed to generate XTC cover bmp
+0x00037198	src/activities/boot_sleep/SleepActivity.cpp	281	23	Failed to load last TXT
+0x000371b1	src/activities/boot_sleep/SleepActivity.cpp	286	33	No cover image found for TXT file
+0x000371d4	src/activities/boot_sleep/SleepActivity.cpp	296	24	Failed to load last epub
+0x000371ee	src/activities/boot_sleep/SleepActivity.cpp	301	28	Failed to generate cover bmp
+0x00033eb4	src/activities/browser/OpdsBookBrowserActivity.cpp	334	13	{searchTerms}
+0x00036f40	src/activities/browser/OpdsBookBrowserActivity.h	21	15	OpdsBookBrowser
+0x00036f20	src/activities/home/FileBrowserActivity.cpp	34	11	FileBrowser
+0x00037441	src/activities/home/FileBrowserActivity.cpp	42	25	System Volume Information
+0x00036f20	src/activities/home/FileBrowserActivity.h	44	11	FileBrowser
+0x00036f14	src/activities/home/RecentBooksActivity.h	33	11	RecentBooks
+0x000375cf	src/activities/network/CalibreConnectActivity.h	39	14	CalibreConnect
+0x00030f54	src/activities/network/CrossPointWebServerActivity.cpp	117	14	Create Hotspot
+0x0003759d	src/activities/network/CrossPointWebServerActivity.cpp	210	36	ERROR: Failed to start Access Point!
+0x000375c3	src/activities/network/CrossPointWebServerActivity.cpp	220	11	%d.%d.%d.%d
+0x0003754a	src/activities/network/CrossPointWebServerActivity.cpp	261	34	ERROR: Failed to start web server!
+0x000315f2	src/activities/network/CrossPointWebServerActivity.cpp	444	12	IP Address: 
+0x00030f54	src/activities/network/CrossPointWebServerActivity.h	23	14	Create Hotspot
+0x00030f45	src/activities/network/CrossPointWebServerActivity.h	23	14	Join a Network
+0x00036f2c	src/activities/network/CrossPointWebServerActivity.h	65	19	CrossPointWebServer
+0x00030f45	src/activities/network/NetworkModeSelectionActivity.h	12	14	Join a Network
+0x00030f54	src/activities/network/NetworkModeSelectionActivity.h	14	14	Create Hotspot
+0x000374f6	src/activities/network/NetworkModeSelectionActivity.h	26	20	NetworkModeSelection
+0x0003768f	src/activities/network/WifiSelectionActivity.cpp	45	32	%s %02x-%02x-%02x-%02x-%02x-%02x
+0x000375c3	src/activities/network/WifiSelectionActivity.cpp	249	11	%d.%d.%d.%d
+0x0003170f	src/activities/network/WifiSelectionActivity.cpp	371	14	Forget network
+0x0003721a	src/activities/network/WifiSelectionActivity.h	105	13	WifiSelection
+0x000374b4	src/activities/reader/EpubReaderActivity.cpp	128	13	/progress.bin
+0x00037a3d	src/activities/reader/EpubReaderActivity.cpp	743	33	Failed to persist page data to SD
+0x00037a60	src/activities/reader/EpubReaderActivity.cpp	826	52	Failed to load page from SD - clearing section cache
+0x000379d1	src/activities/reader/EpubReaderActivity.h	69	10	EpubReader
+0x000379ec	src/activities/reader/EpubReaderActivity.h	69	10	EpubReader
+0x00037a00	src/activities/reader/EpubReaderActivity.h	69	10	EpubReader
+0x00037ace	src/activities/reader/EpubReaderActivity.h	69	10	EpubReader
+0x00037aec	src/activities/reader/EpubReaderActivity.h	69	10	EpubReader
+0x00037cdb	src/activities/reader/EpubReaderActivity.h	69	10	EpubReader
+0x000379d1	src/activities/reader/EpubReaderChapterSelectionActivity.h	27	26	EpubReaderChapterSelection
+0x000379ec	src/activities/reader/EpubReaderFootnotesActivity.h	16	19	EpubReaderFootnotes
+0x00037a00	src/activities/reader/EpubReaderPercentSelectionActivity.h	12	26	EpubReaderPercentSelection
+0x000374b4	src/activities/reader/EpubReaderUtils.h	17	13	/progress.bin
+0x00038480	src/activities/reader/KOReaderSyncActivity.cpp	21	28	activities/ActivityManager.h
+0x00039354	src/activities/reader/KOReaderSyncActivity.cpp	35	12	pool.ntp.org
+0x000380c8	src/activities/reader/KOReaderSyncActivity.cpp	89	31	WiFi connection failed, exiting
+0x00037a25	src/activities/reader/KOReaderSyncActivity.h	28	12	KOReaderSync
+0x00037cc6	src/activities/reader/ReaderActivity.cpp	37	19	Failed to load epub
+0x00037cb2	src/activities/reader/ReaderActivity.cpp	52	18	Failed to load XTC
+0x00037c8a	src/activities/reader/ReaderActivity.cpp	67	18	Failed to load TXT
+0x000374b4	src/activities/reader/TxtReaderActivity.cpp	424	13	/progress.bin
+0x000374c6	src/activities/reader/TxtReaderActivity.cpp	464	10	/index.bin
+0x00037e22	src/activities/reader/TxtReaderActivity.cpp	464	10	/index.bin
+0x00037e31	src/activities/reader/TxtReaderActivity.cpp	464	10	/index.bin
+0x00164510	src/activities/reader/TxtReaderActivity.cpp	464	10	/index.bin
+0x0016451f	src/activities/reader/TxtReaderActivity.cpp	464	10	/index.bin
+0x0016452e	src/activities/reader/TxtReaderActivity.cpp	464	10	/index.bin
+0x00030e39	src/activities/reader/XtcReaderActivity.cpp	122	11	End of book
+0x0000c7be	src/activities/reader/XtcReaderActivity.cpp	234	42	Failed to allocate page buffer (%lu bytes)
+0x000374b4	src/activities/reader/XtcReaderActivity.cpp	394	13	/progress.bin
+0x00037f73	src/activities/reader/XtcReaderChapterSelectionActivity.h	21	25	XtcReaderChapterSelection
+0x00038100	src/activities/settings/ButtonRemapActivity.h	11	11	ButtonRemap
+0x0003802c	src/activities/settings/ClearCacheActivity.cpp	77	11	CLEAR_CACHE
+0x000313bd	src/activities/settings/ClearCacheActivity.cpp	77	17	Clearing cache...
+0x00038016	src/activities/settings/ClearCacheActivity.cpp	108	20	Failed to remove: %s
+0x00038156	src/activities/settings/ClearCacheActivity.h	10	10	ClearCache
+0x0003927d	src/activities/settings/FontDownloadActivity.cpp	332	17	Download failed: 
+0x000392ea	src/activities/settings/FontDownloadActivity.cpp	332	17	Download failed: 
+0x00038836	src/activities/settings/FontDownloadActivity.cpp	406	21	Failed to delete font
+0x000381ac	src/activities/settings/FontSelectionActivity.cpp	13	10	FontSelect
+0x00038038	src/activities/settings/KOReaderAuthActivity.h	14	12	KOReaderAuth
+0x00038136	src/activities/settings/KOReaderSettingsActivity.h	13	16	KOReaderSettings
+0x0003816b	src/activities/settings/LanguageSelectActivity.h	20	14	LanguageSelect
+0x00038480	src/activities/settings/OpdsServerListActivity.cpp	9	28	activities/ActivityManager.h
+0x000145f1	src/activities/settings/OpdsServerListActivity.cpp	16	10	Add Server
+0x00038147	src/activities/settings/OpdsServerListActivity.h	15	14	OpdsServerList
+0x00038059	src/activities/settings/OpdsSettingsActivity.cpp	85	25	Failed to add OPDS server
+0x00038074	src/activities/settings/OpdsSettingsActivity.cpp	91	40	Failed to update OPDS server at index %d
+0x0003809e	src/activities/settings/OpdsSettingsActivity.cpp	162	40	Failed to remove OPDS server at index %d
+0x0003804c	src/activities/settings/OpdsSettingsActivity.h	18	12	OpdsSettings
+0x000380c8	src/activities/settings/OtaUpdateActivity.cpp	16	31	WiFi connection failed, exiting
+0x00038124	src/activities/settings/StatusBarSettingsActivity.h	13	17	StatusBarSettings
+0x00013196	src/activities/util/BmpViewerActivity.cpp	133	19	Could not open file
+0x0000ded9	src/activities/util/BmpViewerActivity.cpp	152	10	/sleep.bmp
+0x00014094	src/activities/util/BmpViewerActivity.cpp	152	10	/sleep.bmp
+0x0003824f	src/activities/util/ConfirmationActivity.cpp	10	12	Confirmation
+0x00014903	src/activities/util/KeyboardEntryActivity.h	24	10	Enter Text
+0x0003720c	src/activities/util/KeyboardEntryActivity.h	26	13	KeyboardEntry
+0x000316cc	src/components/themes/BaseTheme.cpp	413	11	Recent Book
+0x00030ddd	src/components/themes/BaseTheme.cpp	617	16	Continue Reading
+0x00030dee	src/components/themes/BaseTheme.cpp	638	12	No open book
+0x00030dfb	src/components/themes/BaseTheme.cpp	639	19	Start reading below
+0x00038449	src/components/themes/BaseTheme.cpp	746	13	%d/%d  %.0f%%
+0x00038480	src/main.cpp	31	28	activities/ActivityManager.h
+0x00035094	src/main.cpp	306	29	Font decompressor init failed
+0x000384b4	src/main.cpp	381	29	SD card initialization failed
+0x00035a65	src/main.cpp	546	10	SCREENSHOT
+0x00035a7a	src/main.cpp	546	10	SCREENSHOT
+0x00128055	src/main.cpp	546	10	SCREENSHOT
+0x00035a65	src/main.cpp	548	20	"SCREENSHOT_START:%d
+"
+0x00035a7a	src/main.cpp	551	15	"SCREENSHOT_END
+"
+0x00037441	src/network/CrossPointWebServer.cpp	31	25	System Volume Information
+0x00038863	src/network/CrossPointWebServer.cpp	129	27	Failed to create WebServer!
+0x00038884	src/network/CrossPointWebServer.cpp	137	16	/js/jszip.min.js
+0x00038895	src/network/CrossPointWebServer.cpp	139	11	/api/status
+0x000388a1	src/network/CrossPointWebServer.cpp	140	10	/api/files
+0x00038928	src/network/CrossPointWebServer.cpp	160	13	/api/settings
+0x00038936	src/network/CrossPointWebServer.cpp	160	13	/api/settings
+0x0003894a	src/network/CrossPointWebServer.cpp	165	10	/api/fonts
+0x00038955	src/network/CrossPointWebServer.cpp	165	10	/api/fonts
+0x00038967	src/network/CrossPointWebServer.cpp	165	10	/api/fonts
+0x00038967	src/network/CrossPointWebServer.cpp	167	17	/api/fonts/delete
+0x00038983	src/network/CrossPointWebServer.cpp	172	16	/api/opds/delete
+0x000389b9	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x00038c28	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x00038c3e	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x0003998f	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x000399e1	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x00039a03	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x000569da	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x00059b85	src/network/CrossPointWebServer.cpp	183	11	Destination
+0x000389d2	src/network/CrossPointWebServer.cpp	183	10	Lock-Token
+0x000385a3	src/network/CrossPointWebServer.cpp	338	16	Content-Encoding
+0x000385be	src/network/CrossPointWebServer.cpp	349	22	application/javascript
+0x000e889f	src/network/CrossPointWebServer.cpp	349	22	application/javascript
+0x000385d5	src/network/CrossPointWebServer.cpp	354	15	"404 Not Found
+
+"
+0x000385eb	src/network/CrossPointWebServer.cpp	356	10	text/plain
+0x000e886f	src/network/CrossPointWebServer.cpp	356	10	text/plain
+0x00033928	src/network/CrossPointWebServer.cpp	374	16	application/json
+0x000e88ff	src/network/CrossPointWebServer.cpp	374	16	application/json
+0x000386dd	src/network/CrossPointWebServer.cpp	468	11	isDirectory
+0x00038a62	src/network/CrossPointWebServer.cpp	493	12	Missing path
+0x00038ba3	src/network/CrossPointWebServer.cpp	493	12	Missing path
+0x000390c6	src/network/CrossPointWebServer.cpp	493	12	Missing path
+0x00038a7b	src/network/CrossPointWebServer.cpp	499	12	Invalid path
+0x00038d0b	src/network/CrossPointWebServer.cpp	499	12	Invalid path
+0x000390d3	src/network/CrossPointWebServer.cpp	508	26	Cannot access system files
+0x000390ee	src/network/CrossPointWebServer.cpp	513	29	Cannot access protected items
+0x00038aff	src/network/CrossPointWebServer.cpp	519	14	Item not found
+0x00007985	src/network/CrossPointWebServer.cpp	525	19	Failed to open file
+0x000079f3	src/network/CrossPointWebServer.cpp	525	19	Failed to open file
+0x00038b0e	src/network/CrossPointWebServer.cpp	525	19	Failed to open file
+0x00039292	src/network/CrossPointWebServer.cpp	525	19	Failed to open file
+0x00007a7d	src/network/CrossPointWebServer.cpp	530	19	Path is a directory
+0x0003910c	src/network/CrossPointWebServer.cpp	530	19	Path is a directory
+0x00039120	src/network/CrossPointWebServer.cpp	534	24	application/octet-stream
+0x000e8c2f	src/network/CrossPointWebServer.cpp	534	24	application/octet-stream
+0x00033ee5	src/network/CrossPointWebServer.cpp	536	20	application/epub+zip
+0x0003418d	src/network/CrossPointWebServer.cpp	546	19	Content-Disposition
+0x00039139	src/network/CrossPointWebServer.cpp	546	22	"attachment; filename="""
+0x00038f53	src/network/CrossPointWebServer.cpp	661	32	Failed to create file on SD card
+0x00038f74	src/network/CrossPointWebServer.cpp	687	45	Failed to write to SD card - disk may be full
+0x00038fa2	src/network/CrossPointWebServer.cpp	709	37	Failed to write final data to SD card
+0x00039022	src/network/CrossPointWebServer.cpp	740	14	Upload aborted
+0x00039031	src/network/CrossPointWebServer.cpp	747	28	File uploaded successfully: 
+0x0003904e	src/network/CrossPointWebServer.cpp	749	27	Unknown error during upload
+0x000389f3	src/network/CrossPointWebServer.cpp	757	19	Missing folder name
+0x00038a07	src/network/CrossPointWebServer.cpp	765	27	Folder name cannot be empty
+0x00003561	src/network/CrossPointWebServer.cpp	786	19	Creating folder: %s
+0x00038a23	src/network/CrossPointWebServer.cpp	790	21	Folder already exists
+0x00038a39	src/network/CrossPointWebServer.cpp	797	16	Folder created: 
+0x00038a4a	src/network/CrossPointWebServer.cpp	800	23	Failed to create folder
+0x00038a62	src/network/CrossPointWebServer.cpp	806	24	Missing path or new name
+0x00038a88	src/network/CrossPointWebServer.cpp	819	24	New name cannot be empty
+0x00038aa1	src/network/CrossPointWebServer.cpp	823	17	Invalid file name
+0x00038ab3	src/network/CrossPointWebServer.cpp	827	31	Cannot rename to protected name
+0x00038ad3	src/network/CrossPointWebServer.cpp	833	28	Cannot rename protected item
+0x00038af0	src/network/CrossPointWebServer.cpp	837	14	Name unchanged
+0x00038b22	src/network/CrossPointWebServer.cpp	853	25	Only files can be renamed
+0x00038b3c	src/network/CrossPointWebServer.cpp	869	21	Target already exists
+0x00038b52	src/network/CrossPointWebServer.cpp	879	20	Renamed successfully
+0x00038b67	src/network/CrossPointWebServer.cpp	881	31	Failed to rename file: %s -> %s
+0x00038b67	src/network/CrossPointWebServer.cpp	882	21	Failed to rename file
+0x00038b88	src/network/CrossPointWebServer.cpp	882	21	Failed to rename file
+0x00038ba3	src/network/CrossPointWebServer.cpp	888	27	Missing path or destination
+0x00038bbf	src/network/CrossPointWebServer.cpp	900	19	Invalid destination
+0x00038bd3	src/network/CrossPointWebServer.cpp	906	26	Cannot move protected item
+0x00038bee	src/network/CrossPointWebServer.cpp	912	33	Cannot move into protected folder
+0x00038c10	src/network/CrossPointWebServer.cpp	929	23	Only files can be moved
+0x00038c28	src/network/CrossPointWebServer.cpp	935	21	Destination not found
+0x00038c3e	src/network/CrossPointWebServer.cpp	944	27	Destination is not a folder
+0x00038c5a	src/network/CrossPointWebServer.cpp	957	22	Already in destination
+0x00038c71	src/network/CrossPointWebServer.cpp	972	18	Moved successfully
+0x00038c84	src/network/CrossPointWebServer.cpp	974	29	Failed to move file: %s -> %s
+0x00038c84	src/network/CrossPointWebServer.cpp	975	19	Failed to move file
+0x00038ca3	src/network/CrossPointWebServer.cpp	975	19	Failed to move file
+0x00038cbd	src/network/CrossPointWebServer.cpp	986	34	Missing `path` or `paths` argument
+0x00038ce0	src/network/CrossPointWebServer.cpp	990	42	Provide either 'path' or 'paths', not both
+0x00038d0b	src/network/CrossPointWebServer.cpp	1006	20	Invalid paths format
+0x00038d20	src/network/CrossPointWebServer.cpp	1012	17	No paths provided
+0x00038d32	src/network/CrossPointWebServer.cpp	1025	23	 (cannot delete root); 
+0x00038d4a	src/network/CrossPointWebServer.cpp	1054	19	 (protected file); 
+0x00038d5e	src/network/CrossPointWebServer.cpp	1061	14	 (not found); 
+0x00038d6d	src/network/CrossPointWebServer.cpp	1075	21	 (folder not empty); 
+0x00038d83	src/network/CrossPointWebServer.cpp	1089	20	 (deletion failed); 
+0x00038d98	src/network/CrossPointWebServer.cpp	1095	30	All items deleted successfully
+0x00038db7	src/network/CrossPointWebServer.cpp	1097	29	Failed to delete some items: 
+0x000387ea	src/network/CrossPointWebServer.cpp	1204	17	Missing JSON body
+0x000387fc	src/network/CrossPointWebServer.cpp	1212	14	Invalid JSON: 
+0x00038eba	src/network/CrossPointWebServer.cpp	1276	11	 setting(s)
+0x00038dd5	src/network/CrossPointWebServer.cpp	1300	11	hasPassword
+0x00038def	src/network/CrossPointWebServer.cpp	1341	20	Invalid server index
+0x00038e04	src/network/CrossPointWebServer.cpp	1355	33	Cannot add server (limit reached)
+0x00038de1	src/network/CrossPointWebServer.cpp	1380	13	Missing index
+0x00040a70	src/network/FirmwareFlasher.cpp	60	10	WRITE_FAIL
+0x00040c55	src/network/FirmwareFlasher.cpp	60	10	WRITE_FAIL
+0x0000c8e6	src/network/FirmwareFlasher.cpp	253	15	open failed: %s
+0x0004cca1	src/network/HttpDownloader.cpp	16	22	Buffer length is small
+0x00033531	src/network/HttpDownloader.cpp	68	10	User-Agent
+0x00033573	src/network/HttpDownloader.cpp	68	10	User-Agent
+0x00033551	src/network/HttpDownloader.cpp	73	13	Authorization
+0x000335b2	src/network/HttpDownloader.cpp	73	13	Authorization
+0x0004c561	src/network/HttpDownloader.cpp	73	13	Authorization
+0x0004cd90	src/network/HttpDownloader.cpp	73	13	Authorization
+0x000e87c1	src/network/HttpDownloader.cpp	73	13	Authorization
+0x0000c8e6	src/network/HttpDownloader.cpp	81	15	open failed: %s
+0x000079f3	src/network/HttpDownloader.cpp	184	31	Failed to open file for writing
+0x00039292	src/network/HttpDownloader.cpp	184	31	Failed to open file for writing
+0x000392fb	src/network/HttpDownloader.cpp	203	16	no data received
+0x00033531	src/network/OtaUpdater.cpp	23	10	User-Agent
+0x00033573	src/network/OtaUpdater.cpp	23	10	User-Agent
+0x00039361	src/network/OtaUpdater.cpp	171	32	esp_https_ota_perform Failed: %s
+0x00039383	src/network/OtaUpdater.cpp	177	50	esp_https_ota_is_complete_data_received Failed: %s
+0x000393b7	src/network/OtaUpdater.cpp	184	31	esp_https_ota_finish Failed: %s
+0x00037441	src/network/WebDAVHandler.cpp	11	25	System Volume Information
+0x00039948	src/network/WebDAVHandler.cpp	16	29	Thu, 01 Jan 2024 00:00:00 GMT
+0x00039486	src/network/WebDAVHandler.cpp	164	74	OPTIONS, GET, HEAD, PUT, DELETE, PROPFIND, MKCOL, MOVE, COPY, LOCK, UNLOCK
+0x000394d1	src/network/WebDAVHandler.cpp	166	13	MS-Author-Via
+0x000385eb	src/network/WebDAVHandler.cpp	181	10	text/plain
+0x000e886f	src/network/WebDAVHandler.cpp	181	10	text/plain
+0x000398d8	src/network/WebDAVHandler.cpp	190	32	"application/xml; charset=""utf-8"""
+0x00039901	src/network/WebDAVHandler.cpp	192	70	"<?xml version=""1.0"" encoding=""utf-8""?>
+<D:multistatus xmlns:D=""DAV:"">
+"
+0x00039966	src/network/WebDAVHandler.cpp	195	17	"</D:multistatus>
+"
+0x000005a8	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00000624	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x000007a8	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x000077af	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00007985	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x000079f3	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00007b76	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x0000b4bf	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x0000b4f0	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x0000b5cb	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00033bf5	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x0003619b	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00038b0e	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00039292	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00039978	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x000399b3	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x0004cee2	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00052620	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00052f08	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00052f82	src/network/WebDAVHandler.cpp	199	14	Failed to open
+0x00039582	src/network/WebDAVHandler.cpp	272	20	<D:response><D:href>
+0x00039597	src/network/WebDAVHandler.cpp	274	29	</D:href><D:propstat><D:prop>
+0x000395b5	src/network/WebDAVHandler.cpp	277	48	<D:resourcetype><D:collection/></D:resourcetype>
+0x000395e6	src/network/WebDAVHandler.cpp	279	17	<D:resourcetype/>
+0x000395f8	src/network/WebDAVHandler.cpp	280	20	<D:getcontentlength>
+0x0003960d	src/network/WebDAVHandler.cpp	282	21	</D:getcontentlength>
+0x00039623	src/network/WebDAVHandler.cpp	284	18	<D:getcontenttype>
+0x00039636	src/network/WebDAVHandler.cpp	286	19	</D:getcontenttype>
+0x0003964a	src/network/WebDAVHandler.cpp	289	19	<D:getlastmodified>
+0x0003965e	src/network/WebDAVHandler.cpp	291	20	</D:getlastmodified>
+0x00039673	src/network/WebDAVHandler.cpp	293	72	"</D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response>
+"
+0x00007985	src/network/WebDAVHandler.cpp	316	19	Failed to open file
+0x000079f3	src/network/WebDAVHandler.cpp	316	19	Failed to open file
+0x00038b0e	src/network/WebDAVHandler.cpp	316	19	Failed to open file
+0x00039292	src/network/WebDAVHandler.cpp	316	19	Failed to open file
+0x000345bb	src/network/WebDAVHandler.cpp	322	18	Method Not Allowed
+0x00039a5f	src/network/WebDAVHandler.cpp	384	45	Write failed - incomplete upload or disk full
+0x00039a8d	src/network/WebDAVHandler.cpp	400	18	Cannot delete root
+0x00039aa0	src/network/WebDAVHandler.cpp	426	19	Directory not empty
+0x00039ab4	src/network/WebDAVHandler.cpp	433	26	Failed to remove directory
+0x00037499	src/network/WebDAVHandler.cpp	441	21	Failed to delete file
+0x00039acf	src/network/WebDAVHandler.cpp	441	21	Failed to delete file
+0x0003466d	src/network/WebDAVHandler.cpp	459	22	Unsupported Media Type
+0x000396bc	src/network/WebDAVHandler.cpp	464	14	Already exists
+0x000396cb	src/network/WebDAVHandler.cpp	473	31	Parent directory does not exist
+0x000396eb	src/network/WebDAVHandler.cpp	482	26	Failed to create directory
+0x00039ae5	src/network/WebDAVHandler.cpp	496	16	Cannot move root
+0x00039987	src/network/WebDAVHandler.cpp	506	26	Missing Destination header
+0x000399a2	src/network/WebDAVHandler.cpp	516	16	Source not found
+0x000399e1	src/network/WebDAVHandler.cpp	525	33	Destination parent does not exist
+0x00039a03	src/network/WebDAVHandler.cpp	532	37	Destination exists and Overwrite is F
+0x000399b3	src/network/WebDAVHandler.cpp	542	21	Failed to open source
+0x00039af6	src/network/WebDAVHandler.cpp	553	11	Move failed
+0x000399c9	src/network/WebDAVHandler.cpp	594	23	Cannot copy directories
+0x00039a29	src/network/WebDAVHandler.cpp	623	28	Failed to create destination
+0x00039a46	src/network/WebDAVHandler.cpp	648	24	Copy failed - disk full?
+0x000398bc	src/network/WebDAVHandler.cpp	673	27	<urn:uuid:dummy-lock-token>
+0x000389d2	src/network/WebDAVHandler.cpp	673	10	Lock-Token
+0x000389b9	src/network/WebDAVHandler.cpp	704	11	Destination
+0x00038c28	src/network/WebDAVHandler.cpp	704	11	Destination
+0x00038c3e	src/network/WebDAVHandler.cpp	704	11	Destination
+0x0003998f	src/network/WebDAVHandler.cpp	704	11	Destination
+0x000399e1	src/network/WebDAVHandler.cpp	704	11	Destination
+0x00039a03	src/network/WebDAVHandler.cpp	704	11	Destination
+0x000569da	src/network/WebDAVHandler.cpp	704	11	Destination
+0x00059b85	src/network/WebDAVHandler.cpp	704	11	Destination
+0x00033ee5	src/network/WebDAVHandler.cpp	802	20	application/epub+zip
+0x000394f8	src/network/WebDAVHandler.cpp	803	15	application/pdf
+0x000e8b6f	src/network/WebDAVHandler.cpp	803	15	application/pdf
+0x000385be	src/network/WebDAVHandler.cpp	807	22	application/javascript
+0x000e889f	src/network/WebDAVHandler.cpp	807	22	application/javascript
+0x00033928	src/network/WebDAVHandler.cpp	808	16	application/json
+0x000e88ff	src/network/WebDAVHandler.cpp	808	16	application/json
+0x00039516	src/network/WebDAVHandler.cpp	809	15	application/xml
+0x000398d8	src/network/WebDAVHandler.cpp	809	15	application/xml
+0x00039526	src/network/WebDAVHandler.cpp	810	10	image/jpeg
+0x000e898f	src/network/WebDAVHandler.cpp	810	10	image/jpeg
+0x0003954a	src/network/WebDAVHandler.cpp	813	13	image/svg+xml
+0x000e89ef	src/network/WebDAVHandler.cpp	813	13	image/svg+xml
+0x0003955d	src/network/WebDAVHandler.cpp	814	15	application/zip
+0x000e8b9f	src/network/WebDAVHandler.cpp	814	15	application/zip
+0x00039571	src/network/WebDAVHandler.cpp	815	16	application/gzip
+0x00039120	src/network/WebDAVHandler.cpp	816	24	application/octet-stream
+0x000e8c2f	src/network/WebDAVHandler.cpp	816	24	application/octet-stream
+0x00039f88	src/util/QrUtils.cpp	64	37	Text too large for QR Code version %d
+0x0003871d	src/util/ScreenshotUtil.cpp	73	25	Framebuffer not available
+0x00039ff3	src/util/ScreenshotUtil.cpp	73	25	Framebuffer not available
+0x00038743	src/util/ScreenshotUtil.cpp	85	25	Failed to save screenshot
+0x00039fb3	src/util/ScreenshotUtil.cpp	85	25	Failed to save screenshot
+0x00039fce	src/util/ScreenshotUtil.cpp	150	35	Row size %u exceeds buffer capacity

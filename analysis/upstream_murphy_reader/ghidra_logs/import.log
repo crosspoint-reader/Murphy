@@ -1,0 +1,148 @@
+openjdk version "26.0.1" 2026-04-21
+OpenJDK Runtime Environment Temurin-26.0.1+8 (build 26.0.1+8)
+OpenJDK 64-Bit Server VM Temurin-26.0.1+8 (build 26.0.1+8, mixed mode)
+INFO  Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /Users/jmitch/Library/ghidra/ghidra_12.1_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /Users/jmitch/Library/ghidra/ghidra_12.1_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (462 ms) (ClassSearcher)  
+WARNING: Final field name in class ghidra.util.charset.CharsetInfo has been mutated reflectively by class com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2 in unnamed module @3d6f0054 (file:/opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Framework/Generic/lib/gson-2.13.2.jar)
+WARNING: Use --enable-final-field-mutation=ALL-UNNAMED to avoid a warning
+WARNING: Mutating final fields will be blocked in a future release unless final field mutation is enabled
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (1807 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 92 extension points (46 false positives) (ClassSearcher)  
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
+WARNING: Please consider reporting this to the maintainers of class org.apache.felix.framework.util.SecureAction
+WARNING: sun.misc.Unsafe::staticFieldOffset will be removed in a future release
+INFO  HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/12.1/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project/MurphyM3 (HeadlessAnalyzer)  
+INFO  Opening project: /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project/MurphyM3 (HeadlessProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project/MurphyM3 (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///Users/jmitch/GitHub/Murphy_M3/analysis/upstream_murphy_reader/murphy-26-0526-1.2.16.bin (HeadlessAnalyzer)  
+INFO  Successfully applied "-loader-baseAddr" to "Base Address" (old: "null", new: "0x42000000") (ProgramLoader)  
+INFO  Using Loader: Raw Binary (ProgramLoader)  
+INFO  Using Language/Compiler: Xtensa:LE:32:default:default (ProgramLoader)  
+INFO  Using Library Search Path: [., /System/Library/dyld/dyld_shared_cache_arm64e, /System/Library/dyld/dyld_shared_cache_x86_64, /System/Library/dyld/dyld_shared_cache_x86_64h, /System/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e, /System/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_x86_64, /System/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_x86_64h, /Users/jmitch/Library/Java/Extensions, /Library/Java/Extensions, /Network/Library/Java/Extensions, /System/Library/Java/Extensions, /usr/lib/java] (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///Users/jmitch/GitHub/Murphy_M3/analysis/upstream_murphy_reader/murphy-26-0526-1.2.16.bin (HeadlessAnalyzer)  
+ERROR Invalid PNG data at 421b04fc (PngDataType)  
+ERROR Failed to create function at 421c9919 since its body contains referring thunk at 421c9f88 (CreateFunctionCmd)  
+WARN  Decompiling 4237e444, pcode error at 4237e515: Unable to resolve constructor at 4237e515 (DecompileCallback)  
+WARN  Decompiling 4237e444, pcode error at 4237e555: Unable to resolve constructor at 4237e555 (DecompileCallback)  
+WARN  Decompiling 4237e444, pcode error at 4237e49e: Unable to resolve constructor at 4237e49e (DecompileCallback)  
+WARN  Decompiling 421c4909, pcode error at 421c473b: Unable to resolve constructor at 421c473b (DecompileCallback)  
+WARN  Decompiling 421c4909, pcode error at 421c513f: Unable to resolve constructor at 421c513f (DecompileCallback)  
+WARN  Decompiling 4234b6e8: Unable to read bytes at ram:25662224 (DecompileCallback)  
+WARN  Decompiling 4234b6e8: Unable to read bytes at ram:66222366 (DecompileCallback)  
+WARN  Decompiling 42350734: Unable to read bytes at ram:b203a0a2 (DecompileCallback)  
+WARN  Decompiling 422d2ed8, pcode error at 422d387c: Unable to resolve constructor at 422d387c (DecompileCallback)  
+WARN  Decompiling 422e124c, pcode error at 422e126e: Unable to resolve constructor at 422e126e (DecompileCallback)  
+WARN  Decompiling 421c4c08, pcode error at 421c473b: Unable to resolve constructor at 421c473b (DecompileCallback)  
+WARN  Decompiling 4221a554, pcode error at 4221a5c3: Unable to resolve constructor at 4221a5c3 (DecompileCallback)  
+WARN  Decompiling 421c4c08, pcode error at 421c513f: Unable to resolve constructor at 421c513f (DecompileCallback)  
+WARN  Decompiling 42350a98: Unable to read bytes at ram:881161a2 (DecompileCallback)  
+WARN  Decompiling 421c57cc, pcode error at 421c5906: Unable to resolve constructor at 421c5906 (DecompileCallback)  
+WARN  Decompiling 4231737c: Unable to read bytes at ram:55c60299 (DecompileCallback)  
+WARN  Decompiling 4222c448, pcode error at 4222c4ea: Unable to resolve constructor at 4222c4ea (DecompileCallback)  
+WARN  Decompiling 4237eb34, pcode error at 4237ec07: Unable to resolve constructor at 4237ec07 (DecompileCallback)  
+WARN  Decompiling 4237ea24, pcode error at 4237ead3: Unable to resolve constructor at 4237ead3 (DecompileCallback)  
+WARN  Decompiling 42379018, pcode error at 42379b1a: Unable to resolve constructor at 42379b1a (DecompileCallback)  
+WARN  Decompiling 42212eec, pcode error at 4221310e: Unable to resolve constructor at 4221310e (DecompileCallback)  
+WARN  Decompiling 421c53c1, pcode error at 421c473b: Unable to resolve constructor at 421c473b (DecompileCallback)  
+WARN  Decompiling 421c8ca6, pcode error at 421c8d2a: Unable to resolve constructor at 421c8d2a (DecompileCallback)  
+WARN  Decompiling 421c53c1, pcode error at 421c513f: Unable to resolve constructor at 421c513f (DecompileCallback)  
+WARN  Decompiling 423889f4, pcode error at 4238b257: Unable to resolve constructor at 4238b257 (DecompileCallback)  
+WARN  Decompiling 42379018: Unable to read bytes at ram:890020c0 (DecompileCallback)  
+WARN  Decompiling 422363bc, pcode error at 422366a3: Unable to resolve constructor at 422366a3 (DecompileCallback)  
+WARN  Decompiling 423889f4: Unable to read bytes at ram:a20398c0 (DecompileCallback)  
+WARN  Decompiling 422f8e38, pcode error at 422f8f64: Unable to resolve constructor at 422f8f64 (DecompileCallback)  
+WARN  Decompiling 42343d14: Unable to read bytes at ram:390b0ccc (DecompileCallback)  
+WARN  Decompiling 422f8e38, pcode error at 422f8eae: Unable to resolve constructor at 422f8eae (DecompileCallback)  
+WARN  Decompiling 4237d01c, pcode error at 4237d5a0: Unable to resolve constructor at 4237d5a0 (DecompileCallback)  
+WARN  Decompiling 42343de0: Unable to read bytes at ram:226132d1 (DecompileCallback)  
+WARN  Decompiling 4237d01c, pcode error at 4237d620: Unable to resolve constructor at 4237d620 (DecompileCallback)  
+WARN  Decompiling 4232c770, pcode error at 4232d13d: Unable to resolve constructor at 4232d13d (DecompileCallback)  
+WARN  Decompiling 4237d01c: Unable to read bytes at ram:9ef160a6 (DecompileCallback)  
+WARN  Decompiling 423814d0: Unable to read bytes at ram:660008e0 (DecompileCallback)  
+WARN  Decompiling 422d40cc, pcode error at 422d43d9: Unable to resolve constructor at 422d43d9 (DecompileCallback)  
+WARN  Decompiling 4232c770, pcode error at 4232d447: Unable to resolve constructor at 4232d447 (DecompileCallback)  
+WARN  Decompiling 4239e6c8: Unable to read bytes at ram:99a083a8 (DecompileCallback)  
+WARN  Decompiling 4238370c, pcode error at 42385ed7: Unable to resolve constructor at 42385ed7 (DecompileCallback)  
+WARN  Decompiling 4238370c: Unable to read bytes at ram:88686a0d (DecompileCallback)  
+WARN  Decompiling 42388524, pcode error at 423888d2: Unable to resolve constructor at 423888d2 (DecompileCallback)  
+WARN  Decompiling 42388524, pcode error at 42388991: Unable to resolve constructor at 42388991 (DecompileCallback)  
+WARN  Decompiling 42388524: Unable to read bytes at ram:99b05a98 (DecompileCallback)  
+WARN  Decompiling 4238323c, pcode error at 423835ea: Unable to resolve constructor at 423835ea (DecompileCallback)  
+WARN  Decompiling 4238323c, pcode error at 423836a9: Unable to resolve constructor at 423836a9 (DecompileCallback)  
+WARN  Decompiling 4238323c: Unable to read bytes at ram:08e0145b (DecompileCallback)  
+WARN  Decompiling 4237f08c, pcode error at 4237f43a: Unable to resolve constructor at 4237f43a (DecompileCallback)  
+WARN  Decompiling 42399700, pcode error at 42399732: Unable to resolve constructor at 42399732 (DecompileCallback)  
+WARN  Decompiling 4237f08c, pcode error at 4237f4f9: Unable to resolve constructor at 4237f4f9 (DecompileCallback)  
+WARN  Decompiling 4237f08c: Unable to read bytes at ram:82143cb1 (DecompileCallback)  
+WARN  Decompiling 4225999c, pcode error at 42259a62: Unable to resolve constructor at 42259a62 (DecompileCallback)  
+WARN  Decompiling 4237c040, pcode error at 4237c2a1: Unable to resolve constructor at 4237c2a1 (DecompileCallback)  
+INFO  Packed database cache: /var/tmp/jmitch-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.447 secs
+    Apply Data Archives                        0.498 secs
+    Basic Constant Reference Analyzer          6.759 secs
+    Call-Fixup Installer                       0.108 secs
+    Create Address Tables                      0.146 secs
+    Create Address Tables - One Time           1.648 secs
+    Create Function                            1.626 secs
+    Data Reference                             0.158 secs
+    Decompiler Switch Analysis                 5.706 secs
+    Demangler GNU                              0.009 secs
+    Disassemble                                4.640 secs
+    Disassemble Entry Points                   0.000 secs
+    Embedded Media                             0.053 secs
+    External Entry References                  0.001 secs
+    Function ID                                0.028 secs
+    Function Start Search                      0.076 secs
+    Function Start Search After Code           0.082 secs
+    Function Start Search After Data           0.008 secs
+    Non-Returning Functions - Discovered       1.959 secs
+    Reference                                  0.479 secs
+    Scalar Operand References                  1.172 secs
+    Shared Return Calls                        0.497 secs
+    Stack                                      5.499 secs
+    Subroutine References                      0.337 secs
+    Subroutine References - One Time           0.116 secs
+-----------------------------------------------------
+     Total Time   32 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///Users/jmitch/GitHub/Murphy_M3/analysis/upstream_murphy_reader/murphy-26-0526-1.2.16.bin (HeadlessAnalyzer)  
+INFO  /murphy-26-0526-1.2.16.bin: file created (jmitch) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /murphy-26-0526-1.2.16.bin (MurphyM3:/murphy-26-0526-1.2.16.bin) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

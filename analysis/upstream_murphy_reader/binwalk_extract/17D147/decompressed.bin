@@ -1,0 +1,152 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Murphy Reader</title> <style>
+      :root {
+        --bg: #f8f8f4;
+        --font-color: #1a1a1a;
+        --title-color: #1a1a1a;
+        --card-bg: #fff;
+        --label-color: #777;
+        --muted-color: #555;
+        --border-color: #222;
+        --soft-border: #eee;
+        --accent-color: #1a1a1a;
+        --accent-hover-color: #444;
+        --accent-fg: #f8f8f4;
+        --shadow: 3px 3px 0 #666;
+        --shadow-sm: 2px 2px 0 #888;
+        --radius: 10px;
+        --radius-sm: 6px;
+        --status-bg: #1a1a1a;
+        --status-fg: #f8f8f4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1a1a1a;
+          --font-color: #f8f8f4;
+          --title-color: #f8f8f4;
+          --card-bg: #2a2a2a;
+          --label-color: #aaa;
+          --muted-color: #ccc;
+          --border-color: #f8f8f4;
+          --soft-border: #444;
+          --accent-color: #f8f8f4;
+          --accent-hover-color: #ccc;
+          --accent-fg: #1a1a1a;
+          --shadow: 3px 3px 0 #555;
+          --shadow-sm: 2px 2px 0 #666;
+          --status-bg: #f8f8f4;
+          --status-fg: #1a1a1a;
+          color-scheme: dark;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", Roboto, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2.5rem 1rem;
+        background-color: var(--bg);
+        color: var(--font-color);
+      }
+      h1 {
+        color: var(--title-color);
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        color: var(--title-color);
+        margin-top: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+      .card {
+        background: var(--card-bg);
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        margin: 1.25rem 0;
+        box-shadow: var(--shadow);
+      }
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--soft-border);
+      }
+      .info-row:last-child {
+        border-bottom: none;
+      }
+      .label {
+        font-weight: 600;
+        color: var(--label-color);
+      }
+      .value {
+        color: var(--title-color);
+        font-weight: 500;
+      }
+      .status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: var(--radius-sm);
+        background-color: var(--status-bg);
+        color: var(--status-fg);
+        font-size: 0.85em;
+        font-weight: 600;
+      }
+      .nav-links {
+        margin: 1.5rem 0;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .nav-links a {
+        padding: 8px 16px;
+        color: var(--font-color);
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        border: 2px solid var(--border-color);
+        background: var(--card-bg);
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: transform 0.05s ease;
+      }
+      .nav-links a.active {
+        background-color: var(--accent-color);
+        color: var(--accent-fg);
+      }
+      .nav-links a:hover {
+        background-color: var(--accent-color);
+        color: var(--accent-fg);
+      }
+      .nav-links a:active {
+        transform: translate(1px, 1px);
+      }
+      .footer-note {
+        text-align: center;
+        color: var(--label-color);
+        margin: 0;
+        font-size: 0.85rem;
+      }
+    </style> </head><body><h1>📚 Murphy Reader</h1><div class="nav-links"><a href="/" class="active">Home</a><a href="/files">File Manager</a><a href="/fonts">Fonts</a><a href="/settings">Settings</a></div><div class="card"><h2>Device Status</h2><div class="info-row"><span class="label">Version</span><span class="value" id="version"></span></div><div class="info-row"><span class="label">WiFi Status</span><span class="status">Connected</span></div><div class="info-row"><span class="label">IP Address</span><span class="value" id="ip-address"></span></div><div class="info-row"><span class="label">Free Memory</span><span class="value" id="free-heap"></span></div></div><div class="card"><p class="footer-note"> Murphy Reader · Open Source </p></div> <script>
+    async function fetchStatus() {
+      try {
+        const response = await fetch('/api/status');
+        if (!response.ok) {
+          throw new Error('Failed to fetch status: ' + response.status + ' ' + response.statusText);
+        }
+        const data = await response.json();
+        document.getElementById('version').textContent = data.version || 'N/A';
+        document.getElementById('ip-address').textContent = data.ip || 'N/A';
+        document.getElementById('free-heap').textContent = data.freeHeap
+          ? data.freeHeap.toLocaleString() + ' bytes'
+          : 'N/A';
+      } catch (error) {
+        console.error('Error fetching status:', error);
+      }
+    }
+
+    // Fetch status on page load
+    window.onload = fetchStatus;
+  </script> </body></html>

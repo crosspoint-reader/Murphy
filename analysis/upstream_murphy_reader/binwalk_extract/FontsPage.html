@@ -1,0 +1,473 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Fonts - Murphy Reader</title> <style>
+    :root {
+      --bg: #f8f8f4;
+      --font-color: #1a1a1a;
+      --title-color: #1a1a1a;
+      --card-bg: #fff;
+      --label-color: #777;
+      --muted-color: #555;
+      --border-color: #222;
+      --soft-border: #eee;
+      --accent-color: #1a1a1a;
+      --accent-hover-color: #444;
+      --accent-fg: #f8f8f4;
+      --shadow: 3px 3px 0 #666;
+      --shadow-sm: 2px 2px 0 #888;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --success-bg: #fff8e1;
+      --success-border: #e6c300;
+      --success-fg: #5b4500;
+      --error-bg: #fde8e6;
+      --error-border: #c0392b;
+      --error-fg: #6b1f15;
+      --warn-color: #b45309;
+      --status-installed: #1a1a1a;
+      --status-installed-fg: #f8f8f4;
+      --status-missing: #c0392b;
+      --status-missing-fg: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --font-color: #f8f8f4;
+        --title-color: #f8f8f4;
+        --card-bg: #2a2a2a;
+        --label-color: #aaa;
+        --muted-color: #ccc;
+        --border-color: #f8f8f4;
+        --soft-border: #444;
+        --accent-color: #f8f8f4;
+        --accent-hover-color: #ccc;
+        --accent-fg: #1a1a1a;
+        --shadow: 3px 3px 0 #555;
+        --shadow-sm: 2px 2px 0 #666;
+        --success-bg: #3a3000;
+        --success-border: #e6c300;
+        --success-fg: #ffe680;
+        --error-bg: #3a1410;
+        --error-border: #e74c3c;
+        --error-fg: #ffb3aa;
+        --warn-color: #f0b840;
+        --status-installed: #f8f8f4;
+        --status-installed-fg: #1a1a1a;
+        --status-missing: #e74c3c;
+        --status-missing-fg: #fff;
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem;
+      background-color: var(--bg);
+      color: var(--font-color);
+    }
+    h1 {
+      color: var(--title-color);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      color: var(--title-color);
+      margin-top: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .nav-links {
+      margin: 1.5rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      padding: 8px 16px;
+      color: var(--font-color);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border-color);
+      background: var(--card-bg);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: transform 0.05s ease;
+    }
+    .nav-links a.active {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+    }
+    .nav-links a:hover {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+    }
+    .nav-links a:active {
+      transform: translate(1px, 1px);
+    }
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+      box-shadow: var(--shadow);
+    }
+    .pack-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--soft-border);
+    }
+    .pack-row:last-child { border-bottom: none; }
+    .pack-meta { flex: 1; min-width: 0; }
+    .pack-name { font-weight: 600; color: var(--title-color); }
+    .pack-path { font-size: 0.9em; color: var(--label-color); word-break: break-all; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .group-card {
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .group-card:last-child {
+      margin-bottom: 0;
+    }
+    .group-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .group-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--title-color);
+    }
+    .group-summary {
+      font-size: 0.85em;
+      color: var(--label-color);
+    }
+    .style-list {
+      margin-top: 6px;
+    }
+    .style-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-top: 1px dashed var(--soft-border);
+    }
+    .style-row:first-child {
+      border-top: none;
+    }
+    .style-name {
+      font-weight: 600;
+    }
+    .status {
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8em;
+      font-weight: 600;
+      align-self: center;
+      white-space: nowrap;
+      border: 2px solid var(--border-color);
+    }
+    .installed { background: var(--status-installed); color: var(--status-installed-fg); border-color: var(--status-installed); }
+    .missing { background: var(--status-missing); color: var(--status-missing-fg); border-color: var(--status-missing); }
+    .pack-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .upload-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .drop-zone {
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      margin-top: 14px;
+      text-align: center;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .drop-zone.dragover {
+      border-style: solid;
+      background: var(--bg);
+    }
+    .drop-zone strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--title-color);
+    }
+    .file-preview {
+      margin-top: 14px;
+    }
+    .file-preview-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-top: 1px dashed var(--soft-border);
+    }
+    .file-preview-item:first-child {
+      border-top: none;
+    }
+    .file-name {
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .warning {
+      color: var(--warn-color);
+    }
+    input[type="file"]::file-selector-button,
+    button {
+      background: var(--accent-color);
+      color: var(--accent-fg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: transform 0.05s ease;
+    }
+    button:hover,
+    input[type="file"]::file-selector-button:hover {
+      background: var(--accent-hover-color);
+    }
+    button:active {
+      transform: translate(1px, 1px);
+    }
+    input[type="file"] {
+      padding: 6px;
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--font-color);
+    }
+    #message {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+    #message.error { background: var(--error-bg); color: var(--error-fg); border-color: var(--error-border); display: block; }
+    #message.success { background: var(--success-bg); color: var(--success-fg); border-color: var(--success-border); display: block; }
+    .hint {
+      color: var(--label-color);
+      font-size: 0.92em;
+      line-height: 1.5;
+    }
+    .inline-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95em;
+    }
+  </style> </head><body><h1>Fonts</h1><div class="nav-links"><a href="/">Home</a><a href="/files">File Manager</a><a href="/fonts" class="active">Fonts</a><a href="/settings">Settings</a></div><div class="card"><h2>Multilingual Font Packs</h2><p class="hint"> Upload generated <code>.epf</code> files for <strong>Noto Sans CJK</strong>. Files will be stored under <code>/.mofei/fonts/</code>. Chinese Simplified and Traditional packs are regular-only; EPUB/TXT bold or italic spans fall back to the regular CJK face. After upload, click reload to activate them. The bundled builder covers Chinese, Japanese, French, and Spanish glyph ranges. </p><p class="hint"> Expected filenames: <span class="inline-code">notosans_tc_8.epf</span>, <span class="inline-code">notosans_tc_10.epf</span>, <span class="inline-code">notosans_tc_12.epf</span>, <span class="inline-code">notosans_tc_14.epf</span>, <span class="inline-code">notosans_tc_16.epf</span>, <span class="inline-code">notosans_tc_18.epf</span>. </p><div class="upload-row"><input type="file" id="fontFiles" accept=".epf" multiple /><button onclick="uploadFonts()">Upload Packs</button><button onclick="reloadFonts()">Reload Fonts</button></div><div class="drop-zone" id="dropZone"><strong>Drop .epf files here</strong><span class="hint">Supported sizes: <code>8</code>, <code>10</code>, <code>12</code>, <code>14</code>, <code>16</code>, <code>18</code>. Example: <code>notosans_tc_10.epf</code>.</span></div><div class="file-preview hint" id="filePreview">No files selected.</div><div id="message"></div></div><div class="card"><h2>Installed Packs</h2><p class="hint" id="summary">Loading coverage…</p><div id="packs">Loading…</div></div> <script>
+    let selectedFiles = [];
+
+    const SUPPORTED_FILENAME = /^notosans_tc_(8|10|12|14|16|18)\.epf$/i;
+
+    function showMessage(text, isError = false) {
+      const box = document.getElementById('message');
+      box.textContent = text;
+      box.className = isError ? 'error' : 'success';
+    }
+
+    function describeFile(file) {
+      const match = file.name.match(SUPPORTED_FILENAME);
+      if (!match) {
+        return { valid: false, label: 'Unsupported filename' };
+      }
+      const size = match[1];
+      return { valid: true, label: `${size}px Regular` };
+    }
+
+    function renderSelectedFiles() {
+      const preview = document.getElementById('filePreview');
+      if (selectedFiles.length === 0) {
+        preview.innerHTML = 'No files selected.';
+        return;
+      }
+      preview.innerHTML = selectedFiles.map(file => {
+        const info = describeFile(file);
+        return `
+          <div class="file-preview-item">
+            <div>
+              <div class="file-name">${file.name}</div>
+              <div class="hint ${info.valid ? '' : 'warning'}">${info.label}</div>
+            </div>
+            <div class="hint">${Math.round(file.size / 1024)} KB</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function syncInputFiles() {
+      const input = document.getElementById('fontFiles');
+      const dt = new DataTransfer();
+      selectedFiles.forEach(file => dt.items.add(file));
+      input.files = dt.files;
+    }
+
+    function setSelectedFiles(files) {
+      selectedFiles = Array.from(files);
+      syncInputFiles();
+      renderSelectedFiles();
+    }
+
+    async function loadFonts() {
+      const container = document.getElementById('packs');
+      const summary = document.getElementById('summary');
+      try {
+        const resp = await fetch('/api/fonts');
+        if (!resp.ok) throw new Error('Failed to load font pack status');
+        const data = await resp.json();
+        if (!data.packs || data.packs.length === 0) {
+          summary.textContent = 'No font packs configured.';
+          container.innerHTML = '<p class="hint">No font packs configured.</p>';
+          return;
+        }
+
+        const sizeLabel = (name) => {
+          const match = name.match(/(\d{2})/);
+          return match ? match[1] : 'Unknown';
+        };
+
+        const grouped = new Map();
+        data.packs.forEach(pack => {
+          const size = sizeLabel(pack.name);
+          if (!grouped.has(size)) grouped.set(size, []);
+          grouped.get(size).push(pack);
+        });
+
+        const totalLoaded = data.packs.filter(pack => pack.active).length;
+        summary.textContent = `${totalLoaded}/${data.packs.length} regular packs currently loaded.`;
+
+        container.innerHTML = Array.from(grouped.entries()).sort((a, b) => Number(a[0]) - Number(b[0])).map(([size, packs]) => {
+          const installedCount = packs.filter(pack => pack.installed).length;
+          const loadedCount = packs.filter(pack => pack.active).length;
+          const rows = packs
+            .slice()
+            .map(pack => `
+              <div class="style-row">
+                <div class="pack-meta">
+                  <div class="style-name">Regular</div>
+                  <div class="pack-path">${pack.path}</div>
+                </div>
+                <div class="pack-actions">
+                  <span class="status ${pack.active ? 'installed' : (pack.installed ? 'installed' : 'missing')}">
+                    ${pack.active ? 'Loaded' : (pack.installed ? 'Installed' : 'Missing')}
+                  </span>
+                  ${pack.installed ? `<button onclick="deleteFontPack('${pack.path}')">Delete</button>` : ''}
+                </div>
+              </div>
+            `).join('');
+
+          return `
+            <div class="group-card">
+              <div class="group-header">
+                <div>
+                  <div class="group-title">${size}px Family</div>
+                  <div class="group-summary">${loadedCount}/1 loaded, ${installedCount}/1 installed</div>
+                </div>
+              </div>
+              <div class="style-list">${rows}</div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        summary.textContent = 'Font coverage unavailable.';
+        container.innerHTML = `<p class="hint">Failed to load font status: ${err.message}</p>`;
+      }
+    }
+
+    async function uploadFonts() {
+      if (selectedFiles.length === 0) {
+        showMessage('Select one or more .epf files first', true);
+        return;
+      }
+
+      const invalid = selectedFiles.filter(file => !describeFile(file).valid);
+      if (invalid.length > 0) {
+        showMessage(`Unsupported filename: ${invalid[0].name}`, true);
+        return;
+      }
+
+      for (const file of selectedFiles) {
+        const form = new FormData();
+        form.append('file', file);
+        const resp = await fetch('/upload?path=' + encodeURIComponent('/.mofei/fonts'), {
+          method: 'POST',
+          body: form,
+        });
+        if (!resp.ok) {
+          showMessage(`Upload failed for ${file.name}: ${await resp.text()}`, true);
+          return;
+        }
+      }
+
+      showMessage('Font packs uploaded successfully');
+      selectedFiles = [];
+      syncInputFiles();
+      renderSelectedFiles();
+      await loadFonts();
+    }
+
+    async function reloadFonts() {
+      const resp = await fetch('/api/fonts/reload', { method: 'POST' });
+      if (!resp.ok) {
+        showMessage(await resp.text(), true);
+        return;
+      }
+      showMessage('Fonts reloaded');
+      await loadFonts();
+    }
+
+    async function deleteFontPack(path) {
+      const resp = await fetch('/api/fonts/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path }),
+      });
+      if (!resp.ok) {
+        showMessage(await resp.text(), true);
+        return;
+      }
+      showMessage('Font pack deleted');
+      await loadFonts();
+    }
+
+    document.getElementById('fontFiles').addEventListener('change', (event) => {
+      setSelectedFiles(event.target.files || []);
+    });
+
+    const dropZone = document.getElementById('dropZone');
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropZone.classList.remove('dragover');
+      });
+    });
+    dropZone.addEventListener('drop', (event) => {
+      setSelectedFiles(event.dataTransfer.files || []);
+    });
+
+    renderSelectedFiles();
+    loadFonts();
+  </script> </body></html>

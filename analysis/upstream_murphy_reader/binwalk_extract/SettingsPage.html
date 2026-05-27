@@ -1,0 +1,645 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Settings - Murphy Reader</title> <style>
+    :root {
+      --bg: #f8f8f4;
+      --font-color: #1a1a1a;
+      --title-color: #1a1a1a;
+      --card-bg: #fff;
+      --label-color: #777;
+      --muted-color: #555;
+      --border-color: #222;
+      --soft-border: #eee;
+      --accent-color: #1a1a1a;
+      --accent-hover-color: #444;
+      --accent-fg: #f8f8f4;
+      --toggle-bg: #ccc;
+      --shadow: 3px 3px 0 #666;
+      --shadow-sm: 2px 2px 0 #888;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --danger-color: #c0392b;
+      --success-bg: #fff8e1;
+      --success-border: #e6c300;
+      --success-fg: #5b4500;
+      --error-bg: #fde8e6;
+      --error-border: #c0392b;
+      --error-fg: #6b1f15;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --font-color: #f8f8f4;
+        --title-color: #f8f8f4;
+        --card-bg: #2a2a2a;
+        --label-color: #aaa;
+        --muted-color: #ccc;
+        --border-color: #f8f8f4;
+        --soft-border: #444;
+        --accent-color: #f8f8f4;
+        --accent-hover-color: #ccc;
+        --accent-fg: #1a1a1a;
+        --toggle-bg: #555;
+        --shadow: 3px 3px 0 #555;
+        --shadow-sm: 2px 2px 0 #666;
+        --danger-color: #e74c3c;
+        --success-bg: #3a3000;
+        --success-border: #e6c300;
+        --success-fg: #ffe680;
+        --error-bg: #3a1410;
+        --error-border: #e74c3c;
+        --error-fg: #ffb3aa;
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem;
+      background-color: var(--bg);
+      color: var(--font-color);
+    }
+    h1 {
+      color: var(--title-color);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      color: var(--title-color);
+      margin-top: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+      box-shadow: var(--shadow);
+    }
+    .nav-links {
+      margin: 1.5rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      padding: 8px 16px;
+      color: var(--font-color);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border-color);
+      background: var(--card-bg);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: transform 0.05s ease;
+    }
+    .nav-links a.active {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+    }
+    .nav-links a:hover {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+    }
+    .nav-links a:active {
+      transform: translate(1px, 1px);
+    }
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--soft-border);
+    }
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+    .setting-name {
+      font-weight: 500;
+      color: var(--muted-color);
+      flex: 1;
+      min-width: 0;
+      padding-right: 12px;
+    }
+    .setting-control {
+      flex-shrink: 0;
+    }
+    .setting-control select,
+    .setting-control input[type="number"],
+    .setting-control input[type="text"],
+    .setting-control input[type="password"] {
+      padding: 7px 10px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.95em;
+      background: var(--card-bg);
+      color: var(--font-color);
+      font-family: inherit;
+    }
+    .setting-control select:focus,
+    .setting-control input:focus {
+      outline: none;
+      box-shadow: var(--shadow-sm);
+    }
+    .setting-control select {
+      min-width: 160px;
+    }
+    .setting-control input[type="text"],
+    .setting-control input[type="password"] {
+      width: 220px;
+    }
+    .setting-control input[type="number"] {
+      width: 80px;
+    }
+    /* Toggle switch */
+    .toggle-switch {
+      display: inline-block;
+      position: relative;
+      width: 48px;
+      height: 26px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--toggle-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 26px;
+      transition: 0.2s;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-slider {
+      background-color: var(--accent-color);
+    }
+    .toggle-switch input:checked + .toggle-slider:before {
+      transform: translateX(22px);
+    }
+    .save-container {
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+    .save-btn {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+      padding: 12px 40px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transition: transform 0.05s ease, box-shadow 0.05s ease;
+    }
+    .save-btn:hover {
+      background-color: var(--accent-hover-color);
+    }
+    .save-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #666;
+    }
+    .save-btn:disabled {
+      background-color: var(--label-color);
+      cursor: not-allowed;
+      box-shadow: var(--shadow-sm);
+    }
+    .message {
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin: 1rem 0;
+      text-align: center;
+      display: none;
+      font-weight: 600;
+    }
+    .message.success {
+      background-color: var(--success-bg);
+      color: var(--success-fg);
+      border-color: var(--success-border);
+    }
+    .message.error {
+      background-color: var(--error-bg);
+      color: var(--error-fg);
+      border-color: var(--error-border);
+    }
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid var(--border-color);
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+    @keyframes rotation {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .opds-server {
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin: 12px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .opds-server .setting-row:last-child {
+      border-bottom: none;
+    }
+    .opds-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .btn-small {
+      padding: 6px 14px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.85em;
+      font-weight: 600;
+      background: var(--card-bg);
+      color: var(--font-color);
+      transition: transform 0.05s ease;
+    }
+    .btn-small:active {
+      transform: translate(1px, 1px);
+    }
+    .btn-add {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+    }
+    .btn-add:hover {
+      background-color: var(--accent-hover-color);
+    }
+    .btn-delete {
+      background-color: var(--danger-color);
+      color: #fff;
+      border-color: var(--danger-color);
+    }
+    .btn-delete:hover {
+      background-color: #8b261a;
+    }
+    .btn-save-server {
+      background-color: var(--accent-color);
+      color: var(--accent-fg);
+    }
+    .btn-save-server:hover {
+      background-color: var(--accent-hover-color);
+    }
+    .footer-note {
+      text-align: center;
+      color: var(--label-color);
+      margin: 0;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+        font-size: 14px;
+      }
+      .card {
+        padding: 1rem;
+        margin: 0.75rem 0;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .nav-links a {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+      }
+      .setting-row {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .setting-control select,
+      .setting-control input[type="text"],
+      .setting-control input[type="password"] {
+        min-width: 0;
+        width: unset;
+      }
+    }
+  </style> </head><body><h1>📚 Murphy Reader</h1><div class="nav-links"><a href="/">Home</a><a href="/files">File Manager</a><a href="/fonts">Fonts</a><a href="/settings" class="active">Settings</a></div><div id="message" class="message"></div><div id="settings-container"><div class="loader-container"><span class="loader"></span></div></div><div class="save-container" id="save-container" style="display:none;"><button class="save-btn" id="saveBtn" onclick="saveSettings()">Save Settings</button></div><div id="opds-container"></div><div class="card"><p class="footer-note"> Murphy Reader · Open Source </p></div> <script>
+  let allSettings = [];
+  let originalValues = {};
+
+  function escapeHtml(unsafe) {
+    return unsafe
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function showMessage(text, isError) {
+    const msg = document.getElementById('message');
+    msg.textContent = text;
+    msg.className = 'message ' + (isError ? 'error' : 'success');
+    msg.style.display = 'block';
+    setTimeout(function() { msg.style.display = 'none'; }, 4000);
+  }
+
+  function renderControl(setting) {
+    const id = 'setting-' + setting.key;
+
+    if (setting.type === 'toggle') {
+      const checked = setting.value ? 'checked' : '';
+      return '<label class="toggle-switch">' +
+        '<input type="checkbox" id="' + id + '" ' + checked + ' onchange="markChanged()">' +
+        '<span class="toggle-slider"></span></label>';
+    }
+
+    if (setting.type === 'enum') {
+      let html = '<select id="' + id + '" onchange="markChanged()">';
+      setting.options.forEach(function(opt, idx) {
+        const selected = idx === setting.value ? ' selected' : '';
+        html += '<option value="' + idx + '"' + selected + '>' + escapeHtml(opt) + '</option>';
+      });
+      html += '</select>';
+      return html;
+    }
+
+    if (setting.type === 'value') {
+      if (setting.key === 'timeZone' && Array.isArray(setting.options)) {
+        let html = '<select id="' + id + '" onchange="markChanged()">';
+        setting.options.forEach(function(opt, idx) {
+          const selected = idx === setting.value ? ' selected' : '';
+          html += '<option value="' + idx + '"' + selected + '>' + escapeHtml(opt) + '</option>';
+        });
+        html += '</select>';
+        return html;
+      }
+      return '<input type="number" id="' + id + '" value="' + setting.value + '"' +
+        ' min="' + setting.min + '" max="' + setting.max + '" step="' + setting.step + '"' +
+        ' onchange="markChanged()">';
+    }
+
+    if (setting.type === 'string') {
+      const inputType = setting.name.toLowerCase().includes('password') ? 'password' : 'text';
+      const val = setting.value || '';
+      return '<input type="' + inputType + '" id="' + id + '" value="' + escapeHtml(val) + '"' +
+        ' oninput="markChanged()">';
+    }
+
+    return '';
+  }
+
+  function getValue(setting) {
+    const el = document.getElementById('setting-' + setting.key);
+    if (!el) return undefined;
+
+    if (setting.type === 'toggle') {
+      return el.checked ? 1 : 0;
+    }
+    if (setting.type === 'enum') {
+      return parseInt(el.value, 10);
+    }
+    if (setting.type === 'value') {
+      return parseInt(el.value, 10);
+    }
+    if (setting.type === 'string') {
+      return el.value;
+    }
+    return undefined;
+  }
+
+  function markChanged() {
+    document.getElementById('saveBtn').disabled = false;
+  }
+
+  async function loadSettings() {
+    try {
+      const response = await fetch('/api/settings');
+      if (!response.ok) {
+        throw new Error('Failed to load settings: ' + response.status);
+      }
+      allSettings = await response.json();
+
+      // Store original values
+      originalValues = {};
+      allSettings.forEach(function(s) {
+        originalValues[s.key] = s.value;
+      });
+
+      // Group by category
+      const groups = {};
+      allSettings.forEach(function(s) {
+        if (!groups[s.category]) groups[s.category] = [];
+        groups[s.category].push(s);
+      });
+
+      const container = document.getElementById('settings-container');
+      let html = '';
+
+      for (const category in groups) {
+        html += '<div class="card"><h2>' + escapeHtml(category) + '</h2>';
+        groups[category].forEach(function(s) {
+          html += '<div class="setting-row">' +
+            '<span class="setting-name">' + escapeHtml(s.name) + '</span>' +
+            '<span class="setting-control">' + renderControl(s) + '</span>' +
+            '</div>';
+        });
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+      document.getElementById('save-container').style.display = '';
+      document.getElementById('saveBtn').disabled = true;
+    } catch (e) {
+      console.error(e);
+      document.getElementById('settings-container').innerHTML =
+        '<div class="card"><p style="text-align:center;color:#e74c3c;">Failed to load settings</p></div>';
+    }
+  }
+
+  async function saveSettings() {
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    // Collect only changed values
+    const changes = {};
+    allSettings.forEach(function(s) {
+      const current = getValue(s);
+      if (current !== undefined && current !== originalValues[s.key]) {
+        changes[s.key] = current;
+      }
+    });
+
+    if (Object.keys(changes).length === 0) {
+      showMessage('No changes to save.', false);
+      btn.textContent = 'Save Settings';
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(changes)
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || 'Save failed');
+      }
+
+      // Update original values to new values
+      for (const key in changes) {
+        originalValues[key] = changes[key];
+      }
+
+      showMessage('Settings saved successfully!', false);
+    } catch (e) {
+      console.error(e);
+      showMessage('Error: ' + e.message, true);
+    }
+
+    btn.textContent = 'Save Settings';
+  }
+
+  loadSettings();
+
+  // --- OPDS Server Management ---
+  // Dynamically renders an editable list of OPDS servers, communicating with the
+  // /api/opds REST endpoints. Password fields are never pre-filled for security;
+  // the "(unchanged)" placeholder indicates an existing password is preserved on save.
+  let opdsServers = [];
+
+  function renderOpdsServer(srv, idx) {
+    const isNew = idx === -1;
+    const id = isNew ? 'new' : idx;
+    return '<div class="opds-server" id="opds-' + id + '">' +
+      '<div class="setting-row">' +
+        '<span class="setting-name">Server Name</span>' +
+        '<span class="setting-control"><input type="text" id="opds-name-' + id + '" value="' + escapeHtml(srv.name || '') + '"></span>' +
+      '</div>' +
+      '<div class="setting-row">' +
+        '<span class="setting-name">URL</span>' +
+        '<span class="setting-control"><input type="text" id="opds-url-' + id + '" value="' + escapeHtml(srv.url || '') + '"></span>' +
+      '</div>' +
+      '<div class="setting-row">' +
+        '<span class="setting-name">Username</span>' +
+        '<span class="setting-control"><input type="text" id="opds-user-' + id + '" value="' + escapeHtml(srv.username || '') + '"></span>' +
+      '</div>' +
+      '<div class="setting-row">' +
+        '<span class="setting-name">Password</span>' +
+        '<span class="setting-control"><input type="password" id="opds-pass-' + id + '" placeholder="' + (srv.hasPassword ? '(unchanged)' : '') + '"></span>' +
+      '</div>' +
+      '<div class="opds-actions">' +
+        '<button class="btn-small btn-save-server" onclick="saveOpdsServer(' + idx + ')">Save</button>' +
+        (isNew ? '' : '<button class="btn-small btn-delete" onclick="deleteOpdsServer(' + idx + ')">Delete</button>') +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderOpdsSection() {
+    const container = document.getElementById('opds-container');
+    let html = '<div class="card"><h2>OPDS Servers</h2>';
+
+    if (opdsServers.length === 0) {
+      html += '<p style="color:var(--label-color);text-align:center;">No OPDS servers configured</p>';
+    } else {
+      opdsServers.forEach(function(srv, idx) {
+        html += renderOpdsServer(srv, idx);
+      });
+    }
+
+    html += '<div style="margin-top:12px;text-align:center;">' +
+      '<button class="btn-small btn-add" onclick="addOpdsServer()">+ Add Server</button>' +
+    '</div></div>';
+    container.innerHTML = html;
+  }
+
+  async function loadOpdsServers() {
+    try {
+      const resp = await fetch('/api/opds');
+      if (!resp.ok) throw new Error('Failed to load');
+      opdsServers = await resp.json();
+      renderOpdsSection();
+    } catch (e) {
+      console.error('OPDS load error:', e);
+    }
+  }
+
+  function addOpdsServer() {
+    const container = document.getElementById('opds-container');
+    const card = container.querySelector('.card');
+    const addBtn = card.querySelector('.btn-add').parentElement;
+    // Prevent multiple unsaved new-server forms at once (idx -1 → id "new")
+    if (document.getElementById('opds-new')) return;
+    addBtn.insertAdjacentHTML('beforebegin', renderOpdsServer({name:'',url:'',username:'',hasPassword:false}, -1));
+  }
+
+  async function saveOpdsServer(idx) {
+    const id = idx === -1 ? 'new' : idx;
+    const data = {
+      name: document.getElementById('opds-name-' + id).value,
+      url: document.getElementById('opds-url-' + id).value,
+      username: document.getElementById('opds-user-' + id).value,
+    };
+    // Only include password in payload when the user actually typed something;
+    // omitting it tells the server to keep the existing password.
+    const pass = document.getElementById('opds-pass-' + id).value;
+    if (pass) data.password = pass;
+    if (idx >= 0) data.index = idx;
+
+    try {
+      const resp = await fetch('/api/opds', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      if (!resp.ok) throw new Error(await resp.text());
+      showMessage('OPDS server saved!', false);
+      await loadOpdsServers();
+    } catch (e) {
+      showMessage('Error: ' + e.message, true);
+    }
+  }
+
+  async function deleteOpdsServer(idx) {
+    if (!confirm('Delete this OPDS server?')) return;
+    try {
+      const resp = await fetch('/api/opds/delete', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({index: idx})
+      });
+      if (!resp.ok) throw new Error(await resp.text());
+      showMessage('OPDS server deleted', false);
+      await loadOpdsServers();
+    } catch (e) {
+      showMessage('Error: ' + e.message, true);
+    }
+  }
+
+  loadOpdsServers();
+</script> </body></html>

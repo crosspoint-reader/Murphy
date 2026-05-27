@@ -225,74 +225,157 @@ Extracted addresses:
 | `MURPHY_LUT_23_ALT_B` | `0x3c23700a` | `0x38` |
 | `MURPHY_LUT_24_ALT` | `0x3c236fb6` | `0x2a` |
 
-## Third LUT Set — Candidate Grayscale
+## Third Byte Region — NOT a Factory Grayscale LUT (corrected)
 
-A complete third UC8253 LUT set lives at `0x3c236d24..0x3c236df5`, five 42-byte
-tables at stride `0x2a`. Confirmed live (not dead data) by a pointer-table at
-`0x420022e0..0x420022f4` in the code segment, read by a function around
-`0x420dee2f` (`l32r a8, 0x420022e0`). Pointer-table ordering is reversed: the
-slot at `0x420022e4` holds the `BB` (LUT24) pointer; `0x420022f4` holds VCOM.
+An earlier pass through this analysis identified a third LUT-shaped region at
+`0x3c236d24..0x3c236df5` (five 42-byte tables at stride `0x2a`) and
+hypothesised it was a factory grayscale LUT set. Bench-testing on hardware
+disproved this. The bytes do produce visible (if washed-out) grayscale when
+sent to the controller, but that's coincidence — they aren't designed LUTs.
 
-The drive pattern is highly asymmetric per (DTM1,DTM2) combination — that's the
-signature of either a true grayscale waveform (different gray levels per
-combination) or a specialized partial-refresh waveform (only certain
-transitions are driven). Worth bench-testing before assuming which.
+What actually happens: the pointer-table at `0x420022e0..0x420022f4` is read
+by code around `0x420dee2f` (`l32r a8, 0x420022e0; callx8 a8`). The address
+`0x3c236df6` stored there is being called as a function. ESP32-S3 maps the
+same flash content through both the DROM window (`0x3c…`) and the IROM window
+(`0x42…`), so these "LUT-shaped" tables at `0x3c236d24+` are actually code or
+data structs being accessed via the DROM alias of an executable region. The
+bytes happen to satisfy the UC8253 LUT format closely enough that the
+controller accepts and acts on them, but with non-design drive intensities.
 
-| Cmd  | Role        | Address       | Phase-0 bytes (VS, hold)      | Frames |
-| ---- | ----------- | ------------: | ----------------------------- | ------ |
-| 0x20 | VCOM        | `0x3c236d24`  | VS=`0x0E`, hold=`0x42`        | 66     |
-| 0x21 | WW (1,1)    | `0x3c236d4e`  | VS=`0x4E`, hold=`0x41`        | 65     |
-| 0x22 | BW (0,1)    | `0x3c236d78`  | VS=`0x8E`, hold=`0x81`        | 129    |
-| 0x23 | WB (1,0)    | `0x3c236da2`  | VS=`0x0E`, hold=`0x01`        | 1      |
-| 0x24 | BB (0,0)    | `0x3c236dcc`  | VS=`0x0E`, hold=`0x01`        | 1      |
+Conclusion: **the factory firmware does not contain a grayscale LUT set.**
+The OEM never validated grayscale on this panel. Anyone pursuing grayscale
+support needs to hand-tune LUTs from scratch — see the next section for the
+recipe and constraints discovered on the bench.
 
-All five LUTs share the same 6-phase × 7-byte layout but only phase 0 is
-active; phases 1-5 carry zeros except for terminator `01 01` pairs. With the
-OEM's same-buffer-to-both-planes scheme, only `WW` and `BB` fire — under this
-LUT, `WW` gets a 65-frame moderate drive while `BB` gets a 1-frame minimal
-drive, which is consistent with rendering text or anti-aliased glyphs over a
-white background (drive whites strongly, leave blacks barely touched). If
-instead the planes carry distinct bits, the four combinations would produce
-four perceived intensities — i.e. grayscale.
+## Hand-Tuned Grayscale LUT Recipe
 
-Adjacent at `0x3c236e20..0x3c236eb7` is a fourth, even shorter set: four
-single-byte-VS tables (`0x4F`, `0x8F`, `0x0F`, `0x0F`) with 1-frame holds.
-Likely a DC-balance or final-settle waveform.
+Bench-tuning was done using a 4-stripe test probe at
+`crosspoint-reader-main/src/murphy_grayscale_tuning_probe.cpp`. The probe
+writes a known `(DTM1_bit, DTM2_bit)` pattern across four horizontal stripes
+and lets the LUT bytes / power voltages be edited at the top of the file for
+empirical calibration.
 
-```cpp
-static constexpr uint8_t MURPHY_LUT_20_GRAY[] = {
-    0x01, 0x0E, 0x42, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-};
-static constexpr uint8_t MURPHY_LUT_21_GRAY[] = {
-    0x01, 0x4E, 0x41, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-};
-static constexpr uint8_t MURPHY_LUT_22_GRAY[] = {
-    0x01, 0x8E, 0x81, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-};
-static constexpr uint8_t MURPHY_LUT_23_GRAY[] = {
-    0x01, 0x0E, 0x01, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-};
-static constexpr uint8_t MURPHY_LUT_24_GRAY[] = {
-    0x01, 0x0E, 0x01, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-};
+### Findings
+
+**Voltage codes** (proven via the FAST B/W LUT path):
+
+- `0x88` drives toward white (VSL polarity)
+- `0x48` drives toward black (VSH polarity)
+- `0x00` holds (no drive)
+- Voltage codes appear in sub-phase byte positions 1-4 of each 7-byte phase
+  block.
+
+**Asymmetric rails.** VSH drives much harder per frame than VSL on this
+panel. Any pattern with 2+ VSH (`0x48`) sub-phases collapses to solid black,
+even paired with 2 VSL sub-phases. Pure VSL drive (`88 88 88 88`) only
+reaches a light gray ("muddy white") at default voltages — not crisp white.
+
+**LUT slot asymmetry.** The same byte pattern produces different intensities
+depending on which LUT slot (`0x21`/`0x22`/`0x23`/`0x24`) it's loaded into.
+Verified empirically: `88 88 88 88` lands at light gray in `LUT_22` but at
+clean white in `LUT_23`. Byte tuning is per-slot — patterns can't be
+transplanted between slots.
+
+**DC bias drift.** Pure single-direction multi-phase LUTs (e.g. three phases
+of `88 88 88 88`) drive pixels to the target initially, then cells slowly
+drift back toward neutral gray over seconds as DC charge dissipates.
+Compensating with VSH pulses doesn't work — saturated whites still respond
+strongly to VSH and the compensation pulls them significantly back toward
+black. The OEM kick+settle+drive structure is DC-balanced and produces stable
+output, but on the asymmetric-rail Murphy panel it's only the structure used
+in `LUT_24` that lands cleanly at white.
+
+**Achievable intensity levels.** Three cleanly-distinguishable levels:
+
+| Pattern (single-phase) | Result on Murphy |
+| --- | --- |
+| Any with 2+ `0x48` sub-phases | **Black** |
+| `01 88 88 88 48 01 01` (3 white + 1 black) | **Dark gray** |
+| `01 88 88 88 88 01 01` (pure white drive) | **Light gray** in `LUT_22`; **clean white** in `LUT_23` |
+| OEM-default 3-phase `48/02/88` pattern in `LUT_24` | **Stable clean white** |
+
+Light gray vs white differentiation is subtle on this panel. No usable
+intermediate exists between dark gray and light gray.
+
+### Final tuned voltages and LUTs
+
+```
+BOOSTER_SETTING = {0xD7, 0xDF, 0x1F}     // one notch above OEM VSL byte
+VCOM_DC_SETTING = 0x03                   // alt-OEM VCOM (vs default 0x0F)
 ```
 
-To test, split a 2-bpp framebuffer into LSB and MSB planes, send LSB to `0x10`
-and MSB to `0x13` (mirroring the SSD1677 grayscale convention in X4), load this
-LUT set with commands `0x20..0x24`, then trigger with `0x12`. If the four bit
-combinations land at four distinct visible intensities, it's grayscale and
-we've found the missing piece. If the panel just renders B/W with one-sided
-behavior, the LUT is a partial-refresh helper instead.
+```cpp
+// LUT_21 (slot fires for DTM1=1, DTM2=1) -> drive BLACK (DC-balanced)
+constexpr uint8_t LUT_21[] = {
+    0x01, 0x88, 0x88, 0x88, 0x88, 0x01, 0x01,  // negative kick
+    0x01, 0x02, 0x02, 0x02, 0x02, 0x01, 0x01,  // settle
+    0x01, 0x48, 0x48, 0x48, 0x48, 0x01, 0x01,  // positive drive (toward black)
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+// LUT_22 (slot fires for DTM1=0, DTM2=1) -> LIGHT GRAY (close to white)
+constexpr uint8_t LUT_22[] = {
+    0x01, 0x88, 0x88, 0x88, 0x88, 0x01, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+// LUT_23 (slot fires for DTM1=1, DTM2=0) -> DARK GRAY
+constexpr uint8_t LUT_23[] = {
+    0x01, 0x88, 0x88, 0x88, 0x48, 0x01, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+// LUT_24 (slot fires for DTM1=0, DTM2=0) -> WHITE (DC-balanced)
+constexpr uint8_t LUT_24[] = {
+    0x01, 0x48, 0x48, 0x48, 0x48, 0x01, 0x01,  // positive kick
+    0x01, 0x02, 0x02, 0x02, 0x02, 0x01, 0x01,  // settle
+    0x01, 0x88, 0x88, 0x88, 0x88, 0x01, 0x01,  // negative drive (toward white)
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+// LUT_20 (VCOM) — 3 active phases tracking the longest drive
+constexpr uint8_t LUT_20[] = {
+    0x01, 0x08, 0x08, 0x08, 0x08, 0x01, 0x01,
+    0x01, 0x08, 0x08, 0x08, 0x08, 0x01, 0x01,
+    0x01, 0x08, 0x08, 0x08, 0x08, 0x01, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+```
+
+### Renderer encoding caveat
+
+The renderer encodes 2-bpp values as `LSB→DTM1, MSB→DTM2`:
+
+| Renderer value | (LSB, MSB) | Fires | Intensity with recipe above |
+| ---: | --- | --- | --- |
+| 0 (white) | (0,0) | LUT_24 | **white** ✓ |
+| 1 (light mid) | (1,0) | LUT_23 | **dark gray** ⚠ inverted |
+| 2 (dark mid) | (0,1) | LUT_22 | **light gray** ⚠ inverted |
+| 3 (black) | (1,1) | LUT_21 | **black** ✓ |
+
+The mid-tones are inverted relative to renderer expectation. To fix: swap
+which plane goes to which DTM at the ingest layer (`LSB→DTM2, MSB→DTM1`).
+That's a one-line change in `copyGrayscaleBuffers` / `copyGrayscale*Buffers`.
+
+### Open levers (not yet swept)
+
+- `VCOM_DATA_INTERVAL` (cmd `0x50`, currently `0x97`) — border behavior may
+  affect post-drive idle drift.
+- Booster bytes 0 (VSH ramp) and 2 (timing) — only byte 1 (VSL ramp) was
+  swept.
+- Multi-pass refresh: send the gray LUT twice in a row to accumulate drive.
+- Try splitting drive duration via the `byte 0` slot of a phase block —
+  earlier assumed it was a repeat-count, but `0x04` there broke drive. Could
+  be TP source select rather than repeat.
 
 ## Practical Image Writer
 
@@ -318,10 +401,25 @@ waitBusyReadyHigh("power off", 5000);
 
 If polarity is inverted on the panel, invert every byte of `currentFrame` before sending. The visible "full inversion flash" before the image settles is intentional in these LUTs — phases drive positive then negative before holding at the destination value, which clears ghosting.
 
-## What We Need Now
+## Current Shipping State
 
-1. Capture which probe case produced the visible black/white result if serial logs are still available.
-2. Add a tiny image-to-1bpp converter for `240 x 416` frames.
-3. Test a checkerboard or logo image with the current no-LUT path.
-4. Then add the default OEM LUT load before `0x10`/`0x13` and compare ghosting/contrast.
-5. Only after full-image writes are reliable, test the alternate LUT set and `0x17, 0xA5` partial-refresh path.
+- **B/W (anti-alias off)** is the production path. Uses the FAST B/W LUT
+  documented elsewhere in the SDK; flash-free updates with a periodic
+  ghost-clear refresh.
+- **Grayscale (anti-alias on)** ships using the hand-tuned recipe above.
+  Four distinguishable shades (black, dark gray, light gray, white) with the
+  light-gray-vs-white differentiation being subtle. Mid-tones are inverted
+  relative to renderer convention unless the plane→DTM mapping is swapped.
+
+## Future Work
+
+- Apply the renderer plane swap (`LSB→DTM2, MSB→DTM1`) so renderer value 1
+  maps to light gray and value 2 to dark gray (currently inverted).
+- Sweep `VCOM_DATA_INTERVAL` (`0x50`) and the unmodified booster bytes for
+  more white-side headroom.
+- Investigate the `0x17, 0xA5` partial-refresh trigger path documented in
+  the OEM decompile — could enable region-only updates without the
+  ghost-clear cost.
+- Hand-tune intermediate intensities further if the panel response can be
+  coaxed into producing a true mid-gray distinct from both dark gray and
+  light gray.

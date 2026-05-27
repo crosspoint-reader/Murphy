@@ -237,11 +237,14 @@ The current Ghidra project now has a Murphy-specific `MurphyTouch` function tag 
 For `community-sdk`, the right shape is a board-level touch abstraction rather than wiring touch directly into menu code:
 
 - Add `HalTouch` or equivalent behind `BoardConfig::hasTouch`; the current SDK integration exposes calibrated touch points through `InputManager`.
+- Model touch as `TouchConfig` in `BoardConfig`, with controller type, pins, address, calibration bounds, IRQ polarity, and whether a touch should synthesize a logical confirm button. Murphy should keep touch and GPIO buttons separate, so `synthesizeConfirmButton=false`.
 - Start with the OEM-derived CHSC6x path on `SDA=GPIO13`, `SCL=GPIO12`, address `0x2e`, commands `0xa3`/`0xa5`.
 - Use `GPIO44` as an active-low interrupt/wake input. Treat it as an event gate because I2C reads may clear the IRQ.
 - Keep the stale `0x38` FT-style ACK visible in logs, but do not use it for touch navigation unless it produces sane, tap-correlated frames.
 - Publish touch events as screen coordinates using `byte4` plus big-endian `byte5:byte6` after an IRQ-gated delayed read.
-- Add a touch-target registry in the UI layer so existing menu rows/buttons can expose rectangles and map taps to the same actions as button presses.
+- In CrossPoint, keep the SDK at the calibrated point/event layer and map touch in UI code: full left/right reader sides page backward/forward, top-left reader tap goes back, center hold opens the reader menu, and list rows/menu rows activate directly.
+- Add input clearing plus a short transition suppression window when activities enter. Without that, a touch or button release used to leave the reader can be consumed by the Home screen and reopen the recent book immediately.
+- Add a touch-target registry or equivalent UI helper layer so existing menu rows/buttons can expose rectangles and map taps to the same actions as button presses.
 
 Keep CrossPoint fully usable with GPIO buttons. Touch should be additive.
 
@@ -250,6 +253,6 @@ Keep CrossPoint fully usable with GPIO buttons. Touch should be additive.
 1. Keep active touch polling IRQ-gated and bounded; prior ungated polling caused boot loops and made recovery difficult.
 2. Use `GPIO44` as the confirmed active-low touch IRQ to gate future probes and production reads.
 3. Use `murphy_touch_data_probe_v7_b4_b56_calibrated` if recalibration is needed; current corner and center taps land near expected 416x240 screen coordinates.
-4. Map CrossPoint touch targets to existing actions now that calibrated coordinates are available.
+4. Verify CrossPoint TXT and EPUB readers independently: EPUB already has an EPUB-specific menu, while TXT needs its own menu path because it does not share the EPUB menu actions.
 5. Keep future I2C scanners bounded and exclude `GPIO19`, `GPIO20`, `GPIO45`, `GPIO46`, and `GPIO48` unless deliberately testing those pins in a recovery-safe image.
 6. Continue refining UI touch-target rectangles in CrossPoint without changing the low-level pin/controller path.

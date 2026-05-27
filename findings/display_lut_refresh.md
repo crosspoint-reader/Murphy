@@ -403,23 +403,83 @@ If polarity is inverted on the panel, invert every byte of `currentFrame` before
 
 ## Current Shipping State
 
-- **B/W (anti-alias off)** is the production path. Uses the FAST B/W LUT
-  documented elsewhere in the SDK; flash-free updates with a periodic
-  ghost-clear refresh.
-- **Grayscale (anti-alias on)** ships using the hand-tuned recipe above.
-  Four distinguishable shades (black, dark gray, light gray, white) with the
-  light-gray-vs-white differentiation being subtle. Mid-tones are inverted
-  relative to renderer convention unless the plane→DTM mapping is swapped.
+**Murphy ships AA-disabled. Period.** The B/W FAST path with the periodic
+ghost-clear refresh is the entire display story on this panel — full black
+text on white background, no anti-aliasing pipeline involvement.
+
+This decision is gated at the application layer via a new
+`DeviceProfile::supportsGrayscaleAntiAlias` field (`false` for Murphy,
+`true` for X3/X4) and a `ReaderUtils::effectiveAntiAlias()` helper that
+combines the user's text-AA setting with the device capability. The
+renderer's two-pass AA path (`copyGrayscaleLsbBuffers` +
+`copyGrayscaleMsbBuffers` + `displayGrayBuffer`) never executes on Murphy,
+whether the user enables the AA setting or not.
+
+## Why AA Was Ripped Out
+
+Every attempt to use the renderer's grayscale pipeline on this panel hit
+one of these failure modes:
+
+1. **Per-pixel pixelation.** The renderer produces detailed per-pixel
+   `(LSB, MSB)` bit patterns at glyph edges. With our hand-tuned 4-LUT
+   gray set, each `(DTM1, DTM2)` combination produces a *distinctly*
+   different intensity. Adjacent pixels with different combinations look
+   like a noisy quilt rather than a smooth AA gradient — the LUTs are
+   doing their job correctly, but the panel's discrete intensity levels
+   show up as visible per-pixel banding instead of smooth shading.
+
+2. **Multi-refresh degenerate frames.** The renderer's two-pass AA flow
+   calls `displayGrayBuffer` multiple times per page render, some passes
+   with planes that are nearly all-zero or all-set. Our gray LUTs
+   faithfully render each pass — including the degenerate ones — so the
+   panel cycles through "correct text → fully inverted → all white" as
+   each pass commits.
+
+3. **`cleanupGrayscaleBuffers` fires SSD1677 commands.** The default SDK
+   cleanup path writes to the SSD1677 RED-RAM (`writeRamBuffer(CMD_WRITE_RAM_RED, ...)`).
+   UC8253 doesn't have that register; the commands corrupt controller state.
+
+4. **Asymmetric VSH/VSL rails.** The panel's VSH (black-drive) rail is
+   significantly stronger per frame than VSL (white-drive). DC-balanced
+   waveforms net toward black; pure VSL drives reach the target but then
+   drift back to gray as the cell's DC bias dissipates; VSH compensation
+   pulses overshoot saturated whites toward black. The result is that
+   reliably reaching crisp stable white is hard, and the dynamic range
+   for intermediate grays is compressed.
+
+The bench-tuning probe (`crosspoint-reader-main/src/murphy_grayscale_tuning_probe.cpp`)
+*did* produce four clearly distinct horizontal stripes (black / dark gray /
+light gray / white) with hand-tuned LUTs and bumped booster voltages,
+proving the panel can technically do 4-level grayscale. But that proves
+"uniform regions can hit four levels," not "text rendered with per-pixel
+AA looks good." The two are very different problems on this hardware.
+
+## Brief Soft-Text Experiment (Removed)
+
+For a short window we shipped a "soft text" mode: kept the B/W FAST path
+intact but swapped `LUT_24` (the "dark pixel" slot in same-buffer scheme)
+from full black (`0x48 0x48 0x48 0x48`) to dark gray (`0x88 0x88 0x88 0x48`),
+gated on `SETTINGS.textAntiAliasing`. This worked — uniform dark-gray text
+on white, no AA pipeline, no per-pixel pixelation. But the visual benefit
+was marginal (slightly softer text vs. crisp black) and not worth keeping
+the extra SDK surface and tested-state. Removed.
 
 ## Future Work
 
-- Apply the renderer plane swap (`LSB→DTM2, MSB→DTM1`) so renderer value 1
-  maps to light gray and value 2 to dark gray (currently inverted).
-- Sweep `VCOM_DATA_INTERVAL` (`0x50`) and the unmodified booster bytes for
-  more white-side headroom.
-- Investigate the `0x17, 0xA5` partial-refresh trigger path documented in
-  the OEM decompile — could enable region-only updates without the
-  ghost-clear cost.
-- Hand-tune intermediate intensities further if the panel response can be
-  coaxed into producing a true mid-gray distinct from both dark gray and
-  light gray.
+If anyone picks this up again:
+
+- The bench-tuning probe and findings here are the starting point. The
+  4-LUT recipe with `BOOSTER = {0xD7, 0xDF, 0x1F}` and `VCOM_DC = 0x03`
+  remains the best known stable state for producing 4 distinct uniform
+  intensities.
+- Real per-pixel AA would need a custom 1-pass grayscale refresh
+  (bypassing the renderer's two-pass `copyGrayscale*` + `displayGrayBuffer`
+  path entirely) plus a renderer-side change to emit per-pixel intensities
+  in a single buffer rather than two planes.
+- Asymmetric rails are a hardware property — no LUT trick gets us cleanly
+  past that limit. The OEM didn't ship grayscale on this panel for the
+  same reason.
+- Worth investigating: the `0x17, 0xA5` partial-refresh trigger path
+  documented in the OEM decompile, which could enable region-only updates
+  without the ghost-clear cost. Orthogonal to grayscale but relevant for
+  general refresh quality.

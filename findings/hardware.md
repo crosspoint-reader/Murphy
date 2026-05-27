@@ -35,7 +35,7 @@ Relevant strings:
 
 `$GC9` may indicate a GC9-series display-controller dependency or signature, but the surrounding binary context is not enough to assert the exact display controller. No clear `ILI`, `ST77`, `SSD`, or Waveshare panel identifier was recovered from the first string pass.
 
-Custom firmware display bring-up now produces visible output through the OEM-derived `MOSI3/SCK4/CS5/DC6/RST7/BUSY8` display bus. `GPIO48` is confirmed as front-light PWM on this Murphy unit, so public mappings that use `GPIO48` as EPD `BUSY` are invalid here. The remaining display work is UC8253 refresh quality, LUT/plane handling, and UI/rendering polish on the GPIO3-8 map. See `display_bringup.md`.
+Custom firmware display bring-up now produces visible output through the OEM-derived `MOSI3/SCK4/CS5/DC6/RST7/BUSY8` display bus. `GPIO48` is confirmed as front-light PWM on this Murphy unit, so public mappings that use `GPIO48` as EPD `BUSY` are invalid here. See `display_hardware.md` for the panel and bus, and `display_driver.md` for the OEM init, LUT, and refresh path.
 
 The panel is Good Display `GDEY037T03-FT21`: 3.7-inch, UC8253, 416x240, SPI display interface, touch, and front light. The visible FPC markings `YSFK082048A-W-3` / `LH37004D 2513` appear to be module/FPC production markings for this assembly.
 

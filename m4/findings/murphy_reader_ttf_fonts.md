@@ -13,8 +13,9 @@ The firmware contains three distinct font paths:
    used for fixed Noto Sans CJK sizes and web-upload management.
 3. A native runtime TrueType loader for user `.ttf` files, with settings
    fields `ttfFontName` and `ttfFontSize`, UI labels `Custom (TTF)` and
-   `TTF Font`, and direct parsing of TrueType tables such as `cmap`, `glyf`,
-   `hhea`, `hmtx`, `kern`, `GPOS`, and `maxp`.
+   `TTF Font`, and direct parsing of TrueType tables — `head`, `maxp`, `loca`,
+   `glyf`, `cmap`, `hhea`, `hmtx` (and optional `kern`). See the code-level RE
+   below for which tags are *fetched* vs merely *detected and rejected*.
 
 The native TTF path appears to be a custom compact TrueType rasterizer/loader,
 not FreeType. The binary has no obvious `FreeType`/`FT_` strings, but it has
@@ -35,11 +36,103 @@ Focused Ghidra/xref artifact:
 m4/findings/font_ttf_pointer_refs.md
 ```
 
-The raw import still does not recover usable references for these strings:
-Ghidra reports them as strings but with no direct xrefs. This matches the
-existing v1.2.16 import limitation documented in
-`murphy_reader_code_reuse.md`: the app was imported as a raw binary
-at `0x42000000`, not as a parsed ESP32-S3 app image with segment mappings.
+An earlier raw Ghidra import at `0x42000000` recovered *no* xrefs for these
+strings (see `font_ttf_pointer_refs.md`, "direct refs: none" throughout). That
+import was wrong, not the binary: see the next section — once the real ESP32-S3
+segment map is applied, every reference resolves.
+
+## Code-level RE (segment-corrected)
+
+The "no xrefs" result was an artifact of loading the flat `.bin` at a single
+base. The image is a multi-segment ESP-IDF app; the strings live in **DROM**,
+not IROM. Parsing the image header (`esptool image-info`, cross-checked with a
+hand parser) gives:
+
+| Seg | Type | Vaddr range | File off | Len |
+|----:|------|-------------|---------:|----:|
+| 0 | DROM | `0x3c1f0020`–`0x3c3a00e4` | `0x000018` | `0x1b00c4` |
+| 1 | DRAM | `0x3fca1500`–`0x3fca7fac` | `0x1b00ec` | `0x06aac` |
+| 2 | IRAM | `0x40378000`–`0x40381478` | `0x1b6ba0` | `0x09478` |
+| 3 | IROM | `0x42000020`–`0x421e8d7c` | `0x1c0020` | `0x1e8d5c` |
+| 4 | IRAM | `0x40381478`–`0x40391460` | `0x3a8d84` | `0x0ffe8` |
+
+So e.g. `"Custom (TTF)"` at file `0x13b58` is **DROM `0x3c203b58`**, not
+`0x42013b58`. The code references it through an `l32r` literal holding the
+`0x3c20…` address; the raw import had the string at `0x4201…`, so nothing
+matched. Recovering the references is then just: compute each string's true
+DROM vaddr, scan the executable segments for word-aligned literals equal to it,
+and disassemble the enclosing function (capstone 6 has an Xtensa backend).
+Tooling: [`tools/esp32s3_xtensa_disasm.py`](../../tools/esp32s3_xtensa_disasm.py)
+(literal-aware Xtensa disassembler that annotates `l32r` loads with the C string
+they point to).
+
+### Four functions, cleanly separated
+
+The TTF references cluster into four distinct functions (windowed-ABI `entry`
+prologues bound each one):
+
+| Role | Function `entry` | Literal pool | What it touches |
+|------|------------------|--------------|-----------------|
+| **TrueType parser/loader** | `0x4203f520` | `0x42040b50`–`0x42040c3c` | every SFNT table tag, the SFNT-variant reject strings, the table-directory and arena errors |
+| **TTF runtime manager** | `0x4207d8d4` (`entry a1, 0x110`) | `0x4207dfe4`–`0x4207e03c` | `reader.ttf`, CJK fallback, `Failed to load %s at %dpx`, runtime mutex, `ttfFontSize` |
+| **Settings I/O** | JSON-settings region | ref at `0x4204189c` | `ttfFontName` / `ttfFontSize` persistence |
+| **`TtfFontSelect` activity** | `0x420ba5f4`–`0x420bd748` | refs at `0x420ba620`, `0x420ba650` | the on-device font picker, default `reader.ttf` |
+
+### The parser is one self-contained TrueType reader
+
+The parser function's literal pool (read directly as data words — no
+disassembly needed) names the exact set of tables it fetches:
+
+```
+0x42040bec  -> "glyf"      0x42040bfc -> "hhea"
+0x42040bf0  -> "cmap"      0x42040c00 -> "hmtx"
+0x42040bf4  -> "loca"      0x42040c04 -> "maxp"
+0x42040bf8  -> "head"      0x42040c08 -> "kern"
+```
+
+Required core tables: **`head`, `maxp`, `loca`, `glyf`, `cmap`, `hhea`,
+`hmtx`**; `kern` is optional (kerning). Notably **absent** from the fetch list:
+`name`, `post`, `OS/2`, `CFF`, `GPOS`, `GSUB`. The `CFF`/`GPOS`/`OTTO`/`ttcf`/
+`WOFF` strings in the binary are *detect-and-reject* labels, not tables it
+parses. Combined with the error vocabulary, the parse path is:
+
+1. Read the 12-byte SFNT header → `Failed to read TTF header in %s`.
+2. Check the sfnt version (`0x00010000` / `'true'`); detect and **reject**
+   `OTTO` (CFF), `ttcf` (collection), `WOFF`/`WOFF2` → `Not a TrueType font in %s`.
+3. `malloc` the table directory, read `numTables × 16` records, with a cap →
+   `malloc failed for table directory` / `Too many compact TTF tables`.
+4. Locate the required tables → `Missing required TTF tables`, `No glyf table found`.
+5. Pick a usable `cmap` subtable → `No suitable cmap subtable`.
+6. Glyphs are loaded **lazily**: per glyph, the file is reopened and the `glyf`
+   slice (located via `loca`) is read through a `"callback-read"` buffer, with a
+   per-glyph size cap (`Glyph %d glyf too large`). Output goes into **growable
+   arenas** (`Arena grow failed`, `Glyph storage grow failed`, `Interval storage
+   grow failed`, `Failed to alloc %zu byte bitmap arena`), guarded by a
+   per-glyph mutex plus a runtime mutex. There are no `FreeType`/`FT_` strings —
+   this is a bespoke compact rasterizer, not FreeType.
+
+This is functionally the same shape as CrossPoint's `SdCardFont` on-demand glyph
+path (lazy reads + an overflow/arena buffer), but fed by a live TrueType parser
+instead of a pre-baked `.cpfont`.
+
+### How a `.ttf` actually gets accepted
+
+This is the part the string list alone didn't make obvious. There is **no TTF
+upload control on the web Fonts page** — `m4/binwalk_extracted/FontsPage.html`
+only accepts `.epf` CJK packs (`accept=".epf"`, `POST /upload?path=/.mofei/fonts`).
+`.ttf`/`.otf`/`.woff`/`.woff2`/`.sfnt` live only in the **generic file-upload
+content-type table** (`0x000e8a0f`). So a user gets a `.ttf` onto the device by:
+
+- the **generic file manager** upload (`/upload?path=…` into `/.mofei/fonts/`), or
+- **USB MSC** — the device mounts as `MOFEI Storage`; drop files into `/.mofei/fonts/`.
+
+The reader then **discovers** `*.TTF` under `/.mofei/fonts/` (`No TTF fonts
+found` when empty), lists them in `TtfFontSelect`, and persists the choice as
+`ttfFontName`. Special names: `reader.ttf` (default custom reader face),
+`notosans_cjk_tc_fallback.ttf` (CJK fallback subset), plus a separately-loaded
+UI face (`Failed to load UI TTF %s at %dpx`). `ttfFontSize` sets the ppem the
+parser instantiates the face at — i.e. true arbitrary-size rendering, not the
+fixed size-enum buckets the `.epf`/`.cpfont` packs use.
 
 ## String Evidence
 
@@ -211,32 +304,36 @@ guarded by a sentinel file. It does not explain general TTF support.
 
 ## What this implies for CrossPoint
 
-CrossPoint mainline converts TTF/OTF at build time or into `.cpfont` packs.
-Murphy v1.2.16 goes further: it added a runtime TTF implementation on top of
-the CrossPoint renderer/settings surface.
+CrossPoint mainline converts TTF/OTF **offline** (`fontconvert_sdcard.py` +
+freetype-py) into fixed-size `.cpfont` bitmap packs; there is no on-device
+rasterizer. Murphy v1.2.16 adds a **runtime** TrueType parser/rasterizer on top
+of the same renderer/settings surface, so users drop a plain `.ttf` in and pick
+any `ttfFontSize`.
 
-Practical porting implication:
+The good news for porting: Murphy reuses CrossPoint's exact glyph plumbing — a
+lazy `glyphMissHandler` feeding `EpdGlyph` bitmaps into an overflow/arena buffer,
+drawn by the renderer that already understands `is2Bit` glyphs. A TTF backend can
+therefore slot in as a sibling of `SdCardFont` with **no renderer changes**. The
+full design is written up in
+[`porting_ttf_to_crosspoint.md`](porting_ttf_to_crosspoint.md).
 
-- To match Murphy's "out of the box" custom-font UX, CrossPoint would need a
-  native TTF loader/rasterizer or a compatible substitute.
-- A faithful implementation probably needs only plain TrueType `glyf` support
-  at first. CFF/OTF, TTC, WOFF, and WOFF2 can stay unsupported, matching
-  Murphy.
-- The loader should be designed around lazy glyph reads and per-page caches,
-  not full-font rasterization into RAM.
+## RE status
 
-## Next RE steps
+The earlier "next steps" are now done:
 
-1. Re-import `murphy-26-0526-1.2.16.bin` with ESP32-S3 segment parsing instead
-   of raw `0x42000000`, then rerun string xrefs. Current raw import does not
-   recover references for the TTF strings.
-2. Recover the runtime structs around the TTF settings by tracking
-   `ttfFontName` and `ttfFontSize` in `JsonSettingsIO`-like code.
-3. Identify the TTF loader entrypoint by searching for the table tags
-   `cmap`, `glyf`, `hhea`, `hmtx`, `maxp` as immediate constants and
-   decompile nearby functions.
-4. Build a small compatibility model: expected storage path(s), filename
-   filtering, accepted SFNT header (`0x00010000` or `true`), and cmap subtable
-   preference.
-5. Test on-device, if available, by placing `/.mofei/fonts/reader.ttf` and
-   observing whether it appears under `TTF Font` / `TtfFontSelect`.
+- ✅ Segment-corrected reference recovery (DROM mapping above) — replaces the
+  raw `0x42000000` import; all TTF strings now resolve to functions.
+- ✅ TTF loader entrypoint identified via the table-tag literal pool
+  (parser `entry 0x4203f520`; runtime manager `entry 0x4207d8d4`).
+- ✅ Settings (`ttfFontName`/`ttfFontSize`) and the `TtfFontSelect` activity
+  located.
+- ✅ Compatibility model captured: storage path `/.mofei/fonts/`, `*.TTF`
+  filter, accepted SFNT `0x00010000`/`'true'`, rejected `OTTO`/`ttcf`/`WOFF`,
+  required tables `head/maxp/loca/glyf/cmap/hhea/hmtx`.
+
+Remaining (optional, needs hardware or deeper decode):
+
+1. Confirm the rasterizer's output bit depth (1-bit vs 2-bit/4-level) and
+   whether it antialiases — the renderer supports both via `is2Bit`.
+2. On-device check: place `/.mofei/fonts/reader.ttf` and confirm it appears
+   under `TtfFontSelect`.

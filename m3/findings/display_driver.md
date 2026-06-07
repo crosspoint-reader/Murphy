@@ -122,7 +122,7 @@ Related app strings: `_PowerOn`, `_PowerOff`, `_Update_Fast`, `_Update_Part`, `d
 
 ## LUT Tables
 
-LUTs were extracted from `analysis/segments/app0_seg0_3c190020.bin`. `FUN_42038b60` loads them with commands `0x20..0x24` before each frame write.
+LUTs were extracted from `m3/analysis/segments/app0_seg0_3c190020.bin`. `FUN_42038b60` loads them with commands `0x20..0x24` before each frame write.
 
 Cross-reference: the same 504-byte LUT block also exists in the gitee upstream `firmware/touch/firmware.bin v525` at file offset `0x000ab7e0` (vaddr `0x3c23b7e0`). Byte-for-byte identical to the device dump. See [OEM Touch v525 LUT extraction](oem_touch_v525_grayscale_luts.md) for the upstream pointer map and an out-of-tree C header bundling all 10 register payloads.
 
@@ -408,7 +408,7 @@ For a short window we shipped a "soft text" mode: kept B/W FAST intact but swapp
 
 ## Related Artifacts
 
-- `analysis/display_driver_core_decompile_20260526.md`
-- `analysis/display_function_refs_20260526.md`
-- `analysis/display_high_level_refs_20260526.md`
-- `analysis/segments/app0_seg0_3c190020.bin` (LUT source)
+- `m3/analysis/display_driver_core_decompile_20260526.md`
+- `m3/analysis/display_function_refs_20260526.md`
+- `m3/analysis/display_high_level_refs_20260526.md`
+- `m3/analysis/segments/app0_seg0_3c190020.bin` (LUT source)

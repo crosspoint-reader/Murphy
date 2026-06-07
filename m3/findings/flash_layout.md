@@ -12,7 +12,7 @@
 | `0x0f82fc` | AES S-box |
 | `0x0ffed4` | AES S-box |
 
-Because this is an ESP32-S3 flash image, partitions were carved from the ESP-IDF partition table at `0x8000`. The requested `_m3_flash_dump.bin.extracted/` directory exists and contains `esp-partitions/`.
+Because this is an ESP32-S3 flash image, partitions were carved from the ESP-IDF partition table at `0x8000`. The requested `m3/binwalk_extracted/` directory exists and contains `esp-partitions/`.
 
 ## ESP-IDF Partition Table
 
@@ -31,12 +31,12 @@ The partition label says `spiffs`, but the firmware strings use `/littlefs` and 
 
 | File | SHA256 |
 | --- | --- |
-| `analysis/extracted/bootloader.bin` | `6ac230d6941c798d91b83334598bb2266a417200aec3b15c74d4d69787e6a269` |
-| `analysis/extracted/partition-table.bin` | `e26311cd92e39e998672a3f8e4a7d3742d3288f7d6bcbca96a7d78df5d98bb35` |
-| `analysis/extracted/nvs.bin` | `e208573b0c631f421ecf1c578aabdf69716858d41762dd8b80b5854bd0afbb5e` |
-| `analysis/extracted/otadata.bin` | `f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0` |
-| `analysis/extracted/app0.bin` | `aa7daab8636cde10e4d57cb12c8cc272908847870ea3f319343c90026c2ece4d` |
-| `analysis/extracted/app1.bin` | `07b35687ffead33938b3663d20026d9a2db405a1013a9f7b66007bbcb282e59e` |
-| `analysis/extracted/spiffs.bin` | `4bda3a28f4ffe603c0ec1258c0034d65a1a0d35ab7bd523a834608adabf03cc5` |
-| `analysis/extracted/coredump.bin` | `71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063` |
+| `m3/extracted/bootloader.bin` | `6ac230d6941c798d91b83334598bb2266a417200aec3b15c74d4d69787e6a269` |
+| `m3/extracted/partition-table.bin` | `e26311cd92e39e998672a3f8e4a7d3742d3288f7d6bcbca96a7d78df5d98bb35` |
+| `m3/extracted/nvs.bin` | `e208573b0c631f421ecf1c578aabdf69716858d41762dd8b80b5854bd0afbb5e` |
+| `m3/extracted/otadata.bin` | `f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0` |
+| `m3/extracted/app0.bin` | `aa7daab8636cde10e4d57cb12c8cc272908847870ea3f319343c90026c2ece4d` |
+| `m3/extracted/app1.bin` | `07b35687ffead33938b3663d20026d9a2db405a1013a9f7b66007bbcb282e59e` |
+| `m3/extracted/spiffs.bin` | `4bda3a28f4ffe603c0ec1258c0034d65a1a0d35ab7bd523a834608adabf03cc5` |
+| `m3/extracted/coredump.bin` | `71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063` |
 

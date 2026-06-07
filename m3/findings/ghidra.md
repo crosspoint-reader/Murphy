@@ -28,7 +28,7 @@ Packaged extension zip:
 
 Ghidra project:
 
-`analysis/ghidra-project/MurphyM3`
+`m3/ghidra-project/MurphyM3`
 
 Language:
 
@@ -38,7 +38,7 @@ The app image was imported as raw binary at base `0x0`, then `tools/ghidra_scrip
 
 ## Runtime Memory Blocks
 
-From `analysis/ghidra_inventory.md`:
+From `m3/analysis/ghidra_inventory.md`:
 
 | Block | Start | End | Access |
 | --- | ---: | ---: | --- |
@@ -59,7 +59,7 @@ Ghidra analysis completed in about 80 seconds. There are decompiler warnings fro
 
 ## Segment Artifacts
 
-Segment files are under `analysis/segments/`:
+Segment files are under `m3/analysis/segments/`:
 
 | Segment | Load address | Size |
 | ---: | ---: | ---: |
@@ -88,28 +88,28 @@ Custom scripts in `tools/ghidra_scripts/`:
 
 Touch-specific exports:
 
-- `analysis/touch_string_refs.md`
-- `analysis/touch_pointer_refs.md`
-- `analysis/touch_decompile.md`
+- `m3/analysis/touch_string_refs.md`
+- `m3/analysis/touch_pointer_refs.md`
+- `m3/analysis/touch_decompile.md`
 
 Front-light-specific exports:
 
-- `analysis/frontlight_string_refs.md`
-- `analysis/frontlight_pointer_refs.md`
-- `analysis/frontlight_table_memory.md`
+- `m3/analysis/frontlight_string_refs.md`
+- `m3/analysis/frontlight_pointer_refs.md`
+- `m3/analysis/frontlight_table_memory.md`
 
 Button/input-specific exports:
 
-- `analysis/button_combo_string_refs.md`
-- `analysis/button_combo_pointer_refs.md`
-- `analysis/button_combo_disassembly.md`
-- `analysis/button_combo_objdump_42000020.md`
-- `analysis/button_combo_objdump_keymap.md`
+- `m3/analysis/button_combo_string_refs.md`
+- `m3/analysis/button_combo_pointer_refs.md`
+- `m3/analysis/button_combo_disassembly.md`
+- `m3/analysis/button_combo_objdump_42000020.md`
+- `m3/analysis/button_combo_objdump_keymap.md`
 
 OEM hardware-mining exports:
 
-- `analysis/oem_hardware_calls.md`
-- `analysis/oem_symbol_table_disasm.md`
-- `analysis/oem_hardware_keyword_mining.md`
+- `m3/analysis/oem_hardware_calls.md`
+- `m3/analysis/oem_symbol_table_disasm.md`
+- `m3/analysis/oem_hardware_keyword_mining.md`
 
-See `findings/oem_headless_ghidra.md` for the exact headless commands and current limits of the static OEM hardware recovery.
+See `m3/findings/oem_headless_ghidra.md` for the exact headless commands and current limits of the static OEM hardware recovery.

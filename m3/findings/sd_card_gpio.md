@@ -116,9 +116,9 @@ CS   GPIO10
 
 Local evidence:
 
-- `findings/online_research.md:44-45`
-- `findings/porting_crosspoint.md:67-70`
-- `findings/porting_crosspoint.md:125-128`
+- `m3/findings/online_research.md:44-45`
+- `m3/findings/porting_crosspoint.md:67-70`
+- `m3/findings/porting_crosspoint.md:125-128`
 
 Web evidence:
 
@@ -133,9 +133,9 @@ The OEM app definitely has SD-card support:
 
 Evidence:
 
-- `analysis/app0.strings.txt:495-538`
-- `analysis/app0.strings.txt:8236-8240`
-- `findings/hardware.md:8`
+- `m3/analysis/app0.strings.txt:495-538`
+- `m3/analysis/app0.strings.txt:8236-8240`
+- `m3/findings/hardware.md:8`
 
 The headless Ghidra pass found an OEM SD card mount class around `FUN_42013ca8`.
 
@@ -148,9 +148,9 @@ Key points from the decompile:
 
 Evidence:
 
-- `analysis/sd_literal_refs_20260526.md:292-379`
-- `analysis/sd_constructor_refs_20260526.md:28-93`
-- `analysis/sd_constructor_refs_20260526.md:232-271`
+- `m3/analysis/sd_literal_refs_20260526.md:292-379`
+- `m3/analysis/sd_constructor_refs_20260526.md:28-93`
+- `m3/analysis/sd_constructor_refs_20260526.md:232-271`
 
 The six OEM slot-config parameters line up with Arduino `SD_MMC.setPins(clk, cmd, d0, d1, d2, d3)` and ESP-IDF `sdmmc_slot_config_t` field order.
 
@@ -194,12 +194,12 @@ FUN_4200399c(...) {
 
 Evidence:
 
-- `analysis/oem_hardware_constant_mining.md:354797-354842`
-- `analysis/oem_hardware_constant_mining.md:356017-356027`
-- `analysis/oem_hardware_constant_mining.md:430186-430205`
-- `analysis/oem_hardware_constant_mining.md:385267-385318`
-- `analysis/oem_hardware_constant_mining.md:385293-385368`
-- `analysis/oem_hardware_keyword_mining.md:241055-241086`
+- `m3/analysis/oem_hardware_constant_mining.md:354797-354842`
+- `m3/analysis/oem_hardware_constant_mining.md:356017-356027`
+- `m3/analysis/oem_hardware_constant_mining.md:430186-430205`
+- `m3/analysis/oem_hardware_constant_mining.md:385267-385318`
+- `m3/analysis/oem_hardware_constant_mining.md:385293-385368`
+- `m3/analysis/oem_hardware_keyword_mining.md:241055-241086`
 
 ## If SPI Fails
 
@@ -258,4 +258,4 @@ ENABLE/GATE=10 active-low candidate
 mode1bit=false
 ```
 
-Once an SD card mounts and lists files, mark these as confirmed in this file and in `findings/codex_handoff.md`.
+Once an SD card mounts and lists files, mark these as confirmed in this file and in `m3/findings/codex_handoff.md`.

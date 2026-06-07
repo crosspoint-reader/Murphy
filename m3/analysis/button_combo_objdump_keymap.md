@@ -1,5 +1,5 @@
 
-analysis/segments/app0_seg3_42000020.bin:     file format binary
+m3/analysis/segments/app0_seg3_42000020.bin:     file format binary
 
 
 Disassembly of section .data:

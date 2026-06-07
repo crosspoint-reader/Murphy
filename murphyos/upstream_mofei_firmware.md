@@ -24,8 +24,8 @@ have distinct ELF SHA-256 values and different feature sets.
 
 | Track | Gitee path | Version | Date | Local copy |
 |---|---|---|---|---|
-| `touch` | `firmware/touch/firmware.bin` | 525 | 2026-01-14 | `analysis/upstream_murphy_reader/mofei-corogoo-touch-v525.bin` |
-| `EPD426-v1` | `firmware/EPD426-v1/firmware.bin` | 621 | 2026-05-19 | `analysis/upstream_murphy_reader/mofei-corogoo-EPD426-v1.bin` |
+| `touch` | `firmware/touch/firmware.bin` | 525 | 2026-01-14 | `murphyos/mofei-corogoo-touch-v525.bin` |
+| `EPD426-v1` | `firmware/EPD426-v1/firmware.bin` | 621 | 2026-05-19 | `murphyos/mofei-corogoo-EPD426-v1.bin` |
 
 The `update.json` URL embedded in the device's dumped app0 image
 points at the **`touch/` branch** — that is the track this hardware is
@@ -34,7 +34,7 @@ not identical) form factor; not what ships to Murphy M3 owners over OTA.
 
 ## Relationship to the device dump
 
-`analysis/extracted/app0.bin` (the app pulled off Murphy M3 hardware)
+`m3/extracted/app0.bin` (the app pulled off Murphy M3 hardware)
 and `mofei-corogoo-touch-v525.bin` share:
 
 - Identical compile timestamp / ESP-IDF / project name
@@ -72,8 +72,8 @@ firmware for the device.
 
 ## Related findings
 
-- `findings/oem_touch_v525_grayscale_luts.md` — OEM LUT extraction
-- `findings/murphy_reader_code_reuse.md` — the separately-shipped
+- `m3/findings/oem_touch_v525_grayscale_luts.md` — OEM LUT extraction
+- `murphyos/murphy_reader_code_reuse.md` — the separately-shipped
   Murphy Reader v1.2.16 at `murphy.pandacat.ai` is a *different* fork
   (built from `crosspoint-reader-main`, not directly from MoFei), and
   is the firmware that adds OPDS / KOReader Sync / Calibre features.

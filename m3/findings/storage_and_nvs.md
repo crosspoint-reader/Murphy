@@ -10,7 +10,7 @@ The partition is 100% `0xff`, so no filesystem files were recoverable from this 
 
 ## NVS Partition
 
-Partition: `analysis/extracted/nvs.bin`  
+Partition: `m3/extracted/nvs.bin`  
 Size: 20 KiB  
 State: populated
 

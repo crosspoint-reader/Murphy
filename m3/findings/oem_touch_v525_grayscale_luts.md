@@ -11,14 +11,14 @@ app0 dump.
 This is the OEM's stock LUT recipe — the one that produces the
 bench-observed behavior on Murphy hardware — and was the missing piece
 in the earlier reverse-engineering documented in
-`findings/display_driver.md`.
+`m3/findings/display_driver.md`.
 
 ## Where it lives
 
 | | File offset | Virtual address |
 |---|---|---|
 | `mofei-corogoo-touch-v525.bin` | `0x000ab7e0` – `0x000ab9d8` | `0x3c23b7e0` (DROM) |
-| `analysis/extracted/app0.bin` (device) | `0x000a6ea0` – `0x000a7098` | (similar DROM region) |
+| `m3/extracted/app0.bin` (device) | `0x000a6ea0` – `0x000a7098` | (similar DROM region) |
 
 Confirmed: a `find()` of the 504-byte slice from touch v525 inside the
 device's app0.bin returns a direct hit. The two builds share the same
@@ -34,7 +34,7 @@ files instead (see "Runtime LUT files" below).
 Ten 42-byte UC8253 LUT register payloads, each pointed at by exactly one
 `l32r` literal in the code segment (verified via 4-byte LE literal search
 in the code segments). Saved per-LUT as raw `.bin` files plus a C header
-under `analysis/upstream_murphy_reader/oem_luts/oem_touch_v525_luts.h`.
+under `murphyos/oem_luts/oem_touch_v525_luts.h`.
 
 The pointer targets the **start** of each 42-byte payload (active phase
 data first, zero padding at end):
@@ -83,7 +83,7 @@ the VCOM channel doesn't swing, only the cell electrodes do — confirming
 the symmetric drive scheme.
 
 The `0x88`/`0x48` voltage codes are the same ones we identified by
-probe in `findings/display_driver.md`:
+probe in `m3/findings/display_driver.md`:
 `0x88` = VSL/white drive, `0x48` = VSH/black drive.
 
 ### Power/voltage config blocks
@@ -126,7 +126,7 @@ the **default / fallback / partial-refresh** LUT; whatever is in
 `/lut_full.bin` on the device's LittleFS would override it for full
 refresh.
 
-Our `analysis/extracted/spiffs.bin` is entirely `0xff` (erased before
+Our `m3/extracted/spiffs.bin` is entirely `0xff` (erased before
 dump), so we don't have the on-device files. If a fresh dump is taken
 on a working unit, `/.mofei/lut.bin` and `/.mofei/lut_full.bin` (path
 varies between MoFei branches) will hold the actually-active LUTs.
@@ -186,7 +186,7 @@ What this leaves still open:
 ## Saved artifacts
 
 ```
-analysis/upstream_murphy_reader/
+murphyos/
   mofei-corogoo-touch-v525.bin
   oem_touch_v525_lut_block.bin              (504 bytes — full DROM region)
   oem_luts/

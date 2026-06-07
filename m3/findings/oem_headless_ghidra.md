@@ -9,7 +9,7 @@ The machine does not need the Ghidra GUI for the current analysis. Homebrew Ghid
 The active Ghidra project is:
 
 ```text
-analysis/ghidra-project/MurphyM3.gpr
+m3/ghidra-project/MurphyM3.gpr
 ```
 
 The imported program is:
@@ -31,12 +31,12 @@ Hardware API string/callsite pass:
 
 ```sh
 /opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless \
-  /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project MurphyM3 \
+  /Users/jmitch/GitHub/Murphy/m3/ghidra-project MurphyM3 \
   -process app0.bin \
   -readOnly \
-  -scriptPath /Users/jmitch/GitHub/Murphy_M3/tools/ghidra_scripts \
+  -scriptPath /Users/jmitch/GitHub/Murphy/tools/ghidra_scripts \
   -postScript FindCallsiteContexts.java \
-  /Users/jmitch/GitHub/Murphy_M3/analysis/oem_hardware_calls.md \
+  /Users/jmitch/GitHub/Murphy/m3/analysis/oem_hardware_calls.md \
   gpio_set_level gpio_config gpio_reset_pin __pinMode digitalWrite pinMode \
   spi_bus_initialize spi_bus_add_device i2c_param_config \
   ledc_channel_config ledc_timer_config i2s_set_pin i2s_driver_install i2s_write
@@ -46,24 +46,24 @@ Keyword mining pass:
 
 ```sh
 /opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless \
-  /Users/jmitch/GitHub/Murphy_M3/analysis/ghidra-project MurphyM3 \
+  /Users/jmitch/GitHub/Murphy/m3/ghidra-project MurphyM3 \
   -process app0.bin \
   -readOnly \
-  -scriptPath /Users/jmitch/GitHub/Murphy_M3/tools/ghidra_scripts \
+  -scriptPath /Users/jmitch/GitHub/Murphy/tools/ghidra_scripts \
   -postScript FindHardwareConstants.java \
-  /Users/jmitch/GitHub/Murphy_M3/analysis/oem_hardware_keyword_mining.md \
+  /Users/jmitch/GitHub/Murphy/m3/analysis/oem_hardware_keyword_mining.md \
   gpio ledc i2c i2s spi pin touch display epd light audio busy mosi sclk dc rst
 ```
 
 ## Outputs
 
-- `analysis/oem_hardware_calls.md`
+- `m3/analysis/oem_hardware_calls.md`
   - Small, useful index of direct references to hardware API name strings.
-- `analysis/oem_symbol_table_disasm.md`
+- `m3/analysis/oem_symbol_table_disasm.md`
   - Disassembly around suspected symbol/string-table regions.
-- `analysis/oem_hardware_keyword_mining.md`
+- `m3/analysis/oem_hardware_keyword_mining.md`
   - Large broad scan. Useful as a raw artifact, but noisy.
-- `analysis/oem_hardware_constant_mining.md`
+- `m3/analysis/oem_hardware_constant_mining.md`
   - Very noisy partial broad scan from an intentionally broad run. Treat as scratch evidence only.
 
 ## What This Proves

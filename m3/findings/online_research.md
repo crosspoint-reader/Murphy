@@ -45,7 +45,7 @@ Useful facts:
 - SD card on separate SPI pins: MOSI GPIO40, MISO GPIO13, CLK GPIO39, CS GPIO10.
 - Buttons: MENU GPIO2, EXIT GPIO1, rotary down GPIO4, rotary up GPIO6, rotary confirm GPIO5.
 - GPIO header exposes GPIO3, GPIO9, GPIO15, GPIO17, GPIO19, GPIO21, GPIO8, GPIO14, GPIO16, GPIO18, GPIO20, GPIO38.
-- Official resources link to the same GitHub/schematic material already cloned under `analysis/vendor/`.
+- Official resources link to the same GitHub/schematic material already cloned under `vendor/`.
 
 Impact:
 

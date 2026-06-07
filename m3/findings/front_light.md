@@ -6,7 +6,7 @@ The OEM firmware exposes a front-light setting.
 
 On the physical Murphy unit, pressing and holding either right-side button opens the front-light controls. The top-right button and the lower button directly below it perform the same front-light shortcut. This should be treated as confirmed user-facing behavior for this hardware, not only a seller-listing claim.
 
-Recovered strings from `analysis/extracted/app0.bin`:
+Recovered strings from `m3/extracted/app0.bin`:
 
 | String | Evidence |
 | --- | --- |
@@ -18,9 +18,9 @@ The `Front Light` label sits in the same settings-string cluster as `Full Ref In
 
 Ghidra exports:
 
-- `analysis/frontlight_string_refs.md`
-- `analysis/frontlight_pointer_refs.md`
-- `analysis/frontlight_table_memory.md`
+- `m3/analysis/frontlight_string_refs.md`
+- `m3/analysis/frontlight_pointer_refs.md`
+- `m3/analysis/frontlight_table_memory.md`
 
 The pointer/reference pass shows `Front Light` in a contiguous string-pointer table at `0x3fc9a9d4` / raw `0x00117da4`. No clean function reference to the front-light handler has been recovered yet.
 

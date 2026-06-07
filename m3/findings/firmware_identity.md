@@ -2,7 +2,7 @@
 
 ## Bootloader
 
-`analysis/extracted/bootloader.bin` is a valid ESP32-S3 image:
+`m3/extracted/bootloader.bin` is a valid ESP32-S3 image:
 
 - Entry point: `0x403c98d0`
 - Segments: 3
@@ -20,7 +20,7 @@ Embedded bootloader strings include ESP-IDF paths such as:
 
 ## App Image
 
-`analysis/extracted/app0.bin` is the active valid app image:
+`m3/extracted/app0.bin` is the active valid app image:
 
 - Image type: ESP32-S3
 - Entry point: `0x40377b70`
@@ -36,7 +36,7 @@ Embedded bootloader strings include ESP-IDF paths such as:
 - ESP-IDF: `v4.4.7-dirty`
 - Secure version: `0`
 
-`analysis/extracted/app1.bin` is not a valid image and is all `0xff`.
+`m3/extracted/app1.bin` is not a valid image and is all `0xff`.
 
 ## Toolchain and SDK Evidence
 

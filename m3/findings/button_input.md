@@ -30,7 +30,7 @@ Treat GPIO4/GPIO5/GPIO6 as reference-board candidates only until they are verifi
 
 ## OEM Firmware Evidence
 
-Recovered strings from `analysis/extracted/app0.bin` show these input features:
+Recovered strings from `m3/extracted/app0.bin` show these input features:
 
 | String | Inference |
 | --- | --- |
@@ -51,11 +51,11 @@ Recovered strings from `analysis/extracted/app0.bin` show these input features:
 
 Ghidra exports:
 
-- `analysis/button_combo_string_refs.md`
-- `analysis/button_combo_pointer_refs.md`
-- `analysis/button_combo_disassembly.md`
-- `analysis/button_combo_objdump_42000020.md`
-- `analysis/button_combo_objdump_keymap.md`
+- `m3/analysis/button_combo_string_refs.md`
+- `m3/analysis/button_combo_pointer_refs.md`
+- `m3/analysis/button_combo_disassembly.md`
+- `m3/analysis/button_combo_objdump_42000020.md`
+- `m3/analysis/button_combo_objdump_keymap.md`
 
 ## Combo Search Result
 

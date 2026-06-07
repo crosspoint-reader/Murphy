@@ -2,8 +2,8 @@
 	path = tools/ghidra-xtensa
 	url = https://github.com/Ebiroll/ghidra-xtensa.git
 [submodule "analysis/vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416"]
-	path = analysis/vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416
+	path = vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416
 	url = https://github.com/Elecrow-RD/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416.git
 [submodule "analysis/vendor/corogoo-3.7-inch-ink-screen-reader"]
-	path = analysis/vendor/corogoo-3.7-inch-ink-screen-reader
+	path = vendor/corogoo-3.7-inch-ink-screen-reader
 	url = https://gitee.com/corogoo/3.7-inch-ink-screen-reader.git

@@ -8,7 +8,7 @@ Observed over USB from a running device:
 
 | Message | Matching firmware string |
 | --- | --- |
-| `#ClickLock` | `analysis/app0.strings.txt` offset `0x2b1f` |
+| `#ClickLock` | `m3/analysis/app0.strings.txt` offset `0x2b1f` |
 | `>>>Count:4 Time:3ms` | Format string `>>>Count:%d Time:%dms` at offset `0x1464` |
 
 This confirms the USB path is not limited to bootloader output or mass-storage/card-transfer behavior. At least some application-level `printf`/log output reaches the host over USB on the stock image.
@@ -17,7 +17,7 @@ Current practical constraint: these logs are not reliably accessible on the avai
 
 ## Firmware Evidence
 
-Relevant strings in `analysis/extracted/app0.bin`:
+Relevant strings in `m3/extracted/app0.bin`:
 
 | Area | Strings |
 | --- | --- |
@@ -40,10 +40,10 @@ A runtime verbosity flag is possible, but not proven.
 
 Current evidence:
 
-- No readable `verbose`, `debug`, `trace`, `log`, `console`, `uart`, or `usb` key was found in `analysis/extracted/nvs.bin`.
+- No readable `verbose`, `debug`, `trace`, `log`, `console`, `uart`, or `usb` key was found in `m3/extracted/nvs.bin`.
 - Readable NVS strings currently look like normal WiFi/AP/eeprom data, including `eeprom`, `misc`, `sta.ssid`, `sta.pswd`, `ap.ssid`, and `ap.passwd`.
 - The app links ESP-IDF log-level code (`esp_log_level_set`, `get_cached_log_level`), but those strings are generic framework symbols and do not prove an OEM setting toggles verbosity.
-- The observed app debug string `>>>Count:%d Time:%dms` has code references in Ghidra export `analysis/usb_logging_string_refs.md`.
+- The observed app debug string `>>>Count:%d Time:%dms` has code references in Ghidra export `m3/analysis/usb_logging_string_refs.md`.
 - The observed `#ClickLock` string currently has no clean direct xref, likely because it is reached through a table or raw string path.
 
 Most likely options:
@@ -91,7 +91,7 @@ screen /dev/cu.usbmodemXXXX 921600
 Useful capture command:
 
 ```zsh
-python3 -m serial.tools.miniterm /dev/cu.usbmodemXXXX 115200 --raw | tee analysis/oem_usb_runtime.log
+python3 -m serial.tools.miniterm /dev/cu.usbmodemXXXX 115200 --raw | tee m3/analysis/oem_usb_runtime.log
 ```
 
 ## Reverse-Engineering Use
@@ -113,7 +113,7 @@ For front-light work, capture the exact log lines while changing from level 0 th
 
 If OEM USB logs are unavailable, use these paths instead:
 
-1. Static firmware mining with headless Ghidra outputs under `analysis/oem_*`.
+1. Static firmware mining with headless Ghidra outputs under `m3/analysis/oem_*`.
 2. Live electrical observation while stock firmware runs: meter/scope/logic analyzer on candidate GPIOs and panel/front-light rails.
 3. Controlled custom firmware probes that print their own serial output and sweep only one subsystem at a time.
 4. Visual behavior as the signal: display refresh noise, front-light brightness changes, touch interrupt transitions, and headphone output.
@@ -124,18 +124,18 @@ For display and front-light recovery, lack of USB logs is annoying but not block
 
 Because stock USB logs are only partially/irregularly accessible, patching the image to force more logs is still not the first priority. It is high-risk compared with writing targeted probe firmware or measuring pins under the stock firmware.
 
-That said, the app image can be patched safely enough for controlled experiments if the ESP image footer is repaired afterward. The active app starts at flash offset `0x10000`; `app1` is erased in the current dump. `analysis/app0_image_info.txt` shows a valid checksum and validation hash, so any byte change must update both.
+That said, the app image can be patched safely enough for controlled experiments if the ESP image footer is repaired afterward. The active app starts at flash offset `0x10000`; `app1` is erased in the current dump. `m3/analysis/app0_image_info.txt` shows a valid checksum and validation hash, so any byte change must update both.
 
 Tooling added:
 
 ```zsh
 python3 tools/patch_esp32s3_app_image.py \
-  --input m3_flash_dump.bin \
-  --output analysis/oem_click_marker_flash.bin \
+  --input m3/m3_flash_dump.bin \
+  --output m3/analysis/oem_click_marker_flash.bin \
   --patch-app-offset 0x2b1f:23436c69636b444247210d
 ```
 
-This marker patch changes the observed `#ClickLock\r` string to `#ClickDBG!\r` and repairs the app checksum/hash. `esptool.py --chip esp32s3 image_info analysis/oem_click_marker_app0.bin` verifies:
+This marker patch changes the observed `#ClickLock\r` string to `#ClickDBG!\r` and repairs the app checksum/hash. `esptool.py --chip esp32s3 image_info m3/analysis/oem_click_marker_app0.bin` verifies:
 
 - `Checksum: 0xa9 (valid)`
 - `Validation hash: e08f092cebe8669022314d27cc6d4e1a7cee01457684d06befd6d4fb5c7ad5d5 (valid)`
@@ -145,7 +145,7 @@ This is a smoke test for the patch pipeline, not a verbosity patch. If the patch
 Better next steps if logs are available:
 
 1. Capture a complete USB log while using each UI path.
-2. Search observed log strings in `analysis/app0.strings.txt`.
+2. Search observed log strings in `m3/analysis/app0.strings.txt`.
 3. Use Ghidra xrefs from those strings to locate the surrounding handlers.
 4. Only patch logging if a specific path is silent, the hook is clearly identified, and the patch can be tested without risking boot loops.
 

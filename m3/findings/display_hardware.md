@@ -72,4 +72,4 @@ The OEM driver has almost no helpful display strings near pin setup. Early searc
 4. Follow constructor object fields back to CS/DC/RST/BUSY.
 5. Confirm with a standalone GPIO3-8 probe on hardware.
 
-Probe source: `murphy_epd_gpio3_8_probe.cpp` at the repo root.
+Probe source: `m3/probes/murphy_epd_gpio3_8_probe.cpp` at the repo root.

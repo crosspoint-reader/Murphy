@@ -4,7 +4,7 @@
 
 The OEM firmware has touch-specific application logic.
 
-Recovered strings from `analysis/extracted/app0.bin`:
+Recovered strings from `m3/extracted/app0.bin`:
 
 | String | Evidence |
 | --- | --- |
@@ -15,15 +15,15 @@ Recovered strings from `analysis/extracted/app0.bin`:
 
 Ghidra exports:
 
-- `analysis/touch_string_refs.md`
-- `analysis/touch_pointer_refs.md`
-- `analysis/touch_decompile.md`
+- `m3/analysis/touch_string_refs.md`
+- `m3/analysis/touch_pointer_refs.md`
+- `m3/analysis/touch_decompile.md`
 
 The app is built with Arduino-ESP32/PlatformIO and includes the Arduino `Wire` stack plus ESP-IDF I2C driver code. This proves I2C capability is linked, but generic I2C library strings alone do not prove which device uses it.
 
 ## Controller Identity
 
-No reliable plain-text touch-controller identifier was recovered from the Murphy app image. Searches did not find confirmed `GT911`, `GT9`, `Goodix`, `FT6336`, `CST`, `CHSC`, or `XPT2046` strings in `analysis/extracted/app0.bin`.
+No reliable plain-text touch-controller identifier was recovered from the Murphy app image. Searches did not find confirmed `GT911`, `GT9`, `Goodix`, `FT6336`, `CST`, `CHSC`, or `XPT2046` strings in `m3/extracted/app0.bin`.
 
 The nearby public Corogoo touch firmware is not byte-identical to the Murphy app, but it is clearly related by strings, project paths, firmware URL, board target, and feature set. A `QGT9` byte sequence appears inside that Corogoo touch firmware. Because the sequence sits in executable-looking Xtensa bytes and the Murphy app has similar accidental ASCII-looking sequences, treat this only as a weak hint toward a GT9xx/Goodix-class controller, not as proof.
 

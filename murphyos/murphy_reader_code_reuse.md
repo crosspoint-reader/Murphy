@@ -26,7 +26,7 @@ v1.2.16.
 
 ## Artifacts analyzed
 
-Both saved under `analysis/upstream_murphy_reader/`:
+Both saved under `murphyos/`:
 
 | File | Size | MD5 | SHA-256 |
 |---|---|---|---|
@@ -213,7 +213,7 @@ The matches can be regenerated with:
 
 ```python
 import re, os
-data = open('analysis/upstream_murphy_reader/murphy-26-0526-1.2.16.bin','rb').read()
+data = open('murphyos/murphy-26-0526-1.2.16.bin','rb').read()
 files = []
 for root in ['/path/to/crosspoint-reader-main/lib/KOReaderSync',
              '/path/to/crosspoint-reader-main/lib/OpdsParser']:
@@ -381,12 +381,12 @@ Top tag frequencies in v1.2.16: `WiFi`×156, `OPDS`×50, `HTTP`×20,
 ## Ghidra import
 
 The v1.2.16 binary has been imported into the existing
-`analysis/ghidra-project/MurphyM3` project with Xtensa LE 32 at base
+`m3/ghidra-project/MurphyM3` project with Xtensa LE 32 at base
 `0x42000000` (raw-binary loader; the ESP32-S3 app-image segment header
 was not parsed). Autoanalysis completed in ~32s.
 
 ```text
-analysis/upstream_murphy_reader/
+murphyos/
 ├── ghidra_logs/import.log
 ├── ghidra_logs/xref.log
 ├── fn_string_refs.tsv           (preliminary, see note)
@@ -437,14 +437,14 @@ The locally saved file is byte-identical to the live firmware:
 
 ```text
 3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea  /tmp/murphy-26-0526-1.2.16.bin
-3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea  analysis/upstream_murphy_reader/murphy-26-0526-1.2.16.bin
+3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea  murphyos/murphy-26-0526-1.2.16.bin
 ```
 
 A reproducible whole-tree source-string matcher was added at
 `tools/crosspoint_firmware_string_match.py`. Running it against
 `/Users/jmitch/GitHub/crosspoint-reader-main` and the verified Murphy
 firmware produced
-`analysis/upstream_murphy_reader/crosspoint_string_matches.tsv`:
+`murphyos/crosspoint_string_matches.tsv`:
 
 - 684 exact firmware hits.
 - 488 unique first-party crosspoint strings.
@@ -472,7 +472,7 @@ Top source files by exact hit count in the current run:
 | 12 | `src/network/HttpDownloader.cpp` |
 
 `binwalk -e` found five embedded gzip payloads. Named copies were saved
-under `analysis/upstream_murphy_reader/binwalk_extract/`:
+under `murphyos/binwalk_extract/`:
 
 | firmware offset | recovered asset | notes |
 |---:|---|---|
@@ -483,7 +483,7 @@ under `analysis/upstream_murphy_reader/binwalk_extract/`:
 | `0x189229` | `FontsPage.html` | Murphy-branded web UI |
 
 Ghidra headless analysis was rerun for the verified image and exported
-`analysis/upstream_murphy_reader/ghidra_inventory_v1.2.16.txt`. The raw
+`murphyos/ghidra_inventory_v1.2.16.txt`. The raw
 import is useful for RE navigation, but it is not a source-code dump:
 the current raw-loader import still yields sparse function/string XREFs
 (`fn_string_refs_v1.2.16.tsv` contains only 16 XREF rows), so the

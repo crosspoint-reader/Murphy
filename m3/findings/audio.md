@@ -81,7 +81,7 @@ The public Corogoo `3.7-inch-ink-screen-reader` repository contains firmware ima
 - compile time `Mar 5 2024 12:12:53`
 - project name `arduino-lib-builder`
 
-That image is not byte-identical to `analysis/extracted/app0.bin`, but its strings include the same `ESP32-audioI2S-3.0.12`, I2S, codec, and music task evidence.
+That image is not byte-identical to `m3/extracted/app0.bin`, but its strings include the same `ESP32-audioI2S-3.0.12`, I2S, codec, and music task evidence.
 
 The older/non-touch Corogoo firmware has different audio evidence, including `>>>bt_set_volume(%d)`, `BluetoothA2DPSource::start_raw(...)`, `Advanced Audio`, and `DAC channel error`. That suggests the firmware lineage moved between Bluetooth/internal-DAC-style audio paths and the touch/Murphy I2S DAC/codec path.
 

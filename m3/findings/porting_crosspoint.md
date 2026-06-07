@@ -9,9 +9,9 @@ The original CrossPoint stack is built around Xteink X3/X4 devices on ESP32-C3. 
 ## Evidence Used
 
 - Local firmware dump findings in this repo:
-  - `findings/flash_layout.md`
-  - `findings/firmware_identity.md`
-  - `findings/hardware.md`
+  - `m3/findings/flash_layout.md`
+  - `m3/findings/firmware_identity.md`
+  - `m3/findings/hardware.md`
 - CrossPoint app repo:
   - `/Users/jmitch/GitHub/crosspoint-reader-main/platformio.ini`
   - `/Users/jmitch/GitHub/crosspoint-reader-main/partitions.csv`
@@ -23,7 +23,7 @@ The original CrossPoint stack is built around Xteink X3/X4 devices on ESP32-C3. 
   - `/Users/jmitch/GitHub/community-sdk/libs/hardware/SDCardManager`
   - `/Users/jmitch/GitHub/community-sdk/libs/hardware/BatteryMonitor`
 - Vendor reference repo cloned to:
-  - `analysis/vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416`
+  - `vendor/CrowPanel-ESP32-3.7-E-paper-HMI-Display-with-240-416`
 
 ## Current CrossPoint Assumptions
 

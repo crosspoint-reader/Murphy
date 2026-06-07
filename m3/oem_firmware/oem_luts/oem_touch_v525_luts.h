@@ -1,6 +1,6 @@
 // OEM UC8253 LUTs extracted from corogoo MoFei `touch/firmware.bin` v525.
 // Byte-identical to the LUTs in the Murphy M3 device dump (app0.bin).
-// Source: analysis/upstream_murphy_reader/mofei-corogoo-touch-v525.bin
+// Source: m3/oem_firmware/mofei-corogoo-touch-v525.bin
 // LUT region: file 0x000ab7e0 / vaddr 0x3c23b7e0 (DROM).
 //
 // These bytes match the existing community-sdk `MURPHY_LUT_*_DEFAULT`

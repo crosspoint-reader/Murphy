@@ -29,9 +29,7 @@ SHA256: `a755d15262c684b3cf8c9bee0a221996811320208a9fd4366c5d6ecc821f94d6`
 
 - `m3/findings/flash_layout.md`: partition table, extracted files, hashes.
 - `m3/findings/firmware_identity.md`: ESP-IDF/app metadata and build provenance.
-- `murphyos/upstream_mofei_firmware.md`: identification of the open-source upstream (`corogoo/3.7-inch-ink-screen-reader` on Gitee, app name "MoFei") that Murphy M3's firmware is built from, with implications for the grayscale/LUT RE work.
-- `murphyos/murphy_reader_code_reuse.md`: evidence that Murphy Reader v1.2.16 (`murphy.pandacat.ai`) contains code derived from `crosspoint-reader-main` — string-level smoking guns including class name `CrossPointWebServer`, the legacy `"CrossPoint"` XOR migration key, and crosspoint-specific log prose.
-- `murphyos/murphy_reader_ttf_fonts.md`: evidence that Murphy Reader v1.2.16 adds native runtime `.ttf` font support on top of CrossPoint-derived font-pack/rendering code, including TrueType table parsing, `ttfFontName`/`ttfFontSize` settings, and separate `.epf`/raw-BIN font paths.
+- `m3/findings/upstream_mofei_firmware.md`: identification of the open-source upstream (`corogoo/3.7-inch-ink-screen-reader` on Gitee, app name "MoFei") that Murphy M3's firmware is built from, with implications for the grayscale/LUT RE work. The OEM reference binaries and extracted LUTs live in `m3/oem_firmware/`.
 - `m3/findings/oem_touch_v525_grayscale_luts.md`: extracted the OEM's compiled-in 504-byte UC8253 LUT block from `firmware/touch/firmware.bin` v525 (the build the device's OTA URL points to). Byte-identical to LUTs in the device's app0 dump. Includes 10 individual LUT register payloads (LUTC/WW/BW/WB/BB + 5 voltage configs) saved as `.bin` + C header.
 - `m3/findings/hardware.md`: inferred hardware features and confidence.
 - `m3/findings/display_hardware.md`: panel identity, FPC markings, confirmed GPIO3-8 display bus, and superseded public mappings.

@@ -24,8 +24,9 @@ For the canonical per-subsystem summary, see **[findings/README.md](findings/REA
 - `extracted/` — carved ESP32 partitions.
 - `ghidra-project/MurphyM3/` — Ghidra project for the app image.
 - `binwalk_extracted/esp-partitions/` — binwalk-style extraction directory.
+- `oem_firmware/` — OEM MoFei/corogoo reference firmware the device actually runs (`mofei-corogoo-touch-v525.bin` is the closest public match to the device's app0; `mofei-corogoo-EPD426-v1.bin` is the larger sibling), plus the extracted UC8253 LUT block and per-LUT payloads in `oem_firmware/oem_luts/`. See [findings/upstream_mofei_firmware.md](findings/upstream_mofei_firmware.md).
 
-Cross-device material lives outside `m3/`: the MurphyOS reader firmware in [`../murphyos/`](../murphyos/), vendor reference in [`../vendor/`](../vendor/), and shared tooling in [`../tools/`](../tools/).
+Related generations and shared material: the Murphy M4 / MurphyOS reader firmware (the CrossPoint-derived "Murphy Reader" fork) in [`../m4/`](../m4/README.md), vendor reference in [`../vendor/`](../vendor/), and shared tooling in [`../tools/`](../tools/).
 
 ## Flash Layout
 

@@ -34,7 +34,7 @@ files instead (see "Runtime LUT files" below).
 Ten 42-byte UC8253 LUT register payloads, each pointed at by exactly one
 `l32r` literal in the code segment (verified via 4-byte LE literal search
 in the code segments). Saved per-LUT as raw `.bin` files plus a C header
-under `murphyos/oem_luts/oem_touch_v525_luts.h`.
+under `m3/oem_firmware/oem_luts/oem_touch_v525_luts.h`.
 
 The pointer targets the **start** of each 42-byte payload (active phase
 data first, zero padding at end):
@@ -186,7 +186,7 @@ What this leaves still open:
 ## Saved artifacts
 
 ```
-murphyos/
+m3/oem_firmware/
   mofei-corogoo-touch-v525.bin
   oem_touch_v525_lut_block.bin              (504 bytes — full DROM region)
   oem_luts/

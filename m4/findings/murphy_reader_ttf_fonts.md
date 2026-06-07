@@ -25,20 +25,20 @@ many bespoke parse/read/allocation errors around TrueType table handling.
 Analyzed binary:
 
 ```text
-murphyos/murphy-26-0526-1.2.16.bin
+m4/murphy-26-0526-1.2.16.bin
 SHA-256: 3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea
 ```
 
 Focused Ghidra/xref artifact:
 
 ```text
-murphyos/font_ttf_pointer_refs.md
+m4/findings/font_ttf_pointer_refs.md
 ```
 
 The raw import still does not recover usable references for these strings:
 Ghidra reports them as strings but with no direct xrefs. This matches the
 existing v1.2.16 import limitation documented in
-`murphyos/murphy_reader_code_reuse.md`: the app was imported as a raw binary
+`murphy_reader_code_reuse.md`: the app was imported as a raw binary
 at `0x42000000`, not as a parsed ESP32-S3 app image with segment mappings.
 
 ## String Evidence

@@ -2,8 +2,8 @@
 
 ## Related findings
 
-- [Upstream MoFei firmware](upstream_mofei_firmware.md) — the corogoo Gitee project that ships the *other* firmware track Murphy M3 hardware actually runs (`touch/firmware.bin`). Murphy Reader at pandacat.ai is a separate fork that diverged from MoFei before incorporating crosspoint.
-- [OEM touch v525 grayscale LUTs](oem_touch_v525_grayscale_luts.md) — LUT extraction from the MoFei `touch` build. Does **not** apply to Murphy Reader v1.2.16, whose display driver came from crosspoint.
+- [Upstream MoFei firmware](../../m3/findings/upstream_mofei_firmware.md) — the corogoo Gitee project that ships the OEM firmware Murphy M3 hardware actually runs (`touch/firmware.bin`). Murphy Reader (this M4 firmware) at pandacat.ai is a separate fork that diverged from MoFei before incorporating crosspoint.
+- [OEM touch v525 grayscale LUTs](../../m3/findings/oem_touch_v525_grayscale_luts.md) — LUT extraction from the MoFei `touch` build. Does **not** apply to Murphy Reader v1.2.16, whose display driver came from crosspoint.
 
 ## Summary
 
@@ -26,7 +26,8 @@ v1.2.16.
 
 ## Artifacts analyzed
 
-Both saved under `murphyos/`:
+The Murphy Reader build is saved under `m4/`; the MoFei sibling it is
+compared against is saved under `m3/oem_firmware/`:
 
 | File | Size | MD5 | SHA-256 |
 |---|---|---|---|
@@ -213,7 +214,7 @@ The matches can be regenerated with:
 
 ```python
 import re, os
-data = open('murphyos/murphy-26-0526-1.2.16.bin','rb').read()
+data = open('m4/murphy-26-0526-1.2.16.bin','rb').read()
 files = []
 for root in ['/path/to/crosspoint-reader-main/lib/KOReaderSync',
              '/path/to/crosspoint-reader-main/lib/OpdsParser']:
@@ -386,11 +387,12 @@ The v1.2.16 binary has been imported into the existing
 was not parsed). Autoanalysis completed in ~32s.
 
 ```text
-murphyos/
-├── ghidra_logs/import.log
-├── ghidra_logs/xref.log
-├── fn_string_refs.tsv           (preliminary, see note)
-└── (binaries)
+m4/
+├── murphy-26-0526-1.2.16.bin
+└── analysis/
+    ├── ghidra-logs/import.log
+    ├── ghidra-logs/xref.log
+    └── fn_string_refs.tsv       (preliminary, see note)
 ```
 
 Note: the raw-binary loader auto-defined only ~17 strings as `Data`
@@ -437,14 +439,14 @@ The locally saved file is byte-identical to the live firmware:
 
 ```text
 3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea  /tmp/murphy-26-0526-1.2.16.bin
-3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea  murphyos/murphy-26-0526-1.2.16.bin
+3ee3d0a7207a17d49eb47fa60febff8cf4ac2f47bb52d74a1beceb40b8b124ea  m4/murphy-26-0526-1.2.16.bin
 ```
 
 A reproducible whole-tree source-string matcher was added at
 `tools/crosspoint_firmware_string_match.py`. Running it against
 `/Users/jmitch/GitHub/crosspoint-reader-main` and the verified Murphy
 firmware produced
-`murphyos/crosspoint_string_matches.tsv`:
+`m4/analysis/crosspoint_string_matches.tsv`:
 
 - 684 exact firmware hits.
 - 488 unique first-party crosspoint strings.
@@ -472,7 +474,7 @@ Top source files by exact hit count in the current run:
 | 12 | `src/network/HttpDownloader.cpp` |
 
 `binwalk -e` found five embedded gzip payloads. Named copies were saved
-under `murphyos/binwalk_extract/`:
+under `m4/binwalk_extracted/`:
 
 | firmware offset | recovered asset | notes |
 |---:|---|---|
@@ -483,7 +485,7 @@ under `murphyos/binwalk_extract/`:
 | `0x189229` | `FontsPage.html` | Murphy-branded web UI |
 
 Ghidra headless analysis was rerun for the verified image and exported
-`murphyos/ghidra_inventory_v1.2.16.txt`. The raw
+`m4/analysis/ghidra_inventory_v1.2.16.txt`. The raw
 import is useful for RE navigation, but it is not a source-code dump:
 the current raw-loader import still yields sparse function/string XREFs
 (`fn_string_refs_v1.2.16.tsv` contains only 16 XREF rows), so the

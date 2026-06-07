@@ -1,14 +1,13 @@
 # Murphy Reverse Engineering
 
-Firmware dumps, extracted artifacts, reverse-engineering notes, and porting plans for the Murphy family of e-paper readers and the shared **MurphyOS** reader firmware.
+Firmware dumps, extracted artifacts, reverse-engineering notes, and porting plans for the Murphy family of e-paper readers.
 
-Work is organized per hardware generation (M3, M4) with cross-device firmware and reference material kept separate so each generation's bins and analysis stay self-contained.
+Work is organized per hardware generation. Each generation is self-contained, including the firmware it runs: **Murphy M3** runs the OEM MoFei/corogoo firmware, while **Murphy M4** is **MurphyOS** — the CrossPoint-derived "Murphy Reader" build.
 
 ## Repository Layout
 
-- [`m3/`](m3/README.md) — **Murphy M3** (ESP32-S3). 16 MiB flash dump, carved partitions, segment/Ghidra analysis, per-subsystem findings, and Arduino hardware probes. Display, SD, buttons, and front light are ported and booting under CrossPoint.
-- [`m4/`](m4/README.md) — **Murphy M4**. Placeholder; mirrors the M3 layout as artifacts are captured.
-- [`murphyos/`](murphyos/) — **MurphyOS** reader firmware reverse engineering (cross-device): the upstream MoFei/Corogoo OTA images (`murphy-26-0526-1.2.16.bin` and friends), OEM display LUTs, CrossPoint code-reuse evidence, and TTF-font findings.
+- [`m3/`](m3/README.md) — **Murphy M3** (ESP32-S3). 16 MiB flash dump, carved partitions, segment/Ghidra analysis, per-subsystem findings, and Arduino hardware probes. Display, SD, buttons, and front light are ported and booting under CrossPoint. Includes the OEM MoFei/corogoo reference firmware and extracted display LUTs in [`m3/oem_firmware/`](m3/oem_firmware/).
+- [`m4/`](m4/README.md) — **Murphy M4 / MurphyOS**: the "Murphy Reader" OTA build (`murphy-26-0526-1.2.16.bin`), a downstream fork that vendored `crosspoint-reader-main` code — CrossPoint code-reuse evidence, native TTF-font findings, and Ghidra/string-match exports.
 - [`vendor/`](vendor/) — vendor reference material (git submodules): Elecrow CrowPanel ESP32 3.7" E-paper HMI, Corogoo 3.7" ink-screen reader, and Good Display panel datasheets.
 - [`tools/`](tools/) — shared tooling: Ghidra loader/mining scripts and a local build of the Xtensa Ghidra processor plugin.
 
@@ -17,8 +16,9 @@ Work is organized per hardware generation (M3, M4) with cross-device firmware an
 - **Murphy M3 overview:** [m3/README.md](m3/README.md)
 - **M3 findings (per-subsystem):** [m3/findings/README.md](m3/findings/README.md)
 - **M3 porting plan:** [m3/findings/porting_crosspoint.md](m3/findings/porting_crosspoint.md)
-- **MurphyOS firmware identity:** [murphyos/upstream_mofei_firmware.md](murphyos/upstream_mofei_firmware.md)
-- **MurphyOS ↔ CrossPoint code reuse:** [murphyos/murphy_reader_code_reuse.md](murphyos/murphy_reader_code_reuse.md)
+- **M3 OEM firmware identity (MoFei/corogoo):** [m3/findings/upstream_mofei_firmware.md](m3/findings/upstream_mofei_firmware.md)
+- **Murphy M4 / MurphyOS overview:** [m4/README.md](m4/README.md)
+- **MurphyOS ↔ CrossPoint code reuse:** [m4/findings/murphy_reader_code_reuse.md](m4/findings/murphy_reader_code_reuse.md)
 
 ## Hardware Snapshot
 

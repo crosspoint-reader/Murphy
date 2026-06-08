@@ -1,205 +1,314 @@
-# Porting runtime `.ttf` support to CrossPoint
+# Adding runtime `.ttf` support to CrossPoint
 
-How to give upstream **CrossPoint** the same "drop a `.ttf` on the device and
-pick any size" capability that **Murphy M4 / MurphyOS** (`murphy-26-0526-1.2.16`)
-ships. The M4 firmware is itself a CrossPoint fork (see
-[`murphy_reader_code_reuse.md`](murphy_reader_code_reuse.md)), so this is a
-feature back-port onto code CrossPoint already has — not a from-scratch design.
+How to give upstream **CrossPoint** (`/Users/jmitch/GitHub/crosspoint-reader-main`)
+the same "drop a `.ttf` on the device, pick any size, it renders" capability that
+**Murphy M4 / MurphyOS** ships — by mirroring CrossPoint's *own* font
+architecture. Murphy is a CrossPoint fork
+([`murphy_reader_code_reuse.md`](murphy_reader_code_reuse.md)), so it built its
+TTF path on exactly the classes described below; this is a back-port, not a
+greenfield design.
 
-The reverse-engineered evidence for M4's implementation is in
-[`murphy_reader_ttf_fonts.md`](murphy_reader_ttf_fonts.md). This document is the
-"how to build the same thing in CrossPoint" companion.
+- M4 behavior + binary evidence: [`murphy_reader_ttf_fonts.md`](murphy_reader_ttf_fonts.md)
+- All `file:line` references below are into `crosspoint-reader-main`.
 
 ## TL;DR
 
-- CrossPoint already has everything except an **on-device TrueType rasterizer**:
-  it has lazy glyph loading (`EpdFontData::glyphMissHandler`), an overflow ring
-  buffer, a renderer that draws `EpdGlyph` bitmaps (1-bit and 2-bit/4-level),
-  per-size font management, a settings/selection UI, and a web/USB upload path.
-- Add a new `TtfFont` class that is the runtime-rasterizing sibling of
-  `SdCardFont`: it parses a `.ttf` and, on each glyph miss, rasterizes one glyph
-  into an `EpdGlyph` + packed bitmap in the overflow buffer.
-- **No `GfxRenderer` changes are required.** The renderer already pulls glyphs
-  through `glyphMissCtx`; it doesn't care whether the bytes came from a
-  `.cpfont` on SD or a freshly rasterized outline.
-- Recommended rasterizer: vendor **`stb_truetype.h`** (single-header,
-  public-domain, does cmap + `glyf` incl. composites + antialiased raster +
-  metrics). That matches M4's feature set (`glyf`-only; CFF/TTC/WOFF rejected)
-  with far less custom code than M4's bespoke parser.
+CrossPoint already has every layer except an **on-device TrueType rasterizer**.
+A `.ttf` backend is the runtime-rasterizing twin of the existing `SdCardFont`:
+discover → load → register with the renderer as a `fontId`, and serve glyphs
+through the same `glyphMissHandler` the renderer already calls. The only renderer
+change needed is generalizing **one** function (`getGlyphBitmap`) so it isn't
+hard-wired to `SdCardFont`. Recommended rasterizer: vendor `stb_truetype.h`
+(public-domain; cmap + `glyf` incl. composites + antialiased raster + metrics),
+which matches M4's `glyf`-only, CFF/TTC/WOFF-rejecting feature set.
 
-## What M4 does (target behavior to reproduce)
+---
 
-From the RE:
+## Part 1 — How CrossPoint's font system actually works
 
-| Aspect | M4 behavior |
-|--------|-------------|
-| Accepted format | plain TrueType outlines (`glyf`); rejects `OTTO`/CFF, `ttcf` collections, `WOFF`/`WOFF2` |
-| Tables used | `head`, `maxp`, `loca`, `glyf`, `cmap`, `hhea`, `hmtx`, optional `kern` |
-| SFNT version check | `0x00010000` or `'true'` |
-| Storage | `/.mofei/fonts/*.TTF`; default `reader.ttf`; CJK fallback `notosans_cjk_tc_fallback.ttf`; a separate UI face |
-| Sizing | arbitrary ppem from the `ttfFontSize` setting (not fixed buckets) |
-| Glyph loading | lazy per-glyph: reopen file, read the `glyf` slice via `loca`, rasterize, cache in growable arenas; per-glyph + runtime mutexes; per-glyph size cap |
-| Rasterizer | bespoke, **not** FreeType |
-| File intake | generic `/upload?path=/.mofei/fonts` or USB MSC — *not* the web Fonts page (that's `.epf` CJK packs only) |
+### Everything is a `fontId → EpdFontFamily` in the renderer
 
-## CrossPoint's integration seam (what you build against)
+`GfxRenderer` holds two maps (`lib/GfxRenderer/GfxRenderer.h:53,58`):
 
-The renderer talks to fonts through three things, all already present:
-
-1. **`EpdGlyph`** — `lib/EpdFont/EpdFontData.h`. Exactly 16 bytes
-   (`static_assert` in `SdCardFont.cpp`):
-   ```c
-   uint8_t  width, height;   // bitmap dims in px (max 255)
-   uint16_t advanceX;        // 12.4 fixed-point px
-   int16_t  left, top;       // bitmap origin relative to pen
-   uint16_t dataLength;      // bitmap byte length
-   uint32_t dataOffset;      // offset into the font's bitmap buffer
-   ```
-2. **Bitmap packing** (`GfxRenderer.cpp`, `renderCharImpl`):
-   - 1-bit: 8 px/byte, MSB first, row-major.
-   - 2-bit (`EpdFontData::is2Bit`): 4 px/byte, MSB first, `0=white 1=light
-     2=dark 3=black`. **Use this** — the EPD is 4-level grayscale, so antialiased
-     output maps directly.
-3. **The miss handler** (`EpdFont.cpp:177`):
-   ```c
-   const EpdGlyph* (*glyphMissHandler)(void* ctx, uint32_t codepoint);
-   void* glyphMissCtx;
-   ```
-   `EpdFont::getGlyph(cp)` calls this when `cp` isn't in the resident interval
-   table. `GfxRenderer::getGlyphBitmap()` recovers the backend via
-   `fromMissCtx(glyphMissCtx)` and reads the bitmap from the overflow buffer.
-   The returned `EpdGlyph*` only has to stay valid until the next miss eviction —
-   exactly the ring-buffer contract `SdCardFont` already implements
-   (`overflow_`, `overflowNext_`, `clearOverflow`).
-
-`SdCardFont` (`lib/EpdFont/SdCardFont.{h,cpp}`) is the reference implementation
-of a lazy, miss-handler-driven font. **Copy its skeleton.** The only thing that
-changes is the *source* of each glyph's metrics+bitmap: SD `.cpfont` slice →
-on-the-fly TrueType rasterization.
-
-## Design: a `TtfFont` class
-
-```
-lib/EpdFont/TtfFont.{h,cpp}        // sibling of SdCardFont
-lib/EpdFont/stb_truetype.h         // vendored rasterizer (or bespoke)
-src/EpdFont/TtfFontManager.{h,cpp} // sibling of SdCardFontManager
+```cpp
+std::map<int, EpdFontFamily>  fontMap;          // fontId -> 4 styles (R/B/I/BI)
+std::map<int, SdCardFont*>    sdCardFonts_;      // fontId -> SD backend (for the lazy path)
 ```
 
-### 1. Load / validate (mirrors M4's parser)
+There are **three** font sources, all reduced to a `fontId`:
 
-- Read the font into a buffer. For latin/Cyrillic/Greek faces (≤ ~1–2 MB) load
-  the whole file into **PSRAM** and hand the pointer to `stbtt_InitFont`. For
-  large CJK faces, keep M4's approach: hold only the table directory + `loca`
-  resident and read each `glyf` slice from the file on demand (stb can be driven
-  off a buffer you refill, or use a custom reader).
-- Validate the SFNT version (`0x00010000`/`'true'`); **reject** `OTTO`, `ttcf`,
-  `wOFF`, `wOF2` (return load-failure, matching M4).
-- Confirm required tables exist: `head, maxp, loca, glyf, cmap, hhea, hmtx`
-  (stb checks most of these in `stbtt_InitFont`).
+1. **Built-in** — `NOTOSERIF_*` / `NOTOSANS_*` at fixed sizes 12/14/16/18.
+   These are DEFLATE-compressed: `EpdFontData.groups != nullptr`, decompressed on
+   demand by `FontCacheManager` / `FontDecompressor`
+   (`GfxRenderer::getGlyphBitmap`, `GfxRenderer.cpp:30-42`).
+2. **SD `.cpfont`** — discovered by `SdCardFontRegistry`, loaded by
+   `SdCardFontManager`, orchestrated by `SdCardFontSystem`. Glyphs load lazily
+   (below). This is the model to copy.
+3. **Runtime TTF** — *does not exist yet*. The gap is purely the rasterizer +
+   its wiring.
 
-### 2. Metrics
+### Draw-time: which font is active
 
-- `unitsPerEm` from `head`; `scale = ttfFontSize_px / unitsPerEm`
-  (`stbtt_ScaleForPixelHeight`).
-- `EpdFontData.advanceY` / `ascender` / `descender` from `hhea`
-  (`stbtt_GetFontVMetrics` × scale).
-- Per glyph: `advanceX` from `hmtx` → convert to 12.4 fixed-point
-  (`round(adv_px * 16)`); `left`/`top` from the glyph bbox
-  (`stbtt_GetGlyphBitmapBox`).
+`CrossPointSettings::getReaderFontId()` (`CrossPointSettings.cpp:347`) resolves
+the active id every render:
 
-### 3. Glyph miss handler (the core)
+```cpp
+if (sdFontFamilyName[0] && sdFontIdResolver)        // SD font selected?
+    if (int id = sdFontIdResolver(ctx, sdFontFamilyName, fontSize)) return id;
+switch (fontFamily) { case NOTOSERIF: ... NOTOSERIF_14_FONT_ID ... }   // else built-in
+```
 
-```c
-static const EpdGlyph* TtfFont::onGlyphMiss(void* ctx, uint32_t cp) {
-  auto* self = static_cast<TtfFont*>(ctx);
-  int gid = stbtt_FindGlyphIndex(&self->font_, cp);     // cmap
-  if (!gid) return nullptr;                              // -> replacement glyph
-  // rasterize to an 8-bit coverage buffer at self->scale_
-  int w,h,xoff,yoff;
-  uint8_t* cov = stbtt_GetGlyphBitmap(&self->font_, 0, self->scale_, gid, &w,&h,&xoff,&yoff);
-  // quantize 8-bit coverage -> 2-bit (white/light/dark/black), pack 4px/byte MSB-first
-  uint8_t* packed = self->arena_.alloc(packedSize(w,h));
-  pack2bpp(packed, cov, w, h);                           // 0..255 -> 0..3
-  stbtt_FreeBitmap(cov, 0);
-  // fill EpdGlyph in the overflow ring (evict oldest if full)
-  EpdGlyph* g = self->overflowAlloc(cp);
-  g->width=w; g->height=h; g->left=xoff; g->top=yoff;    // note sign of yoff
-  g->advanceX = round16(advancePx(gid));
-  g->bitmap = packed;                                    // via overflow getOverflowBitmap()
-  return g;
+The reader passes this id into every `GfxRenderer` measure/draw call
+(`EpubReaderActivity.cpp:914,921,…`, `TxtReaderActivity.cpp:99`).
+
+### Glyph fetch: the miss handler is the extension point
+
+`EpdFont::getGlyph(cp)` (`EpdFont.cpp:154-185`):
+
+1. binary-search the resident interval table;
+2. on miss, call `data->glyphMissHandler(data->glyphMissCtx, cp)`;
+3. on miss-of-miss, fall back to `REPLACEMENT_GLYPH`.
+
+`EpdFontData` exposes the hook (`EpdFontData.h:139-143`):
+
+```cpp
+const EpdGlyph* (*glyphMissHandler)(void* ctx, uint32_t codepoint);
+void* glyphMissCtx;
+```
+
+### Glyph bytes: `getGlyphBitmap`
+
+`GfxRenderer::getGlyphBitmap` (`GfxRenderer.cpp:29-56`) returns the packed bitmap
+for an `EpdGlyph`:
+
+```cpp
+if (fontData->groups) return decompressor->getBitmap(...);          // built-in compressed
+if (fontData->glyphMissCtx) {                                       // <-- SD-SPECIFIC
+    auto* sdFont = SdCardFont::fromMissCtx(fontData->glyphMissCtx);
+    if (sdFont->isOverflowGlyph(glyph)) return sdFont->getOverflowBitmap(glyph);
 }
+return &fontData->bitmap[glyph->dataOffset];                        // resident bitmap
 ```
-Set `is2Bit = true`, `glyphMissHandler = &TtfFont::onGlyphMiss`,
-`glyphMissCtx = this`, and leave the resident interval table empty (or seed it
-with ASCII for speed) so everything flows through the miss path — same as
-`SdCardFont`'s overflow path.
 
-### 4. Memory & concurrency (copy M4's shape)
+`renderCharImpl` then unpacks 1-bit (8 px/byte, MSB-first) or, when
+`fontData->is2Bit`, 2-bit (4 px/byte, `0=white 1=light 2=dark 3=black`) and calls
+`drawPixel` (`GfxRenderer.cpp` ~150-290). **The EPD is 4-level grayscale, so a
+TTF backend should emit 2-bit.**
 
-- Bitmap **arena in PSRAM**; cap single-glyph size (M4: `Glyph %d glyf too
-  large`) to reject pathological glyphs.
-- Overflow **ring buffer** of recently rasterized glyphs (reuse
-  `SdCardFont::MAX_PAGE_GLYPHS`-style cap). Rasterizing is slower than an SD read,
-  but EPD page refresh is ~hundreds of ms, so per-page rasterization of a few
-  hundred unique glyphs is acceptable; the ring amortizes repeats within a page.
-- If glyphs are rasterized from a render task while layout runs elsewhere, add a
-  mutex (M4 has both a per-glyph and a runtime mutex).
+`EpdGlyph` is exactly 16 bytes (`SdCardFont.cpp:14` `static_assert`):
+```c
+uint8_t width, height;  uint16_t advanceX /*12.4 fp*/;  int16_t left, top;
+uint16_t dataLength;    uint32_t dataOffset;
+```
 
-## Wiring it into the app
+### The SD lazy path = the exact template for TTF
 
-1. **Discovery / storage.** Scan CrossPoint's existing font roots `/.fonts/`
-   and `/fonts/` (see `docs/sd-card-fonts.md`) for `*.ttf`. Keep M4's
-   convention of a default name (`reader.ttf`) and an optional CJK fallback.
-   (M4 uses `/.mofei/fonts/`; CrossPoint should use its own roots, not
-   `/.mofei/`.)
-2. **Settings.** Add `ttfFontName` + `ttfFontSize` equivalents to
-   `CrossPointSettings` / `JsonSettingsIO` (M4 stores exactly these keys).
-3. **Selection UI.** Add a `Custom (TTF)` entry to `FontSelectionActivity`
-   (M4's labels: `Custom (TTF)`, `TTF Font`, `No TTF fonts found`,
-   `TtfFontSelect`). Unlike the `.cpfont` size *enum* (SMALL..EXTRA_LARGE in
-   `SdCardFontManager`), expose a numeric size since TTF is size-free.
-4. **Renderer registration.** Add a `TtfFontManager` that heap-allocates a
-   `TtfFont`, registers it with `GfxRenderer` the way `SdCardFontManager` does,
-   and reloads on size/name change.
-5. **Upload (optional).** To match "upload from the browser", extend the fonts
-   upload handler + `FontsPage.html` to accept `.ttf` (content-type
-   `application/x-font-ttf`) and store to `/.fonts/`. Note M4 itself does *not*
-   put TTF on the web Fonts page — it relies on the generic file upload / USB —
-   so this step is a CrossPoint nicety, not required for parity.
+`SdCardFont::onGlyphMiss` (`SdCardFont.cpp:1253-1335`):
+
+1. `ctx` is an `OverflowContext{ SdCardFont* self; uint8_t styleIdx; }`.
+2. Check an 8-slot **ring buffer** (`OVERFLOW_CAPACITY = 8`, `SdCardFont.h:199-209`)
+   for an already-loaded `(cp, style)`.
+3. Else find the glyph index, read the `EpdGlyph` + its bitmap **from the file**
+   into temporaries, commit to the next ring slot (evicting the oldest), return
+   `&overflow_[slot].glyph`.
+
+`getOverflowBitmap` / `isOverflowGlyph` / `fromMissCtx`
+(`SdCardFont.cpp:1337-1353`) are what `getGlyphBitmap` uses to recover the bytes.
+A TTF backend keeps this exact shape — it only swaps step 3's *"read EpdGlyph +
+bitmap from `.cpfont`"* for *"rasterize one glyph from the TTF outline."*
+
+### Lifecycle: registry → manager → system
+
+- `SdCardFontManager::loadFamily` (`SdCardFontManager.cpp:33-86`): `new
+  SdCardFont` → `load(path)` → `computeFontId(contentHash, name, pt)` →
+  `renderer.registerSdCardFont(id, font)` → `renderer.insertFont(id,
+  EpdFontFamily(4 styles))`.
+- `SdCardFontSystem` (`src/SdCardFontSystem.{h,cpp}`): `begin()` discovers + loads
+  the saved selection and installs the `sdFontIdResolver` lambda into
+  `SETTINGS`; `ensureLoaded()` reloads on family/size change or after a web
+  upload marks the registry dirty; `resolveFontId()` returns the loaded id.
+
+### Per-page prewarm (where glyphs get pulled before drawing)
+
+The reader does a **scan pass** then a **render pass** per page
+(`EpubReaderActivity.cpp:911-921`). Between them it prewarms: SD fonts batch-read
+the page's glyph metrics/bitmaps (`GfxRenderer::ensureSdCardFontReady` →
+`SdCardFont::buildAdvanceTable` / `prewarm`). Glyphs still missing at draw time
+fall through to `onGlyphMiss` (the overflow ring). A TTF backend hooks the same
+two stages.
+
+### Upload + size model
+
+- Web upload: `POST /api/fonts/upload` → `handleFontUploadData`
+  (`CrossPointWebServer.cpp:165, 1760-1885`): validates family name + `.cpfont`
+  filename, checks magic `CPFONT\0\0`, streams to `/.fonts/<family>/`, then
+  `sdFontSystem.markRegistryDirty()`. Roots are `/.fonts/` and `/fonts/`
+  (`docs/sd-card-fonts.md`).
+- Size is a fixed **enum** `SMALL/MEDIUM/LARGE/EXTRA_LARGE`
+  (`CrossPointSettings.h:105`); the manager picks the closest prebuilt `.cpfont`
+  size. **This is the core limitation TTF removes** — TTF renders at an arbitrary
+  pixel size.
+
+---
+
+## Part 2 — The port, layer by layer
+
+Each new piece is the twin of an existing one.
+
+| CrossPoint today | New for TTF |
+|---|---|
+| `SdCardFont` (reads glyphs from `.cpfont`) | `TtfFont` (rasterizes glyphs) |
+| `SdCardFont::onGlyphMiss` (file read) | `TtfFont::onGlyphMiss` (cmap→gid→rasterize) |
+| `SdCardFontManager` | `TtfFontManager` |
+| `SdCardFontSystem` | `TtfFontSystem` |
+| `getReaderFontId()` SD branch | TTF branch (checked first) |
+| `sdFontFamilyName` + `fontSize` enum | `ttfFontName` + `ttfFontSize` (px) |
+| `.cpfont` upload (`CPFONT\0\0`) | `.ttf` upload (sfnt `0x00010000`/`true`) |
+| `/.fonts/<fam>/*.cpfont` | `/.fonts/*.ttf` (flat) |
+
+### 2.1 `TtfFont` (`lib/EpdFont/TtfFont.{h,cpp}`)
+
+- **Load/validate** (mirror M4's parser): read the file (whole-file into PSRAM
+  for latin faces; keep table-dir + `loca` resident and read `glyf` slices on
+  demand for big CJK). Validate sfnt `0x00010000`/`'true'`; **reject** `OTTO`,
+  `ttcf`, `wOFF`, `wOF2`. Require `head, maxp, loca, glyf, cmap, hhea, hmtx`
+  (`stbtt_InitFont` covers most).
+- **Metrics**: `scale = stbtt_ScaleForPixelHeight(ttfFontSize)`; `advanceY` /
+  `ascender` / `descender` from `hhea` × scale; per-glyph `advanceX` →
+  `round(adv*16)` (12.4 fp), `left/top` from `stbtt_GetGlyphBitmapBox`.
+- **`onGlyphMiss`** — same ring-buffer skeleton as `SdCardFont`, body swapped:
+  ```cpp
+  int gid = stbtt_FindGlyphIndex(&font_, cp);            // cmap
+  if (!gid) return nullptr;                              // -> replacement
+  uint8_t* cov = stbtt_GetGlyphBitmap(&font_, 0, scale_, gid, &w,&h,&xoff,&yoff);
+  uint8_t* packed = arena_.alloc(pack2bppSize(w,h));
+  pack2bpp(packed, cov, w, h);                           // 8-bit coverage -> 0..3
+  stbtt_FreeBitmap(cov, 0);
+  EpdGlyph* g = ringAlloc(cp);                           // evict oldest
+  g->width=w; g->height=h; g->left=xoff; g->top=-yoff;  // mind sign of yoff
+  g->advanceX = round16(advancePx(gid));
+  // bitmap recovered via getOverflowBitmap(g)
+  return g;
+  ```
+  Set `is2Bit=true`, `glyphMissHandler=&TtfFont::onGlyphMiss`,
+  `glyphMissCtx=&ctx_`, intervals empty (or seed ASCII). Use a **PSRAM bitmap
+  arena** + a per-glyph size cap (M4: `Glyph %d glyf too large`); add a mutex if
+  rasterizing off the render task.
+
+### 2.2 Generalize `getGlyphBitmap` (the one required renderer change)
+
+`getGlyphBitmap` (`GfxRenderer.cpp:48-51`) hard-casts `glyphMissCtx` to an
+`SdCardFont`. A `TtfFont` ctx would be misread → crash. Make the overflow
+recovery backend-agnostic. Minimal version — a tiny interface both backends
+implement:
+
+```cpp
+struct OverflowSource {                       // in EpdFontData.h or a new header
+  virtual bool isOverflowGlyph(const EpdGlyph*) const = 0;
+  virtual const uint8_t* getOverflowBitmap(const EpdGlyph*) const = 0;
+};
+// EpdFontData gains: OverflowSource* overflowSource;  (set alongside glyphMissCtx)
+```
+```cpp
+// getGlyphBitmap:
+if (fontData->overflowSource && fontData->overflowSource->isOverflowGlyph(glyph))
+    return fontData->overflowSource->getOverflowBitmap(glyph);
+```
+`SdCardFont` implements `OverflowSource` (it already has both methods); `TtfFont`
+implements it too. `fromMissCtx` and the SD-specific cast go away. This is the
+*only* change to shared renderer code.
+
+### 2.3 Manager + system (twins)
+
+- `TtfFontManager`: `load(path, pixelSize)` → `new TtfFont` → `computeFontId` →
+  `renderer.registerSdCardFont`-equivalent (either reuse `sdCardFonts_` keyed by
+  id, or add a parallel `ttfFonts_` map + `registerTtfFont`) → `insertFont(id,
+  EpdFontFamily)`. TTF families are typically one style; pass the same `TtfFont`
+  for R/B/I/BI or synthesize bold/italic later.
+- `TtfFontSystem`: `begin()` / `ensureLoaded()` / `resolveFontId()` parallel to
+  `SdCardFontSystem`, driven by `ttfFontName` + `ttfFontSize`.
+
+### 2.4 Settings, resolution, UI
+
+- `CrossPointSettings`: add `char ttfFontName[…]` and `uint16_t ttfFontSize`
+  (px). M4 uses exactly these keys (`ttfFontName`/`ttfFontSize`), so add them to
+  `JsonSettingsIO` too.
+- `getReaderFontId()`: add a TTF branch **before** the SD branch:
+  ```cpp
+  if (ttfFontName[0] && ttfFontIdResolver)
+      if (int id = ttfFontIdResolver(ttfCtx, ttfFontName, ttfFontSize)) return id;
+  ```
+- `FontSelectionActivity` (`src/activities/settings/FontSelectionActivity.cpp`):
+  add a `Custom (TTF)` entry that lists `*.ttf` under `/.fonts/` and writes
+  `ttfFontName`/`ttfFontSize`. (M4 labels: `Custom (TTF)`, `TTF Font`, `No TTF
+  fonts found`, activity `TtfFontSelect`.) Expose a numeric size, not the 4-size
+  enum.
+
+### 2.5 Upload + discovery
+
+- Web (optional, a nicety M4 doesn't even do — it relies on the file
+  manager/USB): in `handleFontUploadData` accept `.ttf`, swap the `CPFONT\0\0`
+  magic check for sfnt `0x00010000`/`'true'`, store to `/.fonts/`, then
+  `markRegistryDirty()`.
+- Discovery: scan `/.fonts/` and `/fonts/` for `*.ttf` (parallel to
+  `SdCardFontRegistry::discover`). Keep an optional default name (`reader.ttf`)
+  and CJK fallback, as M4 does.
+
+### 2.6 Prewarm
+
+Add a `ttfFontSystem.ensureLoaded(renderer)` call next to
+`sdFontSystem.ensureLoaded` (`ReaderActivity.cpp:107`). Per-page glyphs flow
+through `onGlyphMiss` automatically; optionally pre-rasterize the scan-pass text
+in a `prewarm()` to keep the draw pass off the rasterizer.
+
+---
 
 ## Scope / cut-lines (match M4, keep it small)
 
 - **Support:** plain TrueType `glyf` outlines, quadratic Béziers, composite
-  glyphs (stb handles these), `cmap` formats 4/6/12, kerning via `kern`
-  (optional).
-- **Reject (like M4):** CFF/OpenType-`OTTO`, TrueType Collections `ttcf`,
-  `WOFF`/`WOFF2`. No hinting (not needed at EPD sizes). No `GPOS`/`GSUB` shaping
-  — CrossPoint already does its own ligatures/combining-mark handling above the
-  glyph layer (`EpdFont::applyLigatures`, `combiningMark` helpers), which keeps
-  working unchanged.
-- **Grayscale:** rasterize antialiased and quantize to 2-bit. (Open question
-  carried from the RE: confirm whether M4 antialiases or thresholds to 1-bit;
-  2-bit is the better EPD result and the renderer supports it natively.)
+  glyphs (stb handles these), `cmap` formats 4/6/12, optional `kern`.
+- **Reject (like M4):** CFF/`OTTO`, `ttcf` collections, `WOFF`/`WOFF2`.
+- **Skip:** hinting (unneeded at EPD sizes); `GPOS`/`GSUB` shaping — CrossPoint
+  already does ligatures + combining-mark placement above the glyph layer
+  (`EpdFont::applyLigatures`, `combiningMark` in `EpdFontData.h`), unchanged.
+- **Grayscale:** rasterize antialiased, quantize to 2-bit (`is2Bit=true`).
 
-## Validation plan
+## Validation
 
-1. Unit: parse a known `.ttf`, assert table set + `unitsPerEm` + a few glyph
-   advances against `fonttools`.
-2. Golden glyph: rasterize `'A'`/`'g'` at 16 px, compare the 2-bit bitmap to a
-   `stbtt`/freetype-py reference rendered the same way.
-3. On-device: drop `reader.ttf` in `/.fonts/`, select `Custom (TTF)`, open an
-   EPUB, verify layout metrics (line height, advances) and refresh timing.
-4. Stress: a page of unique CJK codepoints to exercise arena growth, the size
-   cap, and ring-buffer eviction without leaks.
+1. Unit: parse a known `.ttf`; assert table set, `unitsPerEm`, a few advances vs
+   `fonttools`.
+2. Golden glyph: rasterize `A`/`g` at 16 px; compare the 2-bit bitmap to an
+   `stbtt`/freetype-py reference.
+3. On-device: `reader.ttf` in `/.fonts/`, select `Custom (TTF)`, open an EPUB,
+   check line height/advances and refresh timing.
+4. Stress: a page of unique CJK to exercise arena growth, the size cap, and
+   ring-buffer eviction without leaks.
+
+## Concrete change list
+
+| File | Change |
+|---|---|
+| `lib/EpdFont/TtfFont.{h,cpp}` | **new** — rasterizing font backend |
+| `lib/EpdFont/stb_truetype.h` | **new** — vendored rasterizer |
+| `lib/EpdFont/EpdFontData.h` | add `OverflowSource* overflowSource` |
+| `lib/GfxRenderer/GfxRenderer.cpp` | generalize `getGlyphBitmap` overflow branch (2.2) |
+| `src/TtfFontSystem.{h,cpp}` + `TtfFontManager.{h,cpp}` | **new** — twins of the SD versions |
+| `src/CrossPointSettings.{h,cpp}` | `ttfFontName`/`ttfFontSize`, `getReaderFontId()` TTF branch, resolver hook |
+| `src/JsonSettingsIO.cpp` | persist the two keys |
+| `src/activities/settings/FontSelectionActivity.cpp` | `Custom (TTF)` picker |
+| `src/activities/reader/ReaderActivity.cpp` | `ttfFontSystem.ensureLoaded()` |
+| `src/network/CrossPointWebServer.cpp` | accept `.ttf` upload (optional) |
+| `src/main.cpp` | instantiate `ttfFontSystem`, `begin()` |
 
 ## References
 
-- M4 implementation evidence + function map:
-  [`murphy_reader_ttf_fonts.md`](murphy_reader_ttf_fonts.md)
-  (parser `entry 0x4203f520`, runtime manager `entry 0x4207d8d4`).
-- CrossPoint seam: `lib/EpdFont/EpdFontData.h` (`EpdGlyph`, `glyphMissHandler`),
-  `lib/EpdFont/SdCardFont.{h,cpp}` (lazy/overflow pattern to mirror),
-  `lib/GfxRenderer/GfxRenderer.cpp` (`getGlyphBitmap`, 1-/2-bit `renderCharImpl`),
-  `lib/EpdFont/SdCardFontManager.h`, `src/activities/settings/FontSelectionActivity.*`,
-  `docs/sd-card-fonts.md`.
-- Recommended rasterizer: `stb_truetype.h` (nothings/stb), public domain.
+- M4 RE + function map: [`murphy_reader_ttf_fonts.md`](murphy_reader_ttf_fonts.md)
+  (parser `entry 0x4203f520`; runtime manager `entry 0x4207d8d4`).
+- CrossPoint: `lib/EpdFont/EpdFont.cpp:154` (getGlyph), `EpdFontData.h:75,139`
+  (EpdGlyph, miss hook), `lib/EpdFont/SdCardFont.cpp:1253` (onGlyphMiss),
+  `lib/GfxRenderer/GfxRenderer.cpp:29` (getGlyphBitmap),
+  `lib/EpdFont/SdCardFontManager.cpp:33` (loadFamily/registration),
+  `src/SdCardFontSystem.cpp` (orchestration),
+  `src/CrossPointSettings.cpp:347` (getReaderFontId),
+  `src/network/CrossPointWebServer.cpp:1760` (upload).
+- Rasterizer: `stb_truetype.h` (nothings/stb), public domain.

@@ -1,43 +1,57 @@
-# Murphy M4 (MurphyOS / Murphy Reader)
+# Murphy M4
 
-Reverse-engineering work on **Murphy M4**, whose firmware is **MurphyOS** —
-the "Murphy Reader" build distributed at `http://murphy.pandacat.ai`. Unlike
-the M3's OEM MoFei/corogoo firmware, MurphyOS is a downstream fork that
-vendored substantial code from the `crosspoint-reader-main` codebase (OPDS,
-KOReader Sync, Calibre wireless sync, native TTF fonts).
+Hardware research and an experimental CrossPoint port for the Murphy M4 e-reader.
+The port has been exercised on one retail device and currently supports the
+display, touch screen, three side buttons, SD card, battery indicator, Wi-Fi,
+sleep/wake, and dual-channel frontlight.
 
-The analyzed image is the OTA app image `murphy-26-0526-1.2.16.bin`
-(`v1.2.16`, ESP32-S3, build `Mar 31 2026`). No raw flash dump has been
-captured yet — analysis so far is of the OTA binary.
+> [!CAUTION]
+> This is community work, not an official Murphy or CrossPoint release. Back up
+> the complete 16 MiB flash before installing anything. A full backup can contain
+> Wi-Fi credentials and other private device data; never commit or share it.
 
-## Start Here
+## Port status
 
-- **CrossPoint code-reuse evidence:** [findings/murphy_reader_code_reuse.md](findings/murphy_reader_code_reuse.md)
-- **Native TTF font support (RE):** [findings/murphy_reader_ttf_fonts.md](findings/murphy_reader_ttf_fonts.md)
-- **Porting TTF support to CrossPoint:** [findings/porting_ttf_to_crosspoint.md](findings/porting_ttf_to_crosspoint.md)
+| Subsystem | Status | Notes |
+|---|---|---|
+| ESP32-S3 / PSRAM | Working | ESP32-S3 revision 0.2, 8 MiB PSRAM, 16 MiB flash |
+| Display | Working | 4.26-inch 480×800 GDEQ0426T82, SSD1677 |
+| Touch | Working | Factory-labelled FT6336U-compatible controller; see [touch findings](findings/touch.md) |
+| Buttons | Working | GPIO1, GPIO2, and shared boot/power button GPIO0 |
+| SD card | Working | 4-bit SDMMC |
+| Battery | Working | GPIO9 ADC through a measured 2:1 divider |
+| Frontlight | Working | Independent cool/warm PWM channels and global controls |
+| Wi-Fi and reader features | Working | Inherited from CrossPoint; longer-term testing is still needed |
+| Audio | Not investigated | Out of scope for the initial reader port |
 
-## Layout (`m4/`)
+## Start here
 
-- `murphy-26-0526-1.2.16.bin` — OTA app image (the MurphyOS / Murphy Reader v1.2.16 build).
-- `findings/` — human-readable reverse-engineering notes:
-  - `murphy_reader_code_reuse.md` — string-level proof the firmware derives from `crosspoint-reader-main`.
-  - `murphy_reader_ttf_fonts.md` — native runtime `.ttf` font support (string + code-level RE).
-  - `porting_ttf_to_crosspoint.md` — guide for adding runtime TTF rendering to upstream CrossPoint.
-  - `font_ttf_pointer_refs.md` — early Ghidra/xref artifact (superseded by the segment-corrected analysis in `murphy_reader_ttf_fonts.md`).
-- `analysis/` — Ghidra exports and string-match tables:
-  - `crosspoint_string_matches.tsv` — whole-tree crosspoint↔firmware string matches.
-  - `fn_string_refs_v1.2.16.tsv` (and the identical `fn_string_refs.tsv`) — function/string XREF export (sparse; raw-binary loader limitation).
-  - `ghidra_inventory_v1.2.16.txt` — Ghidra program inventory.
-  - `ghidra-logs/` — headless import/xref logs.
-- `binwalk_extracted/` — embedded web-UI assets (`HomePage.html`, `FilesPage.html`, `SettingsPage.html`, `FontsPage.html`, `jszip.min.js`) and carved gzip payloads.
+- [Build, install, and restore](findings/crosspoint_port.md)
+- [Hardware reference](findings/hardware.md)
+- [Touch-controller findings and safety boundary](findings/touch.md)
+- [Frontlight controls](findings/frontlight.md)
+- [USB and flash access](findings/flash_access.md)
+- [Development history and remaining work](findings/porting_crosspoint.md)
+- [Technical concepts](findings/concepts.md)
 
-As an ESP32-S3 image, future work mirrors the M3 layout when a flash dump is
-captured (`extracted/`, `ghidra-project/`, `probes/`).
+## Safety boundary
 
-## Relationship to M3
+The port may reset the touch controller and write ordinary volatile runtime
+configuration registers during startup. It does **not** contain a touch firmware
+image, enter the controller bootloader, erase controller storage, or invoke a
+firmware-update command. Touch-controller firmware modification is explicitly
+out of scope.
 
-Murphy M3 runs the **OEM MoFei/corogoo** firmware (its own thing — see
-[`../m3/`](../m3/README.md) and `../m3/oem_firmware/`). Murphy M4 / MurphyOS is
-the separate CrossPoint-derived fork. The two share the on-device `/.mofei/`
-storage directory scheme but have distinct code lineages. Shared tooling and
-vendor reference live in [`../tools/`](../tools/) and [`../vendor/`](../vendor/).
+Only the ESP32 application partition at `0x10000` was written during normal port
+testing. The complete factory flash backup remains the recovery source of truth.
+
+## Repository contents
+
+- `findings/` contains reviewed, human-readable results and procedures.
+- `analysis/` contains selected reverse-engineering exports supporting those results.
+- `probes/` contains hardware-discovery sketches. Build output is intentionally ignored.
+- `binwalk_extracted/` contains selected assets extracted from the publicly distributed
+  MurphyOS OTA application image.
+
+Personal flash dumps, extracted private partitions, serial logs, Ghidra project
+databases, and local tool environments are intentionally excluded from version control.

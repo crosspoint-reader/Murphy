@@ -7,7 +7,7 @@ Work is organized per hardware generation. Each generation is self-contained, in
 ## Repository Layout
 
 - [`m3/`](m3/README.md) — **Murphy M3** (ESP32-S3). 16 MiB flash dump, carved partitions, segment/Ghidra analysis, per-subsystem findings, and Arduino hardware probes. Display, SD, buttons, and front light are ported and booting under CrossPoint. Includes the OEM MoFei/corogoo reference firmware and extracted display LUTs in [`m3/oem_firmware/`](m3/oem_firmware/).
-- [`m4/`](m4/README.md) — **Murphy M4 / MurphyOS**: the "Murphy Reader" OTA build (`murphy-26-0526-1.2.16.bin`), a downstream fork that vendored `crosspoint-reader-main` code — CrossPoint code-reuse evidence, native TTF-font findings, and Ghidra/string-match exports.
+- [`m4/`](m4/README.md) — **Murphy M4 / MurphyOS**: hardware findings, recovery procedures, and a working experimental CrossPoint port with display, touch, buttons, SD card, battery, and dual-channel frontlight support.
 - [`vendor/`](vendor/) — vendor reference material (git submodules): Elecrow CrowPanel ESP32 3.7" E-paper HMI, Corogoo 3.7" ink-screen reader, and Good Display panel datasheets.
 - [`tools/`](tools/) — shared tooling: Ghidra loader/mining scripts and a local build of the Xtensa Ghidra processor plugin.
 

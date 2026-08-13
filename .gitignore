@@ -1,2 +1,18 @@
 .venv/
 .DS_Store
+.python-version
+
+# Local firmware backups may contain credentials and other device-specific data.
+**/*flash_dump*.bin
+
+# Generated reverse-engineering and probe output.
+m4/analysis/ghidra-m4-*/
+m4/extracted/
+m4/logs/
+m4/probes/.pio/
+m4/probes/.platformio/
+
+# Superseded touch experiments. In particular, never publish or run the
+# extracted controller-firmware blob as part of this port.
+m4/probes/src/ft6336u_fw.h
+m4/probes/src/touch_regmap_probe.cpp
